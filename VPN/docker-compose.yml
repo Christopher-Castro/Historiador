@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  vpn:
+    image: ubuntu:latest
+    ports:
+      - "1194:1194"
+   

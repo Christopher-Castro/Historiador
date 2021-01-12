@@ -1,0 +1,31 @@
+{
+  "name": "historiador-cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple IoT Platform -CLI",
+  "bin": "historiador.js",
+  "scripts": {
+    "lint": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christopher-Castro/Historiador.git"
+  },
+  "author": "Christopher Alexis Castro Garcés",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Christopher-Castro/Historiador/issues"
+  },
+  "homepage": "https://github.com/Christopher-Castro/Historiador#readme",
+  "dependencies": {
+    "args": "^5.0.1",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.20",
+    "historiador-agent": "file:../historiador-agent",
+    "minimist": "^1.2.5",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "standard": "^16.0.3"
+  }
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main>
+      <section>
+        <!--controls es un atributo que hace que aparezcan los controles de reproduccion del video-->
+        <!--preload nos ayuda a que el video se empiece a renderizr desde que la página empieza a cargar mas no a reproducirse-->
+        <video controls preload="auto">
+          <!--el # al final es para especificar en que minuto se setea a l inicio del vido seguido del minuto en el que quieres que se detenga -->
+          <!--el formato del video depende del cual entienda el navegado-->
+          <!--hay 2 para asegurarme de que el video se reproduzca en el navegador por si no reconoce un formato, al final el man decide cual elige-->
+          <!--y si entiende los 2 entonces elige el primero-->
+          <source src="./Episodio4.m4v#t=10,60" />
+          <source src="./Episodio4.mp4#t=10,60" />
+        </video>
+      </section>
+    </main>
+  </body>
+</html>
