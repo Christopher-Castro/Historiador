@@ -1,0 +1,43 @@
+{
+  "name": "historiador",
+  "version": "1.0.0",
+  "description": "Historiador de datos",
+  "main": "index.js",
+  "scripts": {
+    "test": "SET DEBUG=historiador:* && nyc --reporter=lcov --report-dir=coverage/ ava --verbose",
+    "setup": "SET DEBUG=historiador:* && node setup.js",
+    "lint": "standard --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christopher-Castro/Historiador.git"
+  },
+  "author": "Christopher Castro Garcés\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[C\u001b[C C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[Alexis Castro Garcés",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Christopher-Castro/Historiador/issues"
+  },
+  "homepage": "https://github.com/Christopher-Castro/Historiador#readme",
+  "devDependencies": {
+    "ava": "^3.14.0",
+    "envify": "^4.1.0",
+    "i": "^0.3.6",
+    "npm": "^7.2.0",
+    "nyc": "^15.1.0",
+    "proxyquire": "^2.1.3",
+    "sinon": "^9.2.2",
+    "sqlite3": "^5.0.0",
+    "standard": "^16.0.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "debug": "^4.3.1",
+    "defaults": "^1.0.3",
+    "inquirer": "^7.3.3",
+    "minimist": "^1.2.5",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "psql": "0.0.1",
+    "sequelize": "^6.3.5"
+  }
+}
