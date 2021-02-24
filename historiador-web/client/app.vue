@@ -1,12 +1,25 @@
 <template>
-  <div>
-    <agent
-      v-for="agent in agents"
-      :uuid="agent.uuid"
+  <div class="content">
+    <aside>
+      <!-- <a
       :key="agent.uuid"
-      :socket="socket">
-    </agent>
-    <p v-if="error">{{error}}</p>
+      v-for="agent in agents" >{{agent.uuid}}</a> -->
+      <agent
+        v-for="agent in agents"
+        :uuid="agent.uuid"
+        :key="agent.uuid"
+        :socket="socket"
+      />
+      <p v-if="error">{{error}}</p>
+    </aside>
+    <main class="main-content">
+      <metrics
+        :agents="agents"
+        :metrics="metrics"
+        :socket="socket"
+        :uuid="uuid"
+      />
+    </main>
   </div>
 </template>
 
@@ -16,6 +29,15 @@
     background: #f8f8f8;
     margin: 0;
   }
+.content{
+  padding: 15px 15px;
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: 0.2fr 0.8fr;
+}
+.main-content {
+  padding: 15px 15px;
+}
 </style>
 
 <script>
