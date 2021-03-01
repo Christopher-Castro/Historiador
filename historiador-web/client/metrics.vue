@@ -2,9 +2,10 @@
   <div class="wrapper">
     <line-chart
       v-if="loaded"
-      :chart-data="chartData"
+      :chart-data="live ? liveChartData : filteredChartData"
       :options="options"
-      :width="400" :height="200"
+      :width="400"
+      :height="200"
     />
     <div>
       <form class="dates" v-on:submit.prevent>
@@ -14,7 +15,13 @@
           </label>
           <label for="timeInitIn">
             <input required type="date" id="dateInitIn" v-model="dateInit" />
-            <input required type="time" step="1" id="timeInitIn" v-model="timeInit" />
+            <input
+              required
+              type="time"
+              step="1"
+              id="timeInitIn"
+              v-model="timeInit"
+            />
           </label>
         </p>
         <p class="date-time">
@@ -22,18 +29,42 @@
             <span>Fecha fin: </span>
           </label>
           <label for="timeFinishIn">
-            <input required type="date" id="dateFinishIn" v-model="dateFinish"/>
-            <input required type="time" step="1" id="timeFinishIn" v-model="timeFinish" />
+            <input
+              required
+              type="date"
+              id="dateFinishIn"
+              v-model="dateFinish"
+            />
+            <input
+              required
+              type="time"
+              step="1"
+              id="timeFinishIn"
+              v-model="timeFinish"
+            />
           </label>
         </p>
-        <button type="submit" @click="filterChart">Filter</button>
+        <div>
+          <button class="buttonFilter" type="submit" @click="filterChart">
+            Filtrar
+          </button>
+          <button
+            v-if="!live"
+            class="buttonLive"
+            type="button"
+            @click="toggleLiveMode"
+          >
+            Modo Live
+          </button>
+        </div>
       </form>
     </div>
   </div>
 </template>
 
 <script>
-const LineChart = require("./line-chart");
+const LineChart = require("./line-chart")
+const moment = require('moment')
 
 import mixin from './mixin'
 
@@ -45,15 +76,27 @@ export default {
     LineChart
   },
   mounted(){
-    this.$root.$on('checkUpdate', this.handleMetrics)
+    this.$root.$on('toggleMetric', this.handleMetrics)
+    this.$root.$on('newAgent', this.handleNewAgent)
   },
   data() {
     return {
+      liveChartData: {
+        labels: [],
+        datasets:[]
+      },
+      filteredChartData: {
+        labels: [],
+        datasets:[]
+      },
       chartData: {
         labels: [],
         datasets:[]
       },
       options: {
+        legend: {
+          display: false
+        },
         responsive: true,
         scales: {
           x: { display: true },
@@ -70,27 +113,47 @@ export default {
   },
   methods: {
     handleMetrics(payload){
+      console.log('payload', payload)
       const labelNames = payload.map(agent => {
         const {uuid, metric: { type }} = agent
-        return `${uuid}#${type}`   
+        const label = `${uuid}#${type}`
+        return label
       })
-      this.filtered = labelNames
-    },
-    async filterChart(){
-      const { dateInit, timeInit, dateFinish, timeFinish, chartData: { datasets } } = this
-      const [ dateTimeInit, dateTimeFinish ] = [`${dateInit}T${timeInit}`, `${dateFinish}T${timeFinish}`]
 
-      try {
-        datasets.forEach(async dataset => {
-          const { label } = dataset
-          const [uuid, typeMetric] = label.split('#')
-          const res = await this.getFilteredData(uuid, typeMetric, dateTimeInit, dateTimeFinish)
-          console.log(res)
-        })
-      } catch (error) {
-        console.error('no se pudo obtener la data', error)
-      }
+
+      // search if it is present 
+      labelNames.forEach(label => {
+        const index = this.filtered.indexOf(label)
+        if (index > -1) {
+          this.filtered.splice(index, 1);
+        } else {
+          this.filtered.push(label)
+        }
+      })
+      
+      // this.filtered = labelNames
     },
+    async handleNewAgent(payload){
+      const { uuid } = payload
+      const metrics = await this.getMetrics(payload)
+      const metricsNames = metrics.map(m => m.type)
+
+      metricsNames.map(name => {
+        const hidden = false
+        const labelName = `${uuid}#${name}` 
+        this.liveChartData.datasets.push(
+          {
+            label: labelName,
+            fill: false,
+            spanGaps: false,
+            data: [],
+            backgroundColor: this.intToRGB(this.hashCode(labelName)),
+            borderColor: this.intToRGB(this.hashCode(labelName)),
+            hidden
+          }
+        )
+      })
+    }
   },
   computed: {
     
@@ -107,5 +170,25 @@ export default {
   display: flex;
   margin: 5px 0px 5px 0px;
   justify-content: space-between;
+}
+
+.buttonFilter {
+  width: 200px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  font-size: 14px;
+  background-color: blue;
+  padding: 5px 5px;
+}
+
+.buttonLive {
+  width: 200px;
+  border-radius: 4px;
+  border: 1px solid blue;
+  color: blue;
+  font-size: 14px;
+  background-color: white;
+  padding: 5px 5px;
 }
 </style>

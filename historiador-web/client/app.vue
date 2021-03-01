@@ -33,7 +33,7 @@
   padding: 15px 15px;
   display: grid;
   justify-content: space-evenly;
-  grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: 0.3fr 0.7fr;
 }
 .main-content {
   padding: 15px 15px;
@@ -75,8 +75,12 @@ module.exports = {
       socket.on('agent/connected', payload => {
         const { uuid } = payload.agent
         const existing = this.agents.find(a => a.uuid === uuid)
+        console.log('connect payload', payload)
         if (!existing) {
           this.agents.push(payload.agent)
+
+          this.$root.$emit('newAgent',payload.agent)
+
         }
       })
     }

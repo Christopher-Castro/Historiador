@@ -2,12 +2,15 @@ const { serverHost } = require("../config");
 const request = require("request-promise-native");
 const moment = require("moment");
 
+import * as Utils from './utils'
 
 export default {
   name: 'AgentMetricMixin',
   data() {
     return {
+      live: true,
       loaded: false,
+      polling: null,
       filtered: [],
       Agents: [],
       Metrics: []
@@ -15,8 +18,29 @@ export default {
   },
   async mounted(){
     this.init()
+    this.pollData()
+  },
+  beforeDestroy () {
+    clearInterval(this.polling)
   },
   methods: {
+    pollData () {
+      this.polling = setInterval(() => {
+        const labels = this.chartData.labels
+        const datasets = this.chartData.datasets          
+
+        if ( labels.length >= 20) {
+          labels.shift()
+        }
+        
+        labels.push(moment().format('HH:mm:ss'))
+
+        this.liveChartData = {
+          labels,
+          datasets
+        }
+      }, 2000)
+    },
     async init () {
       this.loaded = false
       try {
@@ -35,9 +59,10 @@ export default {
                 {
                   label: labelName,
                   fill: false,
+                  spanGaps: false,
                   data: [],
-                  backgroundColor: this.intToRGB(this.hashCode(labelName)),
-                  borderColor: this.intToRGB(this.hashCode(labelName)),
+                  backgroundColor: Utils.intToRGB(Utils.hashCode(labelName)),
+                  borderColor: Utils.intToRGB(Utils.hashCode(labelName)),
                   hidden
                 }
               )
@@ -87,14 +112,9 @@ export default {
       
       this.socket.on('agent/message', payload => {
           const { agent: { uuid }, timestamp, metrics } = payload
-          const labels = this.chartData.labels
-          const datasets = this.chartData.datasets          
-
-          if ( labels.length >= 20) {
-            labels.shift()
-          }
+          const labels = this.liveChartData.labels
+          const datasets = this.liveChartData.datasets          
           
-          labels.push(moment(timestamp).format('HH:mm:ss'))
           // Add new elements
           metrics.map(m => {
             const { type: label, value: data } = m
@@ -110,58 +130,86 @@ export default {
               found[0].hidden = hidden
               found[0].data.push(data)
             } else {
-              data.push({
+              const arrData = [data]
+              datasets.push({
                 label: labelName,
                 fill:false,
                 hidden,
-                data
+                data: arrData
               })
             }
           })
 
-          this.chartData = {
+          this.liveChartData = {
             labels,
             datasets
           }
       })
     },
     async getFilteredData(uuid, type, dateInit, dateFinish){
-      const options = {
-        method: 'POST',
-        url: `${serverHost}/metrics/date/${uuid}/${type}`,
-        body: {
-          dateInit,
-          dateFinish
-        },
-        json: true
-      }
       try {
-        result = await request(options)
+        const options = {
+          method: 'POST',
+          url: `${serverHost}/metrics/date/${uuid}/${type}`,
+          body: {
+            dateInit,
+            dateFinish
+          },
+          json: true
+        }
+        const result = await request(options)
+        return result
       } catch (e) {
         return
       } 
     },
+    async filterChart(){
+      const { dateInit, timeInit, dateFinish, timeFinish, chartData: { datasets } } = this
+      const [ dateTimeInit, dateTimeFinish ] = [`${dateInit}T${timeInit}`, `${dateFinish}T${timeFinish}`]
 
-    hashCode(str) { // java String#hashCode
-      var hash = 0;
-      for (var i = 0; i < str.length; i++) {
-         hash = str.charCodeAt(i) + ((hash << 5) - hash);
+      let newLabels = new Set()
+      let newDatasets = []
+      this.live = false // set filter mode
+      try {
+        let dataCollected = await Promise.all(datasets.map(async dataset => {
+          const { label } = dataset
+          const [uuid, typeMetric] = label.split('#')
+          let res = await this.getFilteredData(uuid, typeMetric, dateTimeInit, dateTimeFinish)
+          return {res, label}
+        }))
+
+        dataCollected.map(metrics => {
+          const { label, res } = metrics;
+          let data = [];
+          
+          res.map(metric => {
+            const { createdAt, value } = metric
+            const date = moment(createdAt).format('HH:mm:ss')
+            newLabels.add(date)
+            data.push(value)
+          })
+          const hidden = this.filtered.includes(label)
+          newDatasets.push({
+            label,
+            data,
+            hidden,
+            spanGaps: true,
+            backgroundColor: Utils.intToRGB(Utils.hashCode(label)),
+            borderColor: Utils.intToRGB(Utils.hashCode(label)),
+            fill: false
+          })
+        })
+
+        this.filteredChartData = {
+          labels: [...newLabels],
+          datasets: newDatasets
+        }
+      } catch (error) {
+        console.error('no se pudo obtener la data', error)
       }
-      return hash;
     },
-    intToRGB(i){
-      var c = (i & 0x00FFFFFF)
-          .toString(16)
-          .toUpperCase();
-  
-     return "#" + "00000".substring(0, 6 - c.length) + c;
-    },
-    search(nameKey, myArray){
-      for (var i=0; i < myArray.length; i++) {
-          if (myArray[i].name === nameKey) {
-              return myArray[i];
-          }
-      }
+    toggleLiveMode(){
+      return this.live = true
     }
   }
 }

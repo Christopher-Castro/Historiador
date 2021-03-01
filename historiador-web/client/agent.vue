@@ -5,83 +5,22 @@
       <p class="agent-host">{{hostname}}</p>
       <p class="agent-status">Connected: <span>{{connected}}</span></p>
       <ul style="padding:0">
-        <li class="list-item">
+        <li class="labels">
           <b>Nombre</b>
-          <b>Color</b>
-          <b>Ocultar?</b>
+          <b style="margin-left:30px">Ocultar?</b>
         </li>
       </ul>
       <ul style="padding:0;">
         <li class="list-item" v-for="metric in metrics" :key="metric.type">
+          <span class="box" :style="`background-color: ${Utils.intToRGB(Utils.hashCode(`${uuid}#${metric.type}`))}`"></span>
           <span>{{metric.type}}</span>
-          <span>Color</span>
           <input
             type="checkbox"
-            :name="metric.type" :value="{
-              metric,
-              name,
-              pid,
-              hostname,
-              uuid
-            }"
+            :name="metric.type" :value="`${uuid}#${metric.type}`"
             v-model="checkedMetrics"
           />
         </li>
       </ul>
-      <!-- <button v-on:click="toggleMetrics" class="button">Toggle Metrics</button>
-      <button v-on:click="toggleHistMetrics" class="button">Toggle Historical Metrics</button>
-      <p v-show="showHistMetrics">
-        <button v-on:click="convertDate" class="button">Consultar</button>
-      </p>
-      <div v-show="showMetrics">
-        <h3 class="metrics-title">Metrics</h3>
-        <metric
-          :uuid="uuid"
-          :socket="socket"
-          v-for="metric in metrics"
-          v-bind:type="metric.type"
-          v-bind:key="metric.type"
-        ></metric>
-
-      </div>
-      <div v-show="showHistMetrics">
-        <form>
-          <p>
-            <label for="dateInitIn">
-              <span>Fecha de inicio: </span>
-              <input type="date" id="dateInitIn" v-model="dateInitIn" />
-            </label>
-            <label for="timeInitIn">
-              <input type="time" step="1" id="timeInitIn" v-model="timeInitIn" />
-            </label>
-          </p>
-          <span>{{ dateInit }} </span>
-          <p>
-            <label for="dateFinishIn">
-              <span>Fecha fin: </span>
-              <input type="date" id="dateFinishIn" v-model="dateFinishIn"/>
-            </label>
-            <label for="timeFinishIn">
-              <input type="time" step="1" id="timeFinishIn" v-model="timeFinishIn" />
-            </label>
-          </p>
-          <span>{{ dateFinish }} </span>
-        </form>
-        <div v-if="dateInit !== null">
-          <h3 class="metrics-title">Historical Metrics</h3>
-          <histMetric
-            :uuid="uuid"
-            v-bind:dateInit="dateInit"
-            v-bind:dateFinish="dateFinish"
-            v-bind:convert="convert" 
-            :socket="socket"
-            v-for="metric in metrics"
-            v-bind:type="metric.type"
-            v-bind:key="metric.type"
-          ></histMetric>
-        </div>
-        
-      </div> -->
     </div>
     <p v-if="error">{{error}}</p>
   </div>
@@ -90,6 +29,7 @@
 <script>
 const request = require('request-promise-native')
 const { serverHost } = require('../config')
+const utils = require('./utils')
 
 module.exports = {
   props: [ 'uuid', 'socket' ],
@@ -111,11 +51,13 @@ module.exports = {
       timeInitIn: null,
       dateInitIn: null,
       dateInit: null,
-      convert: false
+      convert: false,
+      Utils: null,
     }
   },
   mounted() {
     this.initialize()
+    this.Utils = utils
   },
   methods: {
     async initialize() {
@@ -184,8 +126,16 @@ module.exports = {
     }
   },
   watch: {
-    checkedMetrics: function() {
-      this.$root.$emit('checkUpdate', this.checkedMetrics)
+    checkedMetrics: function(oldValue, newValue) {
+      try {
+        if (newValue){
+
+          const arr = [...newValue]
+          const last = arr.pop()
+          console.log('new Value', last)
+          this.$root.$emit('toggleMetric', last)
+        }
+      } catch (error) {}
     }
   }
 }
@@ -196,9 +146,13 @@ module.exports = {
   ul{
     margin: 16px 0px 0px 0px
   }
+  .labels {
+    display: flex;
+    justify-content: space-between;
+  }
   .list-item{
     display: grid;
-    grid-template-columns: 0.8fr 0.1fr 0.1fr ;
+    grid-template-columns: 0.1fr 0.8fr  0.1fr ;
   }
   .metrics-title {
     text-align: center;
@@ -220,6 +174,7 @@ module.exports = {
   }
   .agent {
     max-width: 850px;
+    min-width: 300px;
     box-sizing: border-box;
     border-radius: 4px;
     background: white;
@@ -244,9 +199,14 @@ module.exports = {
     font-weight: bold;
     color: #ff7a22;
   }
+  .box {
+    margin: 3px 3px 3px 4px;
+    width: 13px;
+    height: 13px;
+  }
   @media screen and (min-width: 850px) {
     .agent {
-      padding: 15px 50px;
+      padding: 15px 30px;
       margin: 24px auto;
     }
   }
