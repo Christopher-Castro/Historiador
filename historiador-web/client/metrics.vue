@@ -128,28 +128,6 @@ export default {
       const metrics = await this.getMetrics({ uuid })
       const metricsNames = metrics.map(m => m.type)
 
-      // const labels = this.liveChartData.labels
-      // const datasets = this.liveChartData.datasets
-
-      // metricsNames.map(name => {
-      //   const hidden = false
-      //   const fill = false
-      //   const label = `${uuid}#${name}` 
-      //   datasets.push(
-      //     {
-      //       backgroundColor: this.intToRGB(this.hashCode(label)),
-      //       borderColor: this.intToRGB(this.hashCode(label)),
-      //       fill,
-      //       label,
-      //       hidden
-      //     }
-      //   )
-      // })
-
-      // this.liveChartData = {
-      //   labels,
-      //   datasets
-      // }
     }
   }
 };

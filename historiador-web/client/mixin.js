@@ -130,14 +130,18 @@ export default {
               found[0].hidden = hidden
               found[0].data.push(data)
             } else {
-              // new dataset
-              console.log('new dataset!', labelName, data)
+              // dont remove this line below, labelName is changed by lineColor
+              const label = labelName
+              const lineColor = Utils.intToRGB(Utils.hashCode(labelName))
+              const fill = false
+              const hidden = true
+
               datasets.push({
-                label: labelName,
-                fill: false,
-                hidden: false,
-        //       backgroundColor: Utils.intToRGB(Utils.hashCode(labelName)),
-      //       borderColor: Utils.intToRGB(Utils.hashCode(labelName)),
+                label,
+                fill,
+                hidden,
+                backgroundColor: lineColor,
+                borderColor: lineColor,
                 data: [data]
               })
             }
