@@ -28,8 +28,8 @@ export default {
     pollData () {
       const seconds = 2 * 1000 
       this.polling = setInterval(() => {
-        const labels = this.chartData.labels
-        const datasets = this.chartData.datasets          
+        const labels = this.liveChartData.labels
+        const datasets = this.liveChartData.datasets          
 
         if ( labels.length >= this.metricLength) {
           labels.shift()
@@ -52,23 +52,7 @@ export default {
         this.Metrics = await Promise.all(
           agents.map(async agent => {
             const metrics = await this.getMetrics(agent)
-            const metricsNames = metrics.map(m => m.type)
   
-            metricsNames.map(name => {
-              const hidden = true
-              const labelName = `${agent.uuid}#${name}` 
-            //   this.chartData.datasets.push(
-            //     {
-            //       label: labelName,
-            //       fill: false,
-            //       spanGaps: false,
-            //       data: [],
-            //       backgroundColor: Utils.intToRGB(Utils.hashCode(labelName)),
-            //       borderColor: Utils.intToRGB(Utils.hashCode(labelName)),
-            //       hidden
-            //     }
-            //   )
-            })
             this.Agents.push({
               ...agent,
               metrics
@@ -172,7 +156,7 @@ export default {
       } 
     },
     async filterChart(){
-      const { dateInit, timeInit, dateFinish, timeFinish, chartData: { datasets } } = this
+      const { dateInit, timeInit, dateFinish, timeFinish, liveChartData: { datasets } } = this
       const [ dateTimeInit, dateTimeFinish ] = [`${dateInit}T${timeInit}`, `${dateFinish}T${timeFinish}`]
 
       let newLabels = new Set()
@@ -196,7 +180,7 @@ export default {
             newLabels.add(date)
             data.push(value)
           })
-          const hidden = this.filtered.includes(label)
+          const hidden = !this.filtered.includes(label)
           newDatasets.push({
             label,
             data,

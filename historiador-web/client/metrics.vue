@@ -64,7 +64,6 @@
 
 <script>
 const LineChart = require("./line-chart")
-const moment = require('moment')
 
 import mixin from './mixin'
 
@@ -114,12 +113,32 @@ export default {
   methods: {
     handleMetrics(label){
       // TODO do it more declarative less imperative 
-      // search if it is present 
+      let hide = false
+      // for live mode search if it is present 
       const index = this.filtered.indexOf(label)
       if (index > -1) {
         this.filtered.splice(index, 1);
+        hide = true
       } else {
         this.filtered.push(label)
+        hide = false
+      }
+
+      // for filtered mode
+
+      const labels = this.filteredChartData.labels
+      const datasets = this.filteredChartData.datasets     
+      const hidden = hide
+
+      const found = datasets.filter(dataset => dataset.label == label)
+              
+      if(found && found[0]) {
+        found[0].hidden = hidden
+      } 
+
+      this.filteredChartData = {
+        labels,
+        datasets
       }
       
     },
