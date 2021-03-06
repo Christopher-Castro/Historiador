@@ -17,7 +17,7 @@
           <input
             type="checkbox"
             :name="metric.type" :value="`${uuid}#${metric.type}`"
-            v-model="checkedMetrics"
+            @change="emitChange"
           />
         </li>
       </ul>
@@ -123,6 +123,10 @@ module.exports = {
         this.dateFinish= `${this.dateFinishIn} ${this.timeFinishIn}`
         this.convert = true
       }
+    },
+    emitChange(e){
+      const { target: { value } } = e
+      this.$root.$emit('toggleMetric', value)
     }
   },
   watch: {
@@ -133,7 +137,6 @@ module.exports = {
           const arr = [...newValue]
           const last = arr.pop()
           console.log('new Value', last)
-          this.$root.$emit('toggleMetric', last)
         }
       } catch (error) {}
     }

@@ -112,26 +112,16 @@ export default {
     };
   },
   methods: {
-    handleMetrics(payload){
-      console.log('payload', payload)
-      const labelNames = payload.map(agent => {
-        const {uuid, metric: { type }} = agent
-        const label = `${uuid}#${type}`
-        return label
-      })
-
-
+    handleMetrics(label){
+      // TODO do it more declarative less imperative 
       // search if it is present 
-      labelNames.forEach(label => {
-        const index = this.filtered.indexOf(label)
-        if (index > -1) {
-          this.filtered.splice(index, 1);
-        } else {
-          this.filtered.push(label)
-        }
-      })
+      const index = this.filtered.indexOf(label)
+      if (index > -1) {
+        this.filtered.splice(index, 1);
+      } else {
+        this.filtered.push(label)
+      }
       
-      // this.filtered = labelNames
     },
     async handleNewAgent(payload){
       const { uuid } = payload
