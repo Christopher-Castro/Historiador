@@ -55,17 +55,17 @@ export default {
             metricsNames.map(name => {
               const hidden = true
               const labelName = `${agent.uuid}#${name}` 
-              this.chartData.datasets.push(
-                {
-                  label: labelName,
-                  fill: false,
-                  spanGaps: false,
-                  data: [],
-                  backgroundColor: Utils.intToRGB(Utils.hashCode(labelName)),
-                  borderColor: Utils.intToRGB(Utils.hashCode(labelName)),
-                  hidden
-                }
-              )
+            //   this.chartData.datasets.push(
+            //     {
+            //       label: labelName,
+            //       fill: false,
+            //       spanGaps: false,
+            //       data: [],
+            //       backgroundColor: Utils.intToRGB(Utils.hashCode(labelName)),
+            //       borderColor: Utils.intToRGB(Utils.hashCode(labelName)),
+            //       hidden
+            //     }
+            //   )
             })
             this.Agents.push({
               ...agent,
@@ -130,12 +130,15 @@ export default {
               found[0].hidden = hidden
               found[0].data.push(data)
             } else {
-              const arrData = [data]
+              // new dataset
+              console.log('new dataset!', labelName, data)
               datasets.push({
                 label: labelName,
-                fill:false,
-                hidden,
-                data: arrData
+                fill: false,
+                hidden: false,
+        //       backgroundColor: Utils.intToRGB(Utils.hashCode(labelName)),
+      //       borderColor: Utils.intToRGB(Utils.hashCode(labelName)),
+                data: [data]
               })
             }
           })

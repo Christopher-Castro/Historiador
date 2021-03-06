@@ -1,9 +1,6 @@
 <template>
   <div class="content">
     <aside>
-      <!-- <a
-      :key="agent.uuid"
-      v-for="agent in agents" >{{agent.uuid}}</a> -->
       <agent
         v-for="agent in agents"
         :uuid="agent.uuid"
@@ -77,10 +74,10 @@ module.exports = {
         const existing = this.agents.find(a => a.uuid === uuid)
         console.log('connect payload', payload)
         if (!existing) {
+          // this is for sidebar
           this.agents.push(payload.agent)
-
+          // this is for metrics chart
           this.$root.$emit('newAgent',payload.agent)
-
         }
       })
     }

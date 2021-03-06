@@ -128,18 +128,6 @@ module.exports = {
       const { target: { value } } = e
       this.$root.$emit('toggleMetric', value)
     }
-  },
-  watch: {
-    checkedMetrics: function(oldValue, newValue) {
-      try {
-        if (newValue){
-
-          const arr = [...newValue]
-          const last = arr.pop()
-          console.log('new Value', last)
-        }
-      } catch (error) {}
-    }
   }
 }
 </script>

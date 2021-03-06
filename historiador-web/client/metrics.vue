@@ -125,28 +125,32 @@ export default {
     },
     async handleNewAgent(payload){
       const { uuid } = payload
-      const metrics = await this.getMetrics(payload)
+      const metrics = await this.getMetrics({ uuid })
       const metricsNames = metrics.map(m => m.type)
 
-      metricsNames.map(name => {
-        const hidden = false
-        const labelName = `${uuid}#${name}` 
-        this.liveChartData.datasets.push(
-          {
-            label: labelName,
-            fill: false,
-            spanGaps: false,
-            data: [],
-            backgroundColor: this.intToRGB(this.hashCode(labelName)),
-            borderColor: this.intToRGB(this.hashCode(labelName)),
-            hidden
-          }
-        )
-      })
+      // const labels = this.liveChartData.labels
+      // const datasets = this.liveChartData.datasets
+
+      // metricsNames.map(name => {
+      //   const hidden = false
+      //   const fill = false
+      //   const label = `${uuid}#${name}` 
+      //   datasets.push(
+      //     {
+      //       backgroundColor: this.intToRGB(this.hashCode(label)),
+      //       borderColor: this.intToRGB(this.hashCode(label)),
+      //       fill,
+      //       label,
+      //       hidden
+      //     }
+      //   )
+      // })
+
+      // this.liveChartData = {
+      //   labels,
+      //   datasets
+      // }
     }
-  },
-  computed: {
-    
   }
 };
 </script>
