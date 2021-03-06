@@ -8,6 +8,7 @@ export default {
   name: 'AgentMetricMixin',
   data() {
     return {
+      metricLength:30,
       live: true,
       loaded: false,
       polling: null,
@@ -25,11 +26,12 @@ export default {
   },
   methods: {
     pollData () {
+      const seconds = 2 * 1000 
       this.polling = setInterval(() => {
         const labels = this.chartData.labels
         const datasets = this.chartData.datasets          
 
-        if ( labels.length >= 20) {
+        if ( labels.length >= this.metricLength) {
           labels.shift()
         }
         
@@ -39,7 +41,7 @@ export default {
           labels,
           datasets
         }
-      }, 2000)
+      }, seconds)
     },
     async init () {
       this.loaded = false
@@ -119,12 +121,12 @@ export default {
           metrics.map(m => {
             const { type: label, value: data } = m
             const labelName = `${uuid}#${label}` 
-            const hidden = this.filtered.includes(labelName)
+            const hidden = !this.filtered.includes(labelName)
 
             const found = datasets.filter(dataset => dataset.label == labelName)
             
             if(found && found[0]) {
-              if (found[0].data.length >= 20) {
+              if (found[0].data.length >= this.metricLength) {
                 found[0].data.shift()
               }
               found[0].hidden = hidden
@@ -135,7 +137,6 @@ export default {
               const lineColor = Utils.intToRGB(Utils.hashCode(labelName))
               const fill = false
               const hidden = true
-
               datasets.push({
                 label,
                 fill,

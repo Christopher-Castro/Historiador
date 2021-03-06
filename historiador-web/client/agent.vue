@@ -7,7 +7,7 @@
       <ul style="padding:0">
         <li class="labels">
           <b>Nombre</b>
-          <b style="margin-left:30px">Ocultar?</b>
+          <b style="margin-left:30px">Mostrar?</b>
         </li>
       </ul>
       <ul style="padding:0;">
