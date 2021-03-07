@@ -114,7 +114,7 @@ export default {
                 found[0].data.shift()
               }
               found[0].hidden = hidden
-              found[0].data.push(data)
+              found[0].data.push({ y: data, x: moment(timestamp).format('HH:mm:ss')})
             } else {
               // dont remove this line below, labelName is changed by lineColor
               const label = labelName
@@ -127,7 +127,7 @@ export default {
                 hidden,
                 backgroundColor: lineColor,
                 borderColor: lineColor,
-                data: [data]
+                data: [{ y: data, x: moment(timestamp).format('HH:mm:ss')}]
               })
             }
           })
@@ -176,24 +176,24 @@ export default {
           
           res.map(metric => {
             const { createdAt, value } = metric
-            const date = moment(createdAt).format('HH:mm:ss')
-            newLabels.add(date)
-            data.push(value)
+            newLabels.add(moment(createdAt).format())
+            data.push({y: value, x: moment(createdAt).format('HH:mm:ss') })
           })
           const hidden = !this.filtered.includes(label)
           newDatasets.push({
             label,
             data,
             hidden,
-            spanGaps: true,
             backgroundColor: Utils.intToRGB(Utils.hashCode(label)),
             borderColor: Utils.intToRGB(Utils.hashCode(label)),
             fill: false
           })
         })
+        // sort dates
+        const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
 
         this.filteredChartData = {
-          labels: [...newLabels],
+          labels: sortedLabels,
           datasets: newDatasets
         }
       } catch (error) {

@@ -1,12 +1,14 @@
 <template>
   <div class="wrapper">
-    <line-chart
-      v-if="loaded"
-      :chart-data="live ? liveChartData : filteredChartData"
-      :options="options"
-      :width="400"
-      :height="200"
-    />
+    <div class="chart-wrapper" style="overflow-x: auto;">
+      <line-chart
+        v-if="loaded"
+        :chart-data="live ? liveChartData : filteredChartData"
+        :options="options"
+        :width="400"
+        :height="200"
+      />
+    </div>
     <div>
       <form class="dates" v-on:submit.prevent>
         <p class="date-time">
