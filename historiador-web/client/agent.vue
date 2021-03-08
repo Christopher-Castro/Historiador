@@ -12,7 +12,7 @@
       </ul>
       <ul style="padding:0;">
         <li class="list-item" v-for="metric in metrics" :key="metric.type">
-          <span class="box" :style="`background-color: ${Utils.intToRGB(Utils.hashCode(`${uuid}#${metric.type}`))}`"></span>
+          <span class="box" :style="`background-color: ${colorFromName(`${uuid}#${metric.type}`)}`"></span>
           <span>{{metric.type}}</span>
           <input
             type="checkbox"
@@ -29,7 +29,7 @@
 <script>
 const request = require('request-promise-native')
 const { serverHost } = require('../config')
-const utils = require('./utils')
+import { colorFromName } from './utils'
 
 module.exports = {
   props: [ 'uuid', 'socket' ],
@@ -52,12 +52,12 @@ module.exports = {
       dateInitIn: null,
       dateInit: null,
       convert: false,
-      Utils: null,
+      colorFromName: null,
     }
   },
   mounted() {
     this.initialize()
-    this.Utils = utils
+    this.colorFromName = colorFromName
   },
   methods: {
     async initialize() {

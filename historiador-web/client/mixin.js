@@ -2,13 +2,14 @@ const { serverHost } = require("../config");
 const request = require("request-promise-native");
 const moment = require("moment");
 
-import * as Utils from './utils'
+import { initDataset } from './utils'
 
 export default {
   name: 'AgentMetricMixin',
   data() {
     return {
-      metricLength:30,
+      metricLength:30, // labels length
+      lastSeconds: 20, // how many seconds of register will it bring 
       live: true,
       loaded: false,
       polling: null,
@@ -18,8 +19,7 @@ export default {
     }
   },
   async mounted(){
-    this.init()
-    this.pollData()
+    await this.init()
   },
   beforeDestroy () {
     clearInterval(this.polling)
@@ -48,11 +48,29 @@ export default {
       try {
       
         const agents = await this.getAgents()
+        const datasets = this.liveChartData.datasets       
   
+        let newLabels = new Set()
         this.Metrics = await Promise.all(
           agents.map(async agent => {
+            const { uuid } = agent
             const metrics = await this.getMetrics(agent)
-  
+
+            const results = await Promise.all(metrics.map(async metric => {
+              const { type } = metric
+              const lasts = await this.getFilteredData(uuid, type, moment().subtract(20,'seconds').format(), moment().format())
+              const labelName = `${uuid}#${type}` 
+              // dont remove this line below, labelName is changed by lineColor
+              const label = labelName
+              const data = lasts.map(metric => {
+                const { value: data, createdAt: timestamp } = metric
+                newLabels.add(moment(timestamp).format())
+                return { y: data, x: moment(timestamp).format('HH:mm:ss')}
+              })
+
+              datasets.push(initDataset(label, data))
+            }))
+            // get lasts values
             this.Agents.push({
               ...agent,
               metrics
@@ -60,6 +78,13 @@ export default {
           })
         )
         this.loaded = true
+        const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
+
+        this.liveChartData = {
+          labels: sortedLabels,
+          datasets
+        }
+
         this.startRealtime()
       } catch (error) {
        console.error('no se pudo traer la data', error) 
@@ -94,8 +119,25 @@ export default {
         return e.error.error
       }
     },
+    async getFilteredData(uuid, type, dateInit, dateFinish){
+      try {
+        const options = {
+          method: 'POST',
+          url: `${serverHost}/metrics/date/${uuid}/${type}`,
+          body: {
+            dateInit,
+            dateFinish
+          },
+          json: true
+        }
+        const result = await request(options)
+        return result
+      } catch (e) {
+        return
+      } 
+    },
     startRealtime() {
-      
+      this.pollData()
       this.socket.on('agent/message', payload => {
           const { agent: { uuid }, timestamp, metrics } = payload
           const labels = this.liveChartData.labels
@@ -118,17 +160,9 @@ export default {
             } else {
               // dont remove this line below, labelName is changed by lineColor
               const label = labelName
-              const lineColor = Utils.intToRGB(Utils.hashCode(labelName))
-              const fill = false
-              const hidden = true
-              datasets.push({
-                label,
-                fill,
-                hidden,
-                backgroundColor: lineColor,
-                borderColor: lineColor,
-                data: [{ y: data, x: moment(timestamp).format('HH:mm:ss')}]
-              })
+
+              const firstData = [{ y: data, x: moment(timestamp).format('HH:mm:ss')}] 
+              datasets.push(initDataset(label, firstData))
             }
           })
 
@@ -137,23 +171,6 @@ export default {
             datasets
           }
       })
-    },
-    async getFilteredData(uuid, type, dateInit, dateFinish){
-      try {
-        const options = {
-          method: 'POST',
-          url: `${serverHost}/metrics/date/${uuid}/${type}`,
-          body: {
-            dateInit,
-            dateFinish
-          },
-          json: true
-        }
-        const result = await request(options)
-        return result
-      } catch (e) {
-        return
-      } 
     },
     async filterChart(){
       const { dateInit, timeInit, dateFinish, timeFinish, liveChartData: { datasets } } = this
@@ -180,14 +197,7 @@ export default {
             data.push({y: value, x: moment(createdAt).format('HH:mm:ss') })
           })
           const hidden = !this.filtered.includes(label)
-          newDatasets.push({
-            label,
-            data,
-            hidden,
-            backgroundColor: Utils.intToRGB(Utils.hashCode(label)),
-            borderColor: Utils.intToRGB(Utils.hashCode(label)),
-            fill: false
-          })
+          newDatasets.push(initDataset(label, data, hidden))
         })
         // sort dates
         const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
