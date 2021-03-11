@@ -12,20 +12,27 @@
       </ul>
       <ul style="padding:0;">
         <li class="list-item" v-for="metric in metrics" :key="metric.type">
-          <!-- <span class="box" :style="`background-color: ${colorFromName(`${uuid}#${metric.type}`)}`"></span> -->
-          <input
-            class="box"
-            type="color"
-            :placeholder="`${uuid}#${metric.type}`"
-            :value="`${colorFromName(`${uuid}#${metric.type}`)}`"
-            @input="emitColor"
-          />
+          <div class="main-container">
+            <input
+              type="color"
+              id="primary_color"
+              class="field-radio"
+              :placeholder="`${uuid}#${metric.type}`"
+              :value="`${colorFromName(`${uuid}#${metric.type}`)}`"
+              @input="emitColor"
+            />
+            <span class="container" id="color_val"></span>
+          </div>
           <span>{{metric.type}}</span>
-          <input
-            type="checkbox"
-            :name="metric.type" :value="`${uuid}#${metric.type}`"
-            @change="emitChange"
-          />
+          <label class="switch">
+            <input
+              type="checkbox"
+              :name="metric.type" :value="`${uuid}#${metric.type}`"
+              @change="emitChange"
+            >
+            <span class="slider round"></span>
+          </label>
+
         </li>
       </ul>
     </div>
@@ -155,6 +162,7 @@ module.exports = {
   .list-item{
     display: grid;
     grid-template-columns: 0.1fr 0.8fr  0.1fr ;
+    margin: 5px 0 5px 0;
   }
   .metrics-title {
     text-align: center;
@@ -201,12 +209,93 @@ module.exports = {
     font-weight: bold;
     color: #ff7a22;
   }
-  .box {
-    margin: 0;
-    border-radius: 50%;
-    width: 13px;
-    height: 13px;
-  }
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 18px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 1px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.main-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#primary_color{
+    border-radius: 100%;
+    height: 16px;
+    width: 16px;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+#primary_color::-webkit-color-swatch-wrapper {
+    padding: 0;	
+}
+#primary_color::-webkit-color-swatch {
+    border: none;
+    border-radius: 100%;
+}
+
   @media screen and (min-width: 850px) {
     .agent {
       padding: 15px 30px;
