@@ -72,7 +72,15 @@ export default {
                 return { y: data, x: moment(timestamp).format('HH:mm:ss')}
               })
 
-              datasets.push(initDataset(label, data))
+              const newDataset = initDataset(label, data)
+              // check if type contains boolean
+              if (String(type).includes('bool')){
+                newDataset.steppedLine = true
+                newDataset.fill = true
+                newDataset.yAxisID = 'boolean-axis'
+              }
+
+              datasets.push(newDataset)
             }))
             // get lasts values
             this.Agents.push({
@@ -162,11 +170,16 @@ export default {
               found[0].hidden = hidden
               found[0].data.push({ y: data, x: moment(timestamp).format('HH:mm:ss')})
             } else {
-              // dont remove this line below, labelName is changed by lineColor
-              const label = labelName
-
+              
               const firstData = [{ y: data, x: moment(timestamp).format('HH:mm:ss')}] 
-              datasets.push(initDataset(label, firstData))
+              const newDataset = initDataset(label, firstData)
+
+              if (String(type).includes('bool')){
+                newDataset.steppedLine = true
+                newDataset.fill = true
+                newDataset.yAxisID = 'boolean-axis'
+              }
+              datasets.push(newDataset)
             }
           })
 
@@ -201,7 +214,15 @@ export default {
             data.push({y: value, x: moment(createdAt).format('HH:mm:ss') })
           })
           const hidden = !this.filtered.includes(label)
-          newDatasets.push(initDataset(label, data, hidden))
+          const newDataset = initDataset(label, data, hidden) 
+
+          if (String(label).includes('bool')){
+            newDataset.steppedLine = true
+            newDataset.fill = true
+            newDataset.yAxisID = 'boolean-axis'
+          }
+
+          newDatasets.push(newDataset)
         })
         // sort dates
         const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))

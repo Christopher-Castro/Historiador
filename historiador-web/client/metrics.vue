@@ -104,8 +104,24 @@ export default {
           duration: 800
         },
         scales: {
-          x: { display: true },
-          y: { display: true }
+            yAxes: [
+              {
+                id: 'boolean-axis',
+                type: 'linear',
+                display: false,
+                ticks: {
+                  stepSize: 1,
+                  suggestedMin: 0,
+                  suggestedMax: 1,
+                  min: 0,
+                  max: 1
+                }
+              },
+              {
+                id: 'normal-axis',
+                type: 'linear'
+              }
+            ]
         }
       },
       dateInit: null,
@@ -217,4 +233,6 @@ export default {
   background-color: white;
   padding: 5px 5px;
 }
+
+
 </style>

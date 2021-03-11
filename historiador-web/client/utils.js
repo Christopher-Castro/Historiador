@@ -28,6 +28,7 @@ export const initDataset = (label, data, hidden = true) => {
   const backgroundColor = generatedColor
   const borderColor = generatedColor
   const fill = false
+  const yAxisID = 'normal-axis'
 
   return {
     label,
@@ -35,6 +36,7 @@ export const initDataset = (label, data, hidden = true) => {
     hidden,
     backgroundColor,
     borderColor,
+    yAxisID,
     data
   }
 }
