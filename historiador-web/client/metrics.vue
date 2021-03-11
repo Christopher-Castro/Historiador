@@ -78,6 +78,7 @@ export default {
   },
   mounted(){
     this.$root.$on('toggleMetric', this.handleMetrics)
+    this.$root.$on('changeColor', this.handleColor)
     this.$root.$on('newAgent', this.handleNewAgent)
   },
   data() {
@@ -99,6 +100,9 @@ export default {
           display: false
         },
         responsive: true,
+        animation: {
+          duration: 800
+        },
         scales: {
           x: { display: true },
           y: { display: true }
@@ -149,6 +153,35 @@ export default {
       const metrics = await this.getMetrics({ uuid })
       const metricsNames = metrics.map(m => m.type)
 
+    },
+    handleColor({ newColor, label }){
+      //  filter
+      const {labels, datasets} = this.filteredChartData
+      //  live
+      const {labels: labelsLive, datasets: datasetsLive} = this.liveChartData
+
+      const found = datasets.filter(dataset => dataset.label == label)
+      const foundLive = datasetsLive.filter(dataset => dataset.label == label)
+
+      if(found && found[0]) {
+        found[0].backgroundColor = newColor
+        found[0].borderColor = newColor
+
+        this.filteredChartData = {
+          labels,
+          datasets
+        }
+      }
+
+      if(foundLive && foundLive[0]) {
+        foundLive[0].backgroundColor = newColor
+        foundLive[0].borderColor = newColor
+
+        this.liveChartData = {
+          labels: labelsLive,
+          datasets: datasetsLive
+        }
+      }
     }
   }
 };

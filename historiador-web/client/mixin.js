@@ -8,7 +8,8 @@ export default {
   name: 'AgentMetricMixin',
   data() {
     return {
-      metricLength:30, // labels length
+      miliseconds: 1000, // miliseconds interval
+      metricLength: 40, // labels length
       lastSeconds: 20, // how many seconds of register will it bring 
       live: true,
       loaded: false,
@@ -26,19 +27,22 @@ export default {
   },
   methods: {
     pollData () {
-      const seconds = 2 * 1000 
+      const seconds = this.miliseconds
       this.polling = setInterval(() => {
         const labels = this.liveChartData.labels
         const datasets = this.liveChartData.datasets          
-
+        const newLabels = []
         if ( labels.length >= this.metricLength) {
           labels.shift()
         }
         
-        labels.push(moment().format('HH:mm:ss'))
+        // get last {metricLength} seconds
+        for(var i = this.metricLength + 1; i > 0; i-- ){
+          newLabels.push(moment().subtract('seconds', i).format('HH:mm:ss'))
+        }
 
         this.liveChartData = {
-          labels,
+          labels: newLabels,
           datasets
         }
       }, seconds)
@@ -152,7 +156,7 @@ export default {
             const found = datasets.filter(dataset => dataset.label == labelName)
             
             if(found && found[0]) {
-              if (found[0].data.length >= this.metricLength) {
+              if (found[0].data.length >= this.metricLength / 2) {
                 found[0].data.shift()
               }
               found[0].hidden = hidden

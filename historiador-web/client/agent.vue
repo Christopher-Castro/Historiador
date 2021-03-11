@@ -12,7 +12,14 @@
       </ul>
       <ul style="padding:0;">
         <li class="list-item" v-for="metric in metrics" :key="metric.type">
-          <span class="box" :style="`background-color: ${colorFromName(`${uuid}#${metric.type}`)}`"></span>
+          <!-- <span class="box" :style="`background-color: ${colorFromName(`${uuid}#${metric.type}`)}`"></span> -->
+          <input
+            class="box"
+            type="color"
+            :placeholder="`${uuid}#${metric.type}`"
+            :value="`${colorFromName(`${uuid}#${metric.type}`)}`"
+            @input="emitColor"
+          />
           <span>{{metric.type}}</span>
           <input
             type="checkbox"
@@ -127,6 +134,10 @@ module.exports = {
     emitChange(e){
       const { target: { value } } = e
       this.$root.$emit('toggleMetric', value)
+    },
+    emitColor(e){
+      const { target: { value: newColor, placeholder: label } } = e
+      this.$root.$emit('changeColor', { newColor, label } )
     }
   }
 }
@@ -191,7 +202,8 @@ module.exports = {
     color: #ff7a22;
   }
   .box {
-    margin: 3px 3px 3px 4px;
+    margin: 0;
+    border-radius: 50%;
     width: 13px;
     height: 13px;
   }
