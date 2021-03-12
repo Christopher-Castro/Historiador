@@ -172,9 +172,9 @@ export default {
             } else {
               
               const firstData = [{ y: data, x: moment(timestamp).format('HH:mm:ss')}] 
-              const newDataset = initDataset(label, firstData)
+              const newDataset = initDataset(labelName, firstData)
 
-              if (String(type).includes('bool')){
+              if (String(labelName).includes('bool')){
                 newDataset.steppedLine = true
                 newDataset.fill = true
                 newDataset.yAxisID = 'boolean-axis'
