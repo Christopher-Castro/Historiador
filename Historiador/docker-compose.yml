@@ -54,11 +54,47 @@ services:
       - ./nodejs/Historiador:/home/node/app
     command: "npm run server"
     ports: 
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - mongo
-    
 
+  mqtt:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-mqtt
+    command: "npm run start-dev"
+    ports: 
+      - "1883:1883"
+    depends_on:
+      - mongo
+      - db
+  
+  agent:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-agent
+    command: "tail -f /dev/null"
+    ports: 
+      - "502:502"
+    depends_on:
+      - mqtt
+
+  api:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-api
+    command: "npm run start-dev"
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - db
+
+  web:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-web
+    command: "npm run start-dev"
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - api
+      - mqtt
 
   mongo:
     image: mongo
@@ -93,6 +129,8 @@ volumes:
   noip-etc:
   
   mongodb-data:
+
+  
 
   
   

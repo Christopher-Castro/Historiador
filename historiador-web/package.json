@@ -4,10 +4,10 @@
   "description": "A simple IoT Platform - Web Dashboard",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=production && node server.js",
+    "start": "NODE_ENV=production node server.js",
     "prestart": "npm run build",
-    "build": "SET NODE_ENV=production && browserify -g envify -t babelify -t vueify client/app.js | uglifyjs -c -m -o public/bundle.js",
-    "start-dev": "SET DEBUG=historiador:* && nodemon server.js",
+    "build": "NODE_ENV=production browserify -g envify -t babelify -t vueify client/app.js | uglifyjs -c -m -o public/bundle.js",
+    "start-dev": "DEBUG=historiador:* nodemon server.js",
     "prestart-dev": "npm run build-dev",
     "build-dev": "browserify -g envify -t babelify -t vueify client/app.js -o public/bundle.js",
     "lint": "standard --fix"

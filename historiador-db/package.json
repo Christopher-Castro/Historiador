@@ -4,8 +4,8 @@
   "description": "Historiador de datos",
   "main": "index.js",
   "scripts": {
-    "test": "SET DEBUG=historiador:* && nyc --reporter=lcov --report-dir=coverage/ ava --verbose",
-    "setup": "SET DEBUG=historiador:* && node setup.js",
+    "test": "DEBUG=historiador:* nyc --reporter=lcov --report-dir=coverage/ ava --verbose",
+    "setup": "DEBUG=historiador:* node setup.js",
     "lint": "standard --fix"
   },
   "repository": {

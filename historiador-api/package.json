@@ -5,9 +5,9 @@
   "description": "A Simple IoT Platform - API",
   "main": "server.js",
   "scripts": {
-    "test": "SET DEBUG=historiador:* && ava --verbose",
-    "start": "SET NODE_ENV=production && node server.js",
-    "start-dev": "SET DEBUG= historiador:* && nodemon server.js",
+    "test": "DEBUG=historiador:* ava --verbose",
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "DEBUG=historiador:* nodemon server.js",
     "lint": "standard --fix"
   },
   "repository": {
