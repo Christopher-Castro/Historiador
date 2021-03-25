@@ -10,7 +10,7 @@ const { parsePayload } = require('./utils')
 
 const backend = {
   type: 'mongo',
-  url: 'mongodb://root:example@localhost:27017/mqtt?authSource=admin',
+  url: 'mongodb://root:example@mongo:27017/mqtt?authSource=admin',
   // pubsubCollection: 'ascoltatori',
   mongo,
   return_buffers: true
@@ -25,7 +25,7 @@ const config = {
   database: process.env.DB_NAME || 'Historiador',
   username: process.env.DB_USER || 'admin',
   password: process.env.DB_PASS || 'example',
-  host: process.env.DB_HOST || 'localhost',
+  host: process.env.DB_HOST || 'db',
   dialect: 'postgres',
   logging: s => debug(s)
 }

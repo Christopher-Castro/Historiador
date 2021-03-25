@@ -5,8 +5,8 @@
   "description": "A simple IoT Platform - MQTT Server",
   "main": "server.js",
   "scripts": {
-    "start": "SET NODE_ENV=production && node server.js",
-    "start-dev": "SET DEBUG=historiador:* && nodemon server.js",
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "DEBUG=historiador:* nodemon server.js",
     "lint": "standard --fix"
   },
   "repository": {
