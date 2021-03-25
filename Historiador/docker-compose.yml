@@ -59,7 +59,7 @@ services:
       - mongo
 
   mqtt:
-    image: historiador_image
+    image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-mqtt
     command: "npm run start-dev"
     ports: 
@@ -69,7 +69,7 @@ services:
       - db
   
   agent:
-    image: historiador_image
+    image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-agent
     command: "tail -f /dev/null"
     ports: 
@@ -78,7 +78,7 @@ services:
       - mqtt
 
   api:
-    image: historiador_image
+    image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-api
     command: "npm run start-dev"
     ports: 
@@ -87,7 +87,7 @@ services:
       - db
 
   web:
-    image: historiador_image
+    image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-web
     command: "npm run start-dev"
     ports: 
