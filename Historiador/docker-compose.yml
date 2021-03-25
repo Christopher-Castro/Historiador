@@ -74,6 +74,8 @@ services:
     command: "tail -f /dev/null"
     ports: 
       - "502:502"
+    volumes:
+      - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
     depends_on:
       - mqtt
 

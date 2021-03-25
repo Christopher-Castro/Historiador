@@ -19,7 +19,7 @@ const agent = new HistoriadorAgent({
 
 //tipo de la métrica
 agent.addMetric('modbus', function getModbus () {
-    client.readHoldingRegisters(100, 1)
+    client.readInputRegisters(100, 1)
     .then(function(data) {
         aux=data.data[0];
     })
