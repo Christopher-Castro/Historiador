@@ -1,5 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".header[data-v-2fa7c47b] {\n  background: white;\n  height: 64px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.header-container[data-v-2fa7c47b] {\n  padding-left: 15px;\n}\n.menu[data-v-2fa7c47b] {\n    display:flex;\n}\n.menu-item[data-v-2fa7c47b] {\n    border: 1px solid black ;\n    border: 1px solid blue;\n    border-radius: 2px;\n    margin: 0 15px;\n    padding: 7px 7px;\n}\n.menu-item > *[data-v-2fa7c47b] {\n    text-decoration: none;\n    color: blue;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".header[data-v-27844d5a] {\n  background: white;\n  height: 64px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.header-container[data-v-27844d5a] {\n  padding-left: 15px;\n}\n.menu[data-v-27844d5a] {\n    display:flex;\n}\n.menu-item[data-v-27844d5a] {\n    border: 1px solid black ;\n    border: 1px solid blue;\n    border-radius: 2px;\n    margin: 0 15px;\n    padding: 7px 7px;\n}\n.menu-item > *[data-v-27844d5a] {\n    text-decoration: none;\n    color: blue;\n}")
 ;(function(){
 "use strict";
 
@@ -13,16 +13,16 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"header-container"},[_c('router-link',{attrs:{"to":"/"}},[_c('img',{attrs:{"src":"/images/platziverse.png","width":"185","height":"38","alt":"PlatziVerse"}})])],1),_vm._v(" "),_c('div',{staticClass:"menu"},[_c('div',{staticClass:"menu-item"},[_c('router-link',{attrs:{"to":"/"}},[_vm._v("Dashboard")])],1),_vm._v(" "),_c('div',{staticClass:"menu-item"},[_c('router-link',{attrs:{"to":"/panel"}},[_vm._v("Panel")])],1)])]),_vm._v(" "),_c('div',{attrs:{"id":"app"}},[_c('router-view')],1)])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-2fa7c47b"
+__vue__options__._scopeId = "data-v-27844d5a"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2fa7c47b", __vue__options__)
+    hotAPI.createRecord("data-v-27844d5a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2fa7c47b", __vue__options__)
+    hotAPI.reload("data-v-27844d5a", __vue__options__)
   }
 })()}
 },{"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],2:[function(require,module,exports){
@@ -225,9 +225,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3c2b9738", __vue__options__)
+    hotAPI.createRecord("data-v-2bf993a5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3c2b9738", __vue__options__)
+    hotAPI.reload("data-v-2bf993a5", __vue__options__)
   }
 })()}
 },{"../config":12,"./utils":11,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/regenerator":102,"request-promise-native":504,"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],3:[function(require,module,exports){
@@ -370,9 +370,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-73fb2340", __vue__options__)
+    hotAPI.createRecord("data-v-492b5ec1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-73fb2340", __vue__options__)
+    hotAPI.reload("data-v-492b5ec1", __vue__options__)
   }
 })()}
 },{"../config":12,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/regenerator":102,"request-promise-native":504,"socket.io-client":534,"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],5:[function(require,module,exports){
@@ -501,9 +501,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5b907423", __vue__options__)
+    hotAPI.createRecord("data-v-e3a114fc", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5b907423", __vue__options__)
+    hotAPI.reload("data-v-e3a114fc", __vue__options__)
   }
 })()}
 },{"../config":12,"./line-chart":6,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/regenerator":102,"moment":450,"random-material-color":496,"request-promise-native":504,"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],6:[function(require,module,exports){
@@ -686,9 +686,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ffd7a03e", __vue__options__)
+    hotAPI.createRecord("data-v-77f0b8c0", __vue__options__)
   } else {
-    hotAPI.reload("data-v-ffd7a03e", __vue__options__)
+    hotAPI.reload("data-v-77f0b8c0", __vue__options__)
   }
 })()}
 },{"../config":12,"./line-chart":6,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/regenerator":102,"moment":450,"random-material-color":496,"request-promise-native":504,"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],8:[function(require,module,exports){
@@ -886,9 +886,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f3c5253c", __vue__options__)
+    hotAPI.createRecord("data-v-ec5bff3a", __vue__options__)
   } else {
-    hotAPI.reload("data-v-f3c5253c", __vue__options__)
+    hotAPI.reload("data-v-ec5bff3a", __vue__options__)
   }
 })()}
 },{"./line-chart":6,"./mixin":9,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/regenerator":102,"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],9:[function(require,module,exports){
@@ -1400,7 +1400,7 @@ exports.default = {
 };
 
 },{"../config":12,"./utils":11,"babel-runtime/core-js/array/from":87,"babel-runtime/core-js/promise":94,"babel-runtime/core-js/set":95,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/helpers/extends":99,"babel-runtime/helpers/slicedToArray":100,"babel-runtime/regenerator":102,"moment":450,"request-promise-native":504}],10:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("input[data-v-564092b6],select[data-v-564092b6], option[data-v-564092b6] {\n    margin: 5px 0;\n    padding: 4px 2px;\n    font-size: 14px;\n  }\n  input[data-v-564092b6]::placeholder {\n    font-size: 14px;\n  }\n  .wrapper[data-v-564092b6] {\n    padding: 25px 25px;\n  }\n  .agents-cards[data-v-564092b6] {\n    display: flex;\n    justify-items: center;\n\n  }\n  .agent-each[data-v-564092b6] {\n    margin: 15px 15px 15px 0;\n    padding: 17px 13px;\n    border: 1px solid black;\n    border-radius: 4px;\n  }\n  .agent-each > h3[data-v-564092b6] {\n    margin: 0;\n  }\n  .metric-each[data-v-564092b6] {\n    margin: 15px 0;\n    padding: 5px 0px;\n  }\n\n  .title-bold[data-v-564092b6],\n  .metric-name-title[data-v-564092b6],\n  .metric-type-title[data-v-564092b6] {\n    margin-top: 6px;\n    display: block;\n  }\n\n  .buttonLive[data-v-564092b6] {\n    width: 200px;\n    border-radius: 4px;\n    border: 1px solid blue;\n    color: blue;\n    font-size: 14px;\n    background-color: white;\n    padding: 5px 5px;\n    display: block;\n  }\n\n  .buttonSubmit[data-v-564092b6] {\n    width: 300px;\n    border-radius: 4px;\n    border: 1px solid #98ca3f;\n    color: white;\n    font-size: 18px;\n    background-color: #98ca3f;\n    padding: 7px 7px;\n    display: block;\n  }\n\n\n  /* The alert message box */\n.alert[data-v-564092b6] {\n  padding: 15px;\n  background-color: #f44336; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n.alert-success[data-v-564092b6] {\n  padding: 15px;\n  background-color: #98ca3f; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n\n/* The close button */\n.closebtn[data-v-564092b6] {\n  margin-left: 15px;\n  color: white;\n  font-weight: bold;\n  float: right;\n  font-size: 22px;\n  line-height: 20px;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/* When moving the mouse over the close button */\n.closebtn[data-v-564092b6]:hover {\n  color: black;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("input[data-v-6dc34056],select[data-v-6dc34056], option[data-v-6dc34056] {\n    margin: 5px 0;\n    padding: 4px 2px;\n    font-size: 14px;\n  }\n  input[data-v-6dc34056]::placeholder {\n    font-size: 14px;\n  }\n  .wrapper[data-v-6dc34056] {\n    padding: 25px 25px;\n  }\n  .agents-cards[data-v-6dc34056] {\n    display: flex;\n    justify-items: center;\n\n  }\n  .agent-each[data-v-6dc34056] {\n    margin: 15px 15px 15px 0;\n    padding: 17px 13px;\n    border: 1px solid black;\n    border-radius: 4px;\n  }\n  .agent-each > h3[data-v-6dc34056] {\n    margin: 0;\n  }\n  .metric-each[data-v-6dc34056] {\n    margin: 15px 0;\n    padding: 5px 0px;\n  }\n\n  .title-bold[data-v-6dc34056],\n  .metric-name-title[data-v-6dc34056],\n  .metric-type-title[data-v-6dc34056] {\n    margin-top: 6px;\n    display: block;\n  }\n\n  .buttonLive[data-v-6dc34056] {\n    width: 200px;\n    border-radius: 4px;\n    border: 1px solid blue;\n    color: blue;\n    font-size: 14px;\n    background-color: white;\n    padding: 5px 5px;\n    display: block;\n  }\n\n  .buttonSubmit[data-v-6dc34056] {\n    width: 300px;\n    border-radius: 4px;\n    border: 1px solid #98ca3f;\n    color: white;\n    font-size: 18px;\n    background-color: #98ca3f;\n    padding: 7px 7px;\n    display: block;\n  }\n\n\n  /* The alert message box */\n.alert[data-v-6dc34056] {\n  padding: 15px;\n  background-color: #f44336; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n.alert-success[data-v-6dc34056] {\n  padding: 15px;\n  background-color: #98ca3f; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n\n/* The close button */\n.closebtn[data-v-6dc34056] {\n  margin-left: 15px;\n  color: white;\n  font-weight: bold;\n  float: right;\n  font-size: 22px;\n  line-height: 20px;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/* When moving the mouse over the close button */\n.closebtn[data-v-6dc34056]:hover {\n  color: black;\n}")
 ;(function(){
 'use strict';
 
@@ -1580,16 +1580,16 @@ __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createEle
 var metrics = ref.metrics;
 return _c('div',{key:_index,staticClass:"agent-each"},[_c('h3',[_vm._v("Agente #"+_vm._s(_index))]),_vm._v(" "),_vm._l((metrics),function(metric,index){return _c('div',{key:index,staticClass:"metric-each"},[_c('b',{staticClass:"metric-name-title"},[_vm._v(_vm._s(("Nombre de la métrica #" + index)))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.name),expression:"metric.name"}],attrs:{"placeholder":("Nombre de la métrica #" + index),"type":"text","id":"metric-name"},domProps:{"value":(metric.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(metric, "name", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"metric-type-title"},[_vm._v("Tipo de métrica")]),_vm._v(" "),_c('label',{attrs:{"for":"metric-type"}},[_vm._v("Analógico")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.type),expression:"metric.type"}],attrs:{"type":"radio","id":"metric-type","value":"analogic"},domProps:{"checked":_vm._q(metric.type,"analogic")},on:{"change":function($event){return _vm.$set(metric, "type", "analogic")}}}),_vm._v(" "),_c('label',{attrs:{"for":"metric-type"}},[_vm._v("Digital")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.type),expression:"metric.type"}],attrs:{"type":"radio","id":"metric-type","value":"digital"},domProps:{"checked":_vm._q(metric.type,"digital")},on:{"change":function($event){return _vm.$set(metric, "type", "digital")}}})])}),_vm._v(" "),_c('button',{staticClass:"buttonFilter",attrs:{"type":"button"},on:{"click":function($event){return _vm.newMetricRow(_index)}}},[_vm._v("Agregar Métrica")])],2)}),0)]),_vm._v(" "),_c('button',{staticClass:"buttonSubmit",attrs:{"type":"submit"}},[_vm._v("Agregar Módulo")])])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-564092b6"
+__vue__options__._scopeId = "data-v-6dc34056"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-564092b6", __vue__options__)
+    hotAPI.createRecord("data-v-6dc34056", __vue__options__)
   } else {
-    hotAPI.reload("data-v-564092b6", __vue__options__)
+    hotAPI.reload("data-v-6dc34056", __vue__options__)
   }
 })()}
 },{"../config":12,"babel-runtime/helpers/asyncToGenerator":98,"babel-runtime/regenerator":102,"request-promise-native":504,"vue":633,"vue-hot-reload-api":630,"vueify/lib/insert-css":635}],11:[function(require,module,exports){

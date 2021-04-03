@@ -71,18 +71,24 @@ services:
   agent:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-agent
+    # cambiar a la ejecucion del servidor web
     command: "tail -f /dev/null"
     ports: 
       - "502:502"
+      - "8081:8081"
     volumes:
       - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
+      - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
     depends_on:
       - mqtt
+      - api
 
   api:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-api
     command: "npm run start-dev"
+    volumes:
+      - "../historiador-api/:/usr/src/app/historiador-api/"
     ports: 
       - "3000:3000"
     depends_on:
@@ -92,6 +98,8 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-web
     command: "npm run start-dev"
+    volumes:
+      - "../historiador-web/:/usr/src/app/historiador-web/"
     ports: 
       - "8080:8080"
     depends_on:

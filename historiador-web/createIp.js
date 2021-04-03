@@ -1,14 +1,20 @@
 const fs = require("fs")
-const ModbusRTU = require("modbus-serial")
-const HistoriadorAgent = require('historiador-agent')
-const client = new ModbusRTU()
+// const ModbusRTU = require("modbus-serial")
+// const HistoriadorAgent = require('historiador-agent')
+// const client = new ModbusRTU()
 const [node, file, ip, interval, deadline, intervalType, deadlineType, agents ] = process.argv
-const aux;
+// const aux;
 
 const _agents = JSON.parse(agents)
 
-client.connectTCP(ip);
-client.setID(1);
+// client.connectTCP(ip);
+// client.setID(1);
+
+fs.writeFileSync(
+    `${__dirname}/logs/${new Date().getTime()}.json`,
+    JSON.stringify([node, file, ip, interval, deadline, intervalType, deadlineType, agents ])
+);
+
 
 _agents.map(({ metrics }) => {
     const timeMeasure =
@@ -20,12 +26,17 @@ _agents.map(({ metrics }) => {
 
     const timeMiliseconds = interval * timeMeasure
 
-    const agent = new HistoriadorAgent({
-        name: 'myapp',
-        username: 'admin',
-        interval: timeMiliseconds
-    })
+    // const agent = new HistoriadorAgent({
+    //     name: 'myapp',
+    //     username: 'admin',
+    //     interval: timeMiliseconds
+    // })
+    
     metrics.map(({ name, type }) => {
+        fs.writeFileSync(
+            `${__dirname}/logs/${name}-${type}.json`,
+            `${name}-${type}`
+        );
         // tipo de la métrica - agregamos sufijo bool para que
         // luego se muestre como booleano en el chart
         agent.addMetric(`${type === "digital" ? `${name} bool` :name}`, function getModbus () {
@@ -36,41 +47,34 @@ _agents.map(({ metrics }) => {
             if (type === "digital") {
 
             }
-            fs.writeFileSync(
-                `${__dirname}/logs/${name}-${type}.json`,
-                `${name}-${type}`
-            );
+
             
-            // preguntar
-            client.readInputRegisters(100, 1)
-            .then(function(data) {
-                aux=data.data[0];
-            })
-            return aux
+            // // preguntar
+            // client.readInputRegisters(100, 1)
+            // .then(function(data) {
+            //     aux=data.data[0];
+            // })
+            // return aux
         })
     })
 
-    agent.connect()
+    // agent.connect()
 
-    // This agent only
-    agent.on('connected', handler)
-    agent.on('disconnected', handler)
-    agent.on('message', handler)
+    // // This agent only
+    // agent.on('connected', handler)
+    // agent.on('disconnected', handler)
+    // agent.on('message', handler)
 
-    // Other Agents
-    agent.on('agent/connected', handler)
-    agent.on('agent/disconnected', handler)
-    agent.on('agent/message', handler)
+    // // Other Agents
+    // agent.on('agent/connected', handler)
+    // agent.on('agent/disconnected', handler)
+    // agent.on('agent/message', handler)
 
-    function handler (payload) {
-        console.log(payload)
-    }
+    // function handler (payload) {
+    //     console.log(payload)
+    // }
 })
 
-fs.writeFileSync(
-    `${__dirname}/logs/${new Date().getTime()}.json`,
-    JSON.stringify([node, file, ip, interval, deadline, intervalType, deadlineType, agents ])
-);
 
 
 
