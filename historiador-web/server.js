@@ -3,6 +3,8 @@
 const debug = require('debug')('historiador:web')
 const http = require('http')
 const path = require('path')
+const fs = require("fs");
+
 const express = require('express')
 const asyncify = require('express-asyncify')
 const socketio = require('socket.io')
@@ -21,6 +23,12 @@ const agent = new HistoriadorAgent()
 app.use(express.static(path.join(__dirname, 'public')))
 // es lo mismo que hacer ./public
 app.use('/', proxy)
+
+app.get("*", (req, res) => {
+  fs.readFile(`${__dirname}/public/index.html`, "utf8", (err, data) => {
+    return res.send(data)
+  })
+})
 
 // Socket.io /WebSockets
 io.on('connect', socket => {

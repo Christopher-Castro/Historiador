@@ -51,6 +51,7 @@
     "socket.io": "^3.0.4",
     "socket.io-client": "^3.0.4",
     "vue": "^2.6.12",
-    "vue-chartjs": "^3.5.1"
+    "vue-chartjs": "^3.5.1",
+    "vue-router": "^3.5.1"
   }
 }

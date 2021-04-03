@@ -99,7 +99,8 @@ export default {
 
         this.startRealtime()
       } catch (error) {
-       console.error('no se pudo traer la data', error) 
+        console.error('no se pudo traer la data', error)
+        this.Agents = []
       }
 
     },
@@ -109,13 +110,9 @@ export default {
         url: `${serverHost}/agents`,
         json: true
       }
-      try {
-        const result = await request(options)
-        return result
-      } catch (e) {
-        // this.error = e.error.error
-        return e.error.error 
-      }
+      const result = await request(options)
+      return result
+
     },
     async getMetrics(agent) {
       const { uuid } = agent
