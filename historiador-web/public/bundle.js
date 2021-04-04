@@ -898,16 +898,21 @@ exports.default = {
                             _context3.next = 6;
                             return _promise2.default.all(metrics.map(function () {
                               var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(metric) {
-                                var type, lasts, labelName, label, data, newDataset;
+                                var type, dateInit, dateFinish, lasts, labelName, label, data, newDataset;
                                 return _regenerator2.default.wrap(function _callee2$(_context2) {
                                   while (1) {
                                     switch (_context2.prev = _context2.next) {
                                       case 0:
                                         type = metric.type;
-                                        _context2.next = 3;
-                                        return _this3.getFilteredData(uuid, type, moment().subtract(20, 'seconds').format(), moment().format());
+                                        dateInit = moment().subtract(_this3.lastSeconds, 'seconds').format();
+                                        dateFinish = moment().format();
 
-                                      case 3:
+
+                                        console.log("dateInit: " + dateInit + ", dateFinish: " + dateFinish);
+                                        _context2.next = 6;
+                                        return _this3.getFilteredData(uuid, type, dateInit, dateFinish);
+
+                                      case 6:
                                         lasts = _context2.sent;
                                         labelName = uuid + "#" + type;
                                         // dont remove this line below, labelName is changed by lineColor
@@ -931,7 +936,7 @@ exports.default = {
 
                                         datasets.push(newDataset);
 
-                                      case 10:
+                                      case 13:
                                       case "end":
                                         return _context2.stop();
                                     }
@@ -1158,19 +1163,20 @@ exports.default = {
       var _this8 = this;
 
       return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9() {
-        var dateInit, timeInit, dateFinish, timeFinish, datasets, dateTimeInit, dateTimeFinish, newLabels, newDatasets, dataCollected, sortedLabels;
+        var dateInit, timeInit, dateFinish, timeFinish, datasets, dateFirst, dateLast, newLabels, newDatasets, dataCollected, sortedLabels;
         return _regenerator2.default.wrap(function _callee9$(_context9) {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
                 dateInit = _this8.dateInit, timeInit = _this8.timeInit, dateFinish = _this8.dateFinish, timeFinish = _this8.timeFinish, datasets = _this8.liveChartData.datasets;
-                dateTimeInit = dateInit + "T" + timeInit, dateTimeFinish = dateFinish + "T" + timeFinish;
+                dateFirst = moment(dateInit + "T" + timeInit).format();
+                dateLast = moment(dateFinish + "T" + timeFinish).format();
                 newLabels = new _set2.default();
                 newDatasets = [];
 
                 _this8.live = false; // set filter mode
-                _context9.prev = 5;
-                _context9.next = 8;
+                _context9.prev = 6;
+                _context9.next = 9;
                 return _promise2.default.all(datasets.map(function () {
                   var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(dataset) {
                     var label, _label$split, _label$split2, uuid, typeMetric, res;
@@ -1182,7 +1188,7 @@ exports.default = {
                             label = dataset.label;
                             _label$split = label.split('#'), _label$split2 = (0, _slicedToArray3.default)(_label$split, 2), uuid = _label$split2[0], typeMetric = _label$split2[1];
                             _context8.next = 4;
-                            return _this8.getFilteredData(uuid, typeMetric, dateTimeInit, dateTimeFinish);
+                            return _this8.getFilteredData(uuid, typeMetric, dateFirst, dateLast);
 
                           case 4:
                             res = _context8.sent;
@@ -1201,7 +1207,7 @@ exports.default = {
                   };
                 }()));
 
-              case 8:
+              case 9:
                 dataCollected = _context9.sent;
 
 
@@ -1241,21 +1247,21 @@ exports.default = {
                   labels: sortedLabels,
                   datasets: newDatasets
                 };
-                _context9.next = 17;
+                _context9.next = 18;
                 break;
 
-              case 14:
-                _context9.prev = 14;
-                _context9.t0 = _context9["catch"](5);
+              case 15:
+                _context9.prev = 15;
+                _context9.t0 = _context9["catch"](6);
 
                 console.error('no se pudo obtener la data', _context9.t0);
 
-              case 17:
+              case 18:
               case "end":
                 return _context9.stop();
             }
           }
-        }, _callee9, _this8, [[5, 14]]);
+        }, _callee9, _this8, [[6, 15]]);
       }))();
     },
     toggleLiveMode: function toggleLiveMode() {

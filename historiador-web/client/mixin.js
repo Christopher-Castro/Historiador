@@ -62,7 +62,10 @@ export default {
 
             const results = await Promise.all(metrics.map(async metric => {
               const { type } = metric
-              const lasts = await this.getFilteredData(uuid, type, moment().subtract(20,'seconds').format(), moment().format())
+              const dateInit = moment().subtract(this.lastSeconds,'seconds').format()
+              const dateFinish = moment().format()
+
+              const lasts = await this.getFilteredData(uuid, type, dateInit, dateFinish)
               const labelName = `${uuid}#${type}` 
               // dont remove this line below, labelName is changed by lineColor
               const label = labelName
@@ -188,8 +191,10 @@ export default {
     },
     async filterChart(){
       const { dateInit, timeInit, dateFinish, timeFinish, liveChartData: { datasets } } = this
-      const [ dateTimeInit, dateTimeFinish ] = [`${dateInit}T${timeInit}`, `${dateFinish}T${timeFinish}`]
 
+      const dateFirst = moment(`${dateInit}T${timeInit}`).format()
+      const dateLast = moment(`${dateFinish}T${timeFinish}`).format()
+      
       let newLabels = new Set()
       let newDatasets = []
       this.live = false // set filter mode
@@ -197,7 +202,7 @@ export default {
         let dataCollected = await Promise.all(datasets.map(async dataset => {
           const { label } = dataset
           const [uuid, typeMetric] = label.split('#')
-          let res = await this.getFilteredData(uuid, typeMetric, dateTimeInit, dateTimeFinish)
+          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast)
           return {res, label}
         }))
 

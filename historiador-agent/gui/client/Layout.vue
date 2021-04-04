@@ -7,9 +7,9 @@
             </router-link>
         </div>
         <div class="menu">
-            <div class="menu-item">
+            <!-- <div class="menu-item">
                 <router-link to="/">Panel</router-link>
-            </div>
+            </div> -->
         </div>
     </header>
     <div id="app">

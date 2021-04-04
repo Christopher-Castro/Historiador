@@ -72,10 +72,10 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-agent/gui
     # cambiar a la ejecucion del servidor web
-    command: "node server.js"
+    command: "npm run start-dev"
     ports: 
       - "502:502"
-      - "8089:8089"
+      - "8000:8000"
     volumes:
       - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
       - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"

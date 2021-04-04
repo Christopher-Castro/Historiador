@@ -110,7 +110,7 @@ api.get('/metrics/:uuid/:type', async (req, res, next) => {
   res.send(metrics)
 })
 
-api.get('/metrics/date/:uuid/:type', async (req, res, next) => {
+api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   const { uuid, type } = req.params
   const dateInit = new Date(req.body.dateInit)
   const dateFinish = new Date(req.body.dateFinish)
