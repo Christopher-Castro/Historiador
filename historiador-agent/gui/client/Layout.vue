@@ -7,6 +7,9 @@
             </router-link>
         </div>
         <div class="menu">
+            <div class="menu-item">
+                <router-link to="/">Panel</router-link>
+            </div>
         </div>
     </header>
     <div id="app">
@@ -16,10 +19,7 @@
 </template>
 
 <script>
-export default {
-    
-
-}
+export default { }
 </script>
 
 <style scoped>

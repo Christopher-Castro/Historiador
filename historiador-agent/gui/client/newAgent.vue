@@ -190,6 +190,9 @@ export default {
 </script>
 
 <style scoped>
+  * { 
+      font-family: 'Roboto', sans-serif;
+  }
   input,select, option {
     margin: 5px 0;
     padding: 4px 2px;
@@ -226,7 +229,15 @@ export default {
     margin-top: 6px;
     display: block;
   }
-
+  .buttonFilter {
+    width: 200px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    background-color: blue;
+    padding: 5px 5px;
+  }
   .buttonLive {
     width: 200px;
     border-radius: 4px;
