@@ -743,7 +743,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('div',{staticClass:"chart-wrapper",staticStyle:{"overflow-x":"auto"}},[(_vm.loaded)?_c('line-chart',{attrs:{"chart-data":_vm.live ? _vm.liveChartData : _vm.filteredChartData,"options":_vm.options,"width":400,"height":200}}):_vm._e()],1),_vm._v(" "),_c('div',[_c('form',{staticClass:"dates",on:{"submit":function($event){$event.preventDefault();}}},[_c('p',{staticClass:"date-time"},[_vm._m(0),_vm._v(" "),_c('label',{attrs:{"for":"timeInitIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateInit),expression:"dateInit"}],attrs:{"required":"","type":"date","id":"dateInitIn"},domProps:{"value":(_vm.dateInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateInit=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeInit),expression:"timeInit"}],attrs:{"required":"","type":"time","step":"1","id":"timeInitIn"},domProps:{"value":(_vm.timeInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeInit=$event.target.value}}})])]),_vm._v(" "),_c('p',{staticClass:"date-time"},[_vm._m(1),_vm._v(" "),_c('label',{attrs:{"for":"timeFinishIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateFinish),expression:"dateFinish"}],attrs:{"required":"","type":"date","id":"dateFinishIn"},domProps:{"value":(_vm.dateFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateFinish=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeFinish),expression:"timeFinish"}],attrs:{"required":"","type":"time","step":"1","id":"timeFinishIn"},domProps:{"value":(_vm.timeFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeFinish=$event.target.value}}})])]),_vm._v(" "),_c('div',[_c('button',{staticClass:"buttonFilter",attrs:{"type":"submit"},on:{"click":_vm.filterChart}},[_vm._v("\n          Filtrar\n        ")]),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.toggleLiveMode}},[_vm._v("\n          Modo Live\n        ")]):_vm._e()])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('div',{staticClass:"chart-wrapper",staticStyle:{"overflow-x":"auto"}},[(_vm.loaded)?_c('line-chart',{attrs:{"chart-data":_vm.live ? _vm.liveChartData : _vm.filteredChartData,"options":_vm.options,"width":400,"height":200}}):_vm._e()],1),_vm._v(" "),_c('div',[_c('form',{staticClass:"dates",on:{"submit":function($event){$event.preventDefault();}}},[_c('p',{staticClass:"date-time"},[_vm._m(0),_vm._v(" "),_c('label',{attrs:{"for":"timeInitIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateInit),expression:"dateInit"}],attrs:{"required":"","type":"date","id":"dateInitIn"},domProps:{"value":(_vm.dateInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateInit=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeInit),expression:"timeInit"}],attrs:{"required":"","type":"time","step":"1","id":"timeInitIn"},domProps:{"value":(_vm.timeInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeInit=$event.target.value}}})])]),_vm._v(" "),_c('p',{staticClass:"date-time"},[_vm._m(1),_vm._v(" "),_c('label',{attrs:{"for":"timeFinishIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateFinish),expression:"dateFinish"}],attrs:{"required":"","type":"date","id":"dateFinishIn"},domProps:{"value":(_vm.dateFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateFinish=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeFinish),expression:"timeFinish"}],attrs:{"required":"","type":"time","step":"1","id":"timeFinishIn"},domProps:{"value":(_vm.timeFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeFinish=$event.target.value}}})])]),_vm._v(" "),_c('div',[_c('button',{staticClass:"buttonFilter",attrs:{"type":"submit"},on:{"click":_vm.filterChart}},[_vm._v("\n          Filtrar\n        ")]),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.toggleLiveMode}},[_vm._v("\n          Modo Live\n        ")]):_vm._e(),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.exportCsv}},[_vm._v("\n          Exportar CSV\n        ")]):_vm._e()])])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{attrs:{"for":"dateInitIn"}},[_c('span',[_vm._v("Fecha de inicio: ")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{attrs:{"for":"dateFinishIn"}},[_c('span',[_vm._v("Fecha fin: ")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -854,7 +854,7 @@ exports.default = {
 
         // get last {metricLength} seconds
         for (var i = _this2.metricLength + 1; i > 0; i--) {
-          newLabels.push(moment().subtract('seconds', i).format('HH:mm:ss'));
+          newLabels.push(moment().subtract(i, 'seconds').format('HH:mm:ss'));
         }
 
         _this2.liveChartData = {
@@ -906,13 +906,10 @@ exports.default = {
                                         type = metric.type;
                                         dateInit = moment().subtract(_this3.lastSeconds, 'seconds').format();
                                         dateFinish = moment().format();
-
-
-                                        console.log("dateInit: " + dateInit + ", dateFinish: " + dateFinish);
-                                        _context2.next = 6;
+                                        _context2.next = 5;
                                         return _this3.getFilteredData(uuid, type, dateInit, dateFinish);
 
-                                      case 6:
+                                      case 5:
                                         lasts = _context2.sent;
                                         labelName = uuid + "#" + type;
                                         // dont remove this line below, labelName is changed by lineColor
@@ -936,7 +933,7 @@ exports.default = {
 
                                         datasets.push(newDataset);
 
-                                      case 13:
+                                      case 12:
                                       case "end":
                                         return _context2.stop();
                                     }
@@ -1266,6 +1263,33 @@ exports.default = {
     },
     toggleLiveMode: function toggleLiveMode() {
       return this.live = true;
+    },
+    exportCsv: function exportCsv() {
+      var datasets = this.filteredChartData.datasets;
+
+      var filteredDatasets = datasets.filter(function (_ref4) {
+        var hidden = _ref4.hidden;
+        return !hidden;
+      });
+      var csvData = filteredDatasets.map(function (_ref5) {
+        var label = _ref5.label,
+            data = _ref5.data;
+
+        return data.map(function (_ref6) {
+          var x = _ref6.x,
+              y = _ref6.y;
+
+          return { metrica: label, tiempo: x, valor: y };
+        });
+      }).flat();
+      console.log('filteredDatasets', filteredDatasets);
+      console.log('csvData', csvData);
+
+      (0, _utils.exportCSVFile)({
+        metrica: 'Metrica',
+        tiempo: 'Tiempo',
+        valor: 'Valor'
+      }, csvData, 'Metrica');
     }
   }
 };

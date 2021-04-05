@@ -58,6 +58,14 @@
           >
             Modo Live
           </button>
+          <button
+            v-if="!live"
+            class="buttonLive"
+            type="button"
+            @click="exportCsv"
+          >
+            Exportar CSV
+          </button>
         </div>
       </form>
     </div>

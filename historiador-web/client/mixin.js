@@ -2,7 +2,7 @@ const { serverHost } = require("../config");
 const request = require("request-promise-native");
 const moment = require("moment");
 
-import { initDataset } from './utils'
+import { exportCSVFile, initDataset } from './utils'
 
 export default {
   name: 'AgentMetricMixin',
@@ -38,7 +38,7 @@ export default {
         
         // get last {metricLength} seconds
         for(var i = this.metricLength + 1; i > 0; i-- ){
-          newLabels.push(moment().subtract('seconds', i).format('HH:mm:ss'))
+          newLabels.push(moment().subtract(i,'seconds').format('HH:mm:ss'))
         }
 
         this.liveChartData = {
@@ -239,6 +239,21 @@ export default {
     },
     toggleLiveMode(){
       return this.live = true
+    },
+    exportCsv(){
+      const { filteredChartData: { datasets } } = this
+      const filteredDatasets = datasets.filter(({ hidden }) => !hidden)
+      const csvData = filteredDatasets.map(({ label, data }) => {
+        return data.map(({ x , y }) => { 
+          return { metrica: label, tiempo: x, valor: y}
+        })
+      }).flat()
+
+      exportCSVFile({
+        metrica: 'Metrica',
+        tiempo: 'Tiempo',
+        valor: 'Valor'
+      }, csvData , 'Metrica')
     }
   }
 }
