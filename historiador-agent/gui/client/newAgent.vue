@@ -82,10 +82,16 @@
               </div>
 
               <div class="metric-each" v-for="(metric, index) in metrics" :key="index">
-                <b class="metric-name-title">{{`Nombre de la métrica #${index}`}}</b>
-                <input :placeholder="`Nombre de la métrica #${index}`" type="text" v-model="metric.name" id="metric-name">
+                <!-- if example -->
+                <div v-if="agents[_index].entryType === 'example'" class="db">
+                  <b class="metric-name-title">{{`Nombre de la métrica #${index}`}}</b>
+                  <input :placeholder="`Nombre de la métrica #${index}`" type="text" v-model="metric.name" id="metric-name">
+                </div>
                 <!-- if modbus -->
                 <div v-if="agents[_index].entryType === 'modbus'" class="modbus-wrapper">
+                  <b class="metric-name-title">{{`Nombre de la métrica #${index}`}}</b>
+                  <input :placeholder="`Nombre de la métrica #${index}`" type="text" v-model="metric.name" id="metric-name">
+
                   <b class="title-bold">Dirección de la métrica #{{index}}</b>
                   <input :placeholder="`Dirección de la métrica #${index}`" type="text" v-model="metric.modbusAddress" id="metric-name">
                 </div>

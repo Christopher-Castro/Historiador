@@ -9,7 +9,7 @@ const [node, file, agents] = process.argv
 
 const _agents = JSON.parse(agents)
 
-_agents.map(({ name, group: username, entryType, interval, intervalType, deadline, deadlineType, metrics }) => {
+_agents.map(({ name, group: username, entryType, interval, intervalType, deadline, deadlineType, modbus, db, metrics }) => {
     if (entryType === "example") {
 
         const timeMeasure2 =
@@ -76,7 +76,10 @@ _agents.map(({ name, group: username, entryType, interval, intervalType, deadlin
 
     if (entryType === "db") {
     //     try {
-            const { ip: host, username: user, password, dbName: database, dbTable, dbColumns} = _db
+        const { ip, username, password, dbName } = db
+        metrics.map(({ name, type, modbusAddress }) => {
+        
+        })
     //         const connection = mysql.createConnection({
     //             host,
     //             user,
@@ -112,6 +115,10 @@ _agents.map(({ name, group: username, entryType, interval, intervalType, deadlin
     //         `${__dirname}/logs/${new Date().getTime()}-modbus-query.json`,
     //         `leyendo ${ip} from ${id};`
     //     );
+        const { ip, id } = modbus
+        metrics.map(({ dbTable, dbColumn, type }) => {
+            
+        })
     
     }
     
