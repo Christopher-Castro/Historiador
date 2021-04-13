@@ -11,7 +11,7 @@ exports.default = {};
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"header-container"},[_c('router-link',{attrs:{"to":"/"}},[_c('img',{attrs:{"src":"/images/platziverse.png","width":"185","height":"38","alt":"PlatziVerse"}})])],1),_vm._v(" "),_c('div',{staticClass:"menu"},[_c('div',{staticClass:"menu-item"},[_c('router-link',{attrs:{"to":"/"}},[_vm._v("Panel")])],1)])]),_vm._v(" "),_c('div',{attrs:{"id":"app"}},[_c('router-view')],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"header-container"},[_c('router-link',{attrs:{"to":"/"}},[_c('img',{attrs:{"src":"/images/platziverse.png","width":"185","height":"38","alt":"PlatziVerse"}})])],1),_vm._v(" "),_c('div',{staticClass:"menu"})]),_vm._v(" "),_c('div',{attrs:{"id":"app"}},[_c('router-view')],1)])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-6a5c31d0"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -49,7 +49,7 @@ const vm = new Vue({
 });
 
 },{"./Layout.vue":1,"./newAgent.vue":3,"vue":446,"vue-router":444}],3:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("*[data-v-6126fbda] { \n      font-family: 'Roboto', sans-serif;\n  }\n  input[data-v-6126fbda],select[data-v-6126fbda], option[data-v-6126fbda] {\n    margin: 5px 0;\n    padding: 4px 2px;\n    font-size: 14px;\n  }\n  input[data-v-6126fbda]::placeholder {\n    font-size: 14px;\n  }\n  .wrapper[data-v-6126fbda] {\n    padding: 25px 25px;\n  }\n  .agents-cards[data-v-6126fbda] {\n    display: flex;\n    justify-items: center;\n\n  }\n  .agent-each[data-v-6126fbda] {\n    margin: 15px 15px 15px 0;\n    padding: 17px 13px;\n    border: 1px solid black;\n    border-radius: 4px;\n  }\n  .agent-each > h3[data-v-6126fbda] {\n    margin: 0;\n  }\n  .metric-each[data-v-6126fbda] {\n    margin: 15px 0;\n    padding: 5px 0px;\n  }\n\n  .title-bold[data-v-6126fbda],\n  .metric-name-title[data-v-6126fbda],\n  .metric-type-title[data-v-6126fbda] {\n    margin-top: 6px;\n    display: block;\n  }\n  .buttonFilter[data-v-6126fbda] {\n    width: 200px;\n    border-radius: 4px;\n    border: none;\n    color: white;\n    font-size: 14px;\n    background-color: blue;\n    padding: 5px 5px;\n  }\n  .buttonLive[data-v-6126fbda] {\n    width: 200px;\n    border-radius: 4px;\n    border: 1px solid blue;\n    color: blue;\n    font-size: 14px;\n    background-color: white;\n    padding: 5px 5px;\n    display: block;\n  }\n\n  .buttonSubmit[data-v-6126fbda] {\n    width: 300px;\n    border-radius: 4px;\n    border: 1px solid #98ca3f;\n    color: white;\n    font-size: 18px;\n    background-color: #98ca3f;\n    padding: 7px 7px;\n    display: block;\n  }\n\n\n  /* The alert message box */\n.alert[data-v-6126fbda] {\n  padding: 15px;\n  background-color: #f44336; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n.alert-success[data-v-6126fbda] {\n  padding: 15px;\n  background-color: #98ca3f; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n\n/* The close button */\n.closebtn[data-v-6126fbda] {\n  margin-left: 15px;\n  color: white;\n  font-weight: bold;\n  float: right;\n  font-size: 22px;\n  line-height: 20px;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/* When moving the mouse over the close button */\n.closebtn[data-v-6126fbda]:hover {\n  color: black;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("*[data-v-6126fbda] { \n      font-family: 'Roboto', sans-serif;\n  }\n  h1[data-v-6126fbda] {\n    padding-left: 25px;\n  }\n  input[data-v-6126fbda],select[data-v-6126fbda], option[data-v-6126fbda] {\n    margin: 5px 0;\n    padding: 4px 2px;\n    font-size: 14px;\n  }\n  input[data-v-6126fbda]::placeholder {\n    font-size: 14px;\n  }\n  .wrapper[data-v-6126fbda] {\n    padding: 0px 25px;\n  }\n  .connection-type[data-v-6126fbda] {\n    margin-top: 20px;\n    margin-bottom: 15px;\n  }\n\n  .left-margin[data-v-6126fbda] {\n    margin-left: 5px;\n  }\n\n  .agents-cards[data-v-6126fbda] {\n    display: flex;\n    justify-items: center;\n\n  }\n  .agent-each[data-v-6126fbda] {\n    margin: 0 15px 15px 0;\n    padding: 15px 30px;\n    border: 1px solid black;\n    border-radius: 4px;\n  }\n  .agent-each > h3[data-v-6126fbda] {\n    margin: 0;\n  }\n  .metric-each[data-v-6126fbda] {\n    position: relative;\n    background-color: #f3f4ed;\n    border-radius: 5px;\n    margin: 15px 0;\n    padding: 15px;\n  }\n\n  .title-agent-wrapper[data-v-6126fbda] {\n    position: relative;\n  }\n\n  .title-agent-wrapper > h3[data-v-6126fbda]{\n    margin-top: 0px;\n  }\n  .left-side[data-v-6126fbda] {\n    display: flex;\n    position: fixed;\n    bottom: 15px;\n    right: 15px;\n  }\n  .title-bold[data-v-6126fbda],\n  .metric-name-title[data-v-6126fbda],\n  .metric-type-title[data-v-6126fbda] {\n    margin-top: 6px;\n    display: block;\n  }\n  .buttonFilter[data-v-6126fbda] {\n    width: 100%;\n    border-radius: 4px;\n    border: none;\n    color: white;\n    font-size: 14px;\n    background-color: blue;\n    padding: 5px 5px;\n  }\n  .buttonLive[data-v-6126fbda] {\n    width: 200px;\n    border-radius: 4px;\n    border: 1px solid blue;\n    color: blue;\n    font-size: 14px;\n    background-color: white;\n    padding: 5px 5px;\n    display: block;\n  }\n  .addAgentButton[data-v-6126fbda] {\n    width: 300px;\n    border-radius: 4px;\n    border: 1px solid blue;\n    color: blue;\n    font-size: 18px;\n    background-color: white;\n    padding: 7px 7px;\n    display: block;\n    margin-top: 15px;\n    margin-right: 15px;    \n  }\n  .buttonSubmit[data-v-6126fbda] {\n    width: 300px;\n    border-radius: 4px;\n    border: 1px solid #98ca3f;\n    color: white;\n    font-size: 18px;\n    background-color: #98ca3f;\n    padding: 7px 7px;\n    display: block;\n    margin-top: 15px;\n  }\n\n\n  /* The alert message box */\n.alert[data-v-6126fbda] {\n  padding: 15px;\n  background-color: #f44336; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n.alert-success[data-v-6126fbda] {\n  padding: 15px;\n  background-color: #98ca3f; /* Red */\n  color: white;\n  margin-bottom: 15px;\n}\n\n/* The close button */\n.closebtn[data-v-6126fbda] {\n  margin-left: 15px;\n  color: white;\n  font-weight: bold;\n  float: right;\n  font-size: 22px;\n  line-height: 20px;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/* When moving the mouse over the close button */\n.closebtn[data-v-6126fbda]:hover {\n  color: black;\n}\n\n.delete-cross[data-v-6126fbda] {\n  /* position: absolute; */\n  /* top: 5px; */\n  /* right: 5px */\n}\n\n.close[data-v-6126fbda] {\n  position: absolute;\n  cursor: pointer;\n  right: -5px;\n  top: 4px;\n  width: 32px;\n  height: 32px;\n}\n.close[data-v-6126fbda]:before, .close[data-v-6126fbda]:after {\n  position: absolute;\n  left: 15px;\n  content: ' ';\n  height: 15px;\n  width: 2px;\n  background-color:red;\n}\n.close[data-v-6126fbda]:before {\n  transform: rotate(45deg);\n}\n.close[data-v-6126fbda]:after {\n  transform: rotate(-45deg);\n}")
 ;(function(){
 'use strict';
 
@@ -69,53 +69,49 @@ exports.default = {
       success: null,
       errors: [],
       agents: [{
+        name: '',
+        group: '',
+        entryType: 'db',
+        interval: 1,
+        deadline: 5,
+        intervalType: "seconds",
+        deadlineType: "minutes",
+        modbus: {
+          ip: null,
+          id: null
+        },
+        db: {
+          ip: null,
+          username: null,
+          password: null,
+          dbName: null
+        },
         metrics: [{
           name: '',
-          type: 'analogic'
+          type: 'analogic',
+          dbTable: null,
+          dbColumn: null,
+          modbusAddress: null
         }]
-      }],
-      ip: "172.16.0.1",
-      interval: 1,
-      deadline: 5,
-      intervalType: "seconds",
-      deadlineType: "minutes"
+      }]
+
     };
   },
 
   methods: {
-    checkForm: async function checkForm(e) {
-
-      e.preventDefault();
-      var ip = this.ip,
-          interval = this.interval,
-          deadline = this.deadline,
-          intervalType = this.intervalType,
-          deadlineType = this.deadlineType,
-          agents = this.agents;
+    checkForm: async function checkForm() {
+      var agents = this.agents;
 
 
       this.errors = [];
-
-      if (!ip) {
-        this.errors.push('El IP es obligatorio.');
-        return false;
-      }
-
-      if (!interval) {
-        this.errors.push('El intervalo es obligatorio.');
-        return false;
-      }
-
-      if (!deadline) {
-        this.errors.push('La duración es obligatoria.');
-        return false;
-      }
 
       if (!agents) {
         this.errors.push('Los agentes son obligatorios.');
         return false;
       }
+
       var agentErrors = [];
+
       agents.forEach(function (_ref) {
         var metrics = _ref.metrics;
 
@@ -125,6 +121,7 @@ exports.default = {
         }
         metrics.forEach(function (_ref2, index) {
           var name = _ref2.name;
+
 
           if (!name) {
             agentErrors.push('El nombre de la m\xE9trica #' + index + ' es obligatorio.');
@@ -142,12 +139,7 @@ exports.default = {
         method: 'POST',
         url: serverHost + '/ips',
         body: {
-          ip: ip,
-          interval: interval,
-          deadline: deadline,
-          intervalType: intervalType,
-          deadlineType: deadlineType,
-          agents: agents
+          agents: this.agents
         },
         json: true
       };
@@ -156,16 +148,29 @@ exports.default = {
         var added = await request(options);
         this.success = "Se han agregado los agentes con exito.";
       } catch (e) {
-        console.error('no se pudo agregar ip.', e);
+        console.error('no se pudo agregar agente.', e);
       }
     },
+    newDbColumn: function newDbColumn() {
+      var dbColumn = { name: '' };
+      this.db.dbColumns.push(dbColumn);
+    },
+    deleteDbColumn: function deleteDbColumn(index) {
+      this.db.dbColumns.splice(index, 1);
+    },
     newAgentRow: function newAgentRow() {
-      var agent = { metrics: [{ name: '', type: 'analogic' }] };
+      var agent = { name: '', group: '', metrics: [{ name: '', type: 'analogic' }] };
       this.agents.push(agent);
+    },
+    deleteAgent: function deleteAgent(index) {
+      this.agents.splice(index, 1);
     },
     newMetricRow: function newMetricRow(index) {
       var metric = { name: '', type: 'analogic' };
       this.agents[index].metrics.push(metric);
+    },
+    deleteMetric: function deleteMetric(agentIndex, index) {
+      this.agents[agentIndex].metrics.splice(index, 1);
     }
   }
 
@@ -174,9 +179,9 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{staticClass:"wrapper",on:{"submit":_vm.checkForm}},[_c('h1',[_vm._v("Panel de creación de módulo")]),_vm._v(" "),(_vm.success && _vm.success.length)?_c('div',{staticClass:"alert-success"},[_c('span',{staticClass:"closebtn",attrs:{"onclick":"this.parentElement.style.display='none';"}},[_vm._v("×")]),_vm._v("\n      "+_vm._s(_vm.success)+"\n    ")]):_vm._e(),_vm._v(" "),(_vm.errors.length)?_c('div',{staticClass:"alert"},[_c('span',{staticClass:"closebtn",attrs:{"onclick":"this.parentElement.style.display='none';"}},[_vm._v("×")]),_vm._v(" "),_vm._l((_vm.errors),function(error,index){return _c('li',{key:index},[_vm._v(_vm._s(error))])})],2):_vm._e(),_vm._v(" "),_c('div',{staticClass:"formNewIp"},[_c('b',{staticClass:"title-bold"},[_vm._v("IP de la máquina")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.ip),expression:"ip"}],attrs:{"placeholder":"IP de la máquina","type":"text","name":"ip"},domProps:{"value":(_vm.ip)},on:{"input":function($event){if($event.target.composing){ return; }_vm.ip=$event.target.value}}}),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Intervalo de muestreo")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.interval),expression:"interval"}],attrs:{"placeholder":"Intervalo de muestreo","type":"number","min":"1","name":"interval"},domProps:{"value":(_vm.interval)},on:{"input":function($event){if($event.target.composing){ return; }_vm.interval=$event.target.value}}}),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.intervalType),expression:"intervalType"}],attrs:{"name":"time-range-interval"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.intervalType=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},[_c('option',{attrs:{"value":"seconds"}},[_vm._v("Segundos")]),_vm._v(" "),_c('option',{attrs:{"value":"minutes"}},[_vm._v("Minutos")]),_vm._v(" "),_c('option',{attrs:{"value":"hours"}},[_vm._v("Horas")]),_vm._v(" "),_c('option',{attrs:{"value":"days"}},[_vm._v("Dias")])]),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Duración de la toma de datos")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.deadline),expression:"deadline"}],attrs:{"placeholder":"Duración de la toma de datos","type":"number","min":"1","name":"deadline"},domProps:{"value":(_vm.deadline)},on:{"input":function($event){if($event.target.composing){ return; }_vm.deadline=$event.target.value}}}),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.deadlineType),expression:"deadlineType"}],attrs:{"name":"time-range-deadline"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.deadlineType=$event.target.multiple ? $$selectedVal : $$selectedVal[0]}}},[_c('option',{attrs:{"value":"seconds"}},[_vm._v("Segundos")]),_vm._v(" "),_c('option',{attrs:{"value":"minutes"}},[_vm._v("Minutos")]),_vm._v(" "),_c('option',{attrs:{"value":"hours"}},[_vm._v("Horas")]),_vm._v(" "),_c('option',{attrs:{"value":"days"}},[_vm._v("Dias")])]),_vm._v(" "),_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":function($event){return _vm.newAgentRow()}}},[_vm._v("Agregar Agente")]),_vm._v(" "),_c('div',{staticClass:"agents-cards"},_vm._l((_vm.agents),function(ref,_index){
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"w"},[_c('h1',[_vm._v("Panel de creación de módulo")]),_vm._v(" "),(_vm.success && _vm.success.length)?_c('div',{staticClass:"alert-success"},[_c('span',{staticClass:"closebtn",attrs:{"onclick":"this.parentElement.style.display='none';"}},[_vm._v("×")]),_vm._v("\n    "+_vm._s(_vm.success)+"\n  ")]):_vm._e(),_vm._v(" "),(_vm.errors.length)?_c('div',{staticClass:"alert"},[_c('span',{staticClass:"closebtn",attrs:{"onclick":"this.parentElement.style.display='none';"}},[_vm._v("×")]),_vm._v(" "),_vm._l((_vm.errors),function(error,index){return _c('li',{key:index},[_vm._v(_vm._s(error))])})],2):_vm._e(),_vm._v(" "),_c('div',{staticClass:"left-side"},[_c('button',{staticClass:"addAgentButton",attrs:{"type":"button"},on:{"click":function($event){return _vm.newAgentRow()}}},[_vm._v("Agregar Agente")]),_vm._v(" "),_c('button',{staticClass:"buttonSubmit",attrs:{"type":"submit"},on:{"click":function($event){return _vm.checkForm()}}},[_vm._v("Agregar Módulo")])]),_vm._v(" "),_c('form',{staticClass:"wrapper"},[_c('div',{staticClass:"agents-cards"},_vm._l((_vm.agents),function(ref,_index){
 var metrics = ref.metrics;
-return _c('div',{key:_index,staticClass:"agent-each"},[_c('h3',[_vm._v("Agente #"+_vm._s(_index))]),_vm._v(" "),_vm._l((metrics),function(metric,index){return _c('div',{key:index,staticClass:"metric-each"},[_c('b',{staticClass:"metric-name-title"},[_vm._v(_vm._s(("Nombre de la métrica #" + index)))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.name),expression:"metric.name"}],attrs:{"placeholder":("Nombre de la métrica #" + index),"type":"text","id":"metric-name"},domProps:{"value":(metric.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(metric, "name", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"metric-type-title"},[_vm._v("Tipo de métrica")]),_vm._v(" "),_c('label',{attrs:{"for":"metric-type"}},[_vm._v("Analógico")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.type),expression:"metric.type"}],attrs:{"type":"radio","id":"metric-type","value":"analogic"},domProps:{"checked":_vm._q(metric.type,"analogic")},on:{"change":function($event){return _vm.$set(metric, "type", "analogic")}}}),_vm._v(" "),_c('label',{attrs:{"for":"metric-type"}},[_vm._v("Digital")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.type),expression:"metric.type"}],attrs:{"type":"radio","id":"metric-type","value":"digital"},domProps:{"checked":_vm._q(metric.type,"digital")},on:{"change":function($event){return _vm.$set(metric, "type", "digital")}}})])}),_vm._v(" "),_c('button',{staticClass:"buttonFilter",attrs:{"type":"button"},on:{"click":function($event){return _vm.newMetricRow(_index)}}},[_vm._v("Agregar Métrica")])],2)}),0)]),_vm._v(" "),_c('button',{staticClass:"buttonSubmit",attrs:{"type":"submit"}},[_vm._v("Agregar Módulo")])])}
+return _c('div',{key:_index,staticClass:"agent-each"},[_c('div',{staticClass:"title-agent-wrapper"},[_c('h3',[_vm._v("Agente #"+_vm._s(_index))]),_vm._v(" "),_c('a',{staticClass:"close delete-cross",on:{"click":function($event){return _vm.deleteAgent(_index)}}}),_vm._v(" "),_c('b',{staticClass:"metric-name-title"},[_vm._v(_vm._s(("Nombre del agente #" + _index)))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].name),expression:"agents[_index].name"}],attrs:{"placeholder":("Nombre del agente #" + _index),"type":"text","id":"agent-name"},domProps:{"value":(_vm.agents[_index].name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index], "name", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"metric-name-title"},[_vm._v(_vm._s(("Grupo del agente #" + _index)))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].group),expression:"agents[_index].group"}],attrs:{"placeholder":("Grupo del agente #" + _index),"type":"text","id":"agent-group"},domProps:{"value":(_vm.agents[_index].group)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index], "group", $event.target.value)}}}),_vm._v(" "),_c('div',{staticClass:"connection-type"},[_c('b',{staticClass:"metric-type-title"},[_vm._v("Tipo de conexión")]),_vm._v(" "),_c('label',{attrs:{"for":"db"}},[_vm._v("Base de datos")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].entryType),expression:"agents[_index].entryType"}],attrs:{"type":"radio","id":"db","value":"db"},domProps:{"checked":_vm._q(_vm.agents[_index].entryType,"db")},on:{"change":function($event){return _vm.$set(_vm.agents[_index], "entryType", "db")}}}),_vm._v(" "),_c('label',{staticClass:"left-margin",attrs:{"for":"modbus"}},[_vm._v("Modbus")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].entryType),expression:"agents[_index].entryType"}],attrs:{"type":"radio","id":"modbus","value":"modbus"},domProps:{"checked":_vm._q(_vm.agents[_index].entryType,"modbus")},on:{"change":function($event){return _vm.$set(_vm.agents[_index], "entryType", "modbus")}}}),_vm._v(" "),_c('label',{staticClass:"left-margin",attrs:{"for":"example"}},[_vm._v("Example")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].entryType),expression:"agents[_index].entryType"}],attrs:{"type":"radio","id":"example","value":"example"},domProps:{"checked":_vm._q(_vm.agents[_index].entryType,"example")},on:{"change":function($event){return _vm.$set(_vm.agents[_index], "entryType", "example")}}})]),_vm._v(" "),(_vm.agents[_index].entryType === 'db')?_c('div',{staticClass:"db-inputs"},[_c('b',{staticClass:"title-bold"},[_vm._v("IP de la DB")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].db.ip),expression:"agents[_index].db.ip"}],attrs:{"placeholder":"IP de la máquina","type":"text"},domProps:{"value":(_vm.agents[_index].db.ip)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index].db, "ip", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Username")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].db.username),expression:"agents[_index].db.username"}],attrs:{"placeholder":"Username","type":"text"},domProps:{"value":(_vm.agents[_index].db.username)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index].db, "username", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Password")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].db.password),expression:"agents[_index].db.password"}],attrs:{"placeholder":"Password","type":"password"},domProps:{"value":(_vm.agents[_index].db.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index].db, "password", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Nombre de la DB")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].db.dbName),expression:"agents[_index].db.dbName"}],attrs:{"placeholder":"Nombre de la DB","type":"text"},domProps:{"value":(_vm.agents[_index].db.dbName)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index].db, "dbName", $event.target.value)}}})]):_vm._e(),_vm._v(" "),(_vm.agents[_index].entryType === 'modbus')?_c('div',{staticClass:"modbus-inputs"},[_c('b',{staticClass:"title-bold"},[_vm._v("Ip Modbus")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].modbus.ip),expression:"agents[_index].modbus.ip"}],attrs:{"placeholder":"Ip Modbus","type":"text"},domProps:{"value":(_vm.agents[_index].modbus.ip)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index].modbus, "ip", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Id Modbus")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].modbus.id),expression:"agents[_index].modbus.id"}],attrs:{"placeholder":"Id Modbus","type":"number"},domProps:{"value":(_vm.agents[_index].modbus.id)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index].modbus, "id", $event.target.value)}}})]):_vm._e(),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Intervalo de muestreo")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].interval),expression:"agents[_index].interval"}],attrs:{"placeholder":"Intervalo de muestreo","type":"number","min":"1","name":"interval"},domProps:{"value":(_vm.agents[_index].interval)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index], "interval", $event.target.value)}}}),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].intervalType),expression:"agents[_index].intervalType"}],attrs:{"name":"time-range-interval"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.agents[_index], "intervalType", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},[_c('option',{attrs:{"value":"seconds"}},[_vm._v("Segundos")]),_vm._v(" "),_c('option',{attrs:{"value":"minutes"}},[_vm._v("Minutos")]),_vm._v(" "),_c('option',{attrs:{"value":"hours"}},[_vm._v("Horas")]),_vm._v(" "),_c('option',{attrs:{"value":"days"}},[_vm._v("Dias")])]),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Duración de la toma de datos")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].deadline),expression:"agents[_index].deadline"}],attrs:{"placeholder":"Duración de la toma de datos","type":"number","min":"1","name":"deadline"},domProps:{"value":(_vm.agents[_index].deadline)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.agents[_index], "deadline", $event.target.value)}}}),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.agents[_index].deadlineType),expression:"agents[_index].deadlineType"}],attrs:{"name":"time-range-deadline"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.agents[_index], "deadlineType", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},[_c('option',{attrs:{"value":"seconds"}},[_vm._v("Segundos")]),_vm._v(" "),_c('option',{attrs:{"value":"minutes"}},[_vm._v("Minutos")]),_vm._v(" "),_c('option',{attrs:{"value":"hours"}},[_vm._v("Horas")]),_vm._v(" "),_c('option',{attrs:{"value":"days"}},[_vm._v("Dias")])])]),_vm._v(" "),_vm._l((metrics),function(metric,index){return _c('div',{key:index,staticClass:"metric-each"},[_c('b',{staticClass:"metric-name-title"},[_vm._v(_vm._s(("Nombre de la métrica #" + index)))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.name),expression:"metric.name"}],attrs:{"placeholder":("Nombre de la métrica #" + index),"type":"text","id":"metric-name"},domProps:{"value":(metric.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(metric, "name", $event.target.value)}}}),_vm._v(" "),(_vm.agents[_index].entryType === 'modbus')?_c('div',{staticClass:"modbus-wrapper"},[_c('b',{staticClass:"title-bold"},[_vm._v("Dirección de la métrica #"+_vm._s(index))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.modbusAddress),expression:"metric.modbusAddress"}],attrs:{"placeholder":("Dirección de la métrica #" + index),"type":"text","id":"metric-name"},domProps:{"value":(metric.modbusAddress)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(metric, "modbusAddress", $event.target.value)}}})]):_vm._e(),_vm._v(" "),(_vm.agents[_index].entryType === 'db')?_c('div',{staticClass:"db"},[_c('b',{staticClass:"title-bold"},[_vm._v("Nombre de la Tabla")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.dbTable),expression:"metric.dbTable"}],attrs:{"placeholder":"Nombre de la Tabla","type":"text"},domProps:{"value":(metric.dbTable)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(metric, "dbTable", $event.target.value)}}}),_vm._v(" "),_c('b',{staticClass:"title-bold"},[_vm._v("Nombre de la metrica # "+_vm._s(index))]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.dbColumn),expression:"metric.dbColumn"}],attrs:{"placeholder":("Nombre de la metrica # " + index),"type":"text"},domProps:{"value":(metric.dbColumn)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(metric, "dbColumn", $event.target.value)}}})]):_vm._e(),_vm._v(" "),_c('b',{staticClass:"metric-type-title"},[_vm._v("Tipo de métrica")]),_vm._v(" "),_c('a',{staticClass:"close delete-cross",on:{"click":function($event){return _vm.deleteMetric(_index, index)}}}),_vm._v(" "),_c('label',{attrs:{"for":"analogic"}},[_vm._v("Analógico")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.type),expression:"metric.type"}],attrs:{"type":"radio","id":"analogic","value":"analogic"},domProps:{"checked":_vm._q(metric.type,"analogic")},on:{"change":function($event){return _vm.$set(metric, "type", "analogic")}}}),_vm._v(" "),_c('label',{staticClass:"left-margin",attrs:{"for":"digital"}},[_vm._v("Digital")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(metric.type),expression:"metric.type"}],attrs:{"type":"radio","id":"digital","value":"digital"},domProps:{"checked":_vm._q(metric.type,"digital")},on:{"change":function($event){return _vm.$set(metric, "type", "digital")}}})])}),_vm._v(" "),_c('button',{staticClass:"buttonFilter",attrs:{"type":"button"},on:{"click":function($event){return _vm.newMetricRow(_index)}}},[_vm._v("Agregar Métrica")])],2)}),0)])])}
 __vue__options__.staticRenderFns = []
 __vue__options__._scopeId = "data-v-6126fbda"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
@@ -196,7 +201,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 
 module.exports = {
   endpoint: process.env.API_ENDPOINT || 'http://api:3000',
-  serverHost: process.env.SERVER_HOST || 'http://localhost:8080',
+  serverHost: process.env.SERVER_HOST || 'http://localhost:8000',
   apiToken: process.env.API_TOKEN || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsInBlcm1pc3Npb25zIjpbIm1ldHJpY3M6cmVhZCJdLCJpYXQiOjE2MDkxODk4ODV9.J_OHmSIPpC62dEJ3_p2GhwGWXGE8oOcjdEWRaiVQMD8'
 };
 

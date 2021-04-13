@@ -169,6 +169,7 @@ export default {
               }
               found[0].hidden = hidden
               found[0].data.push({ y: data, x: moment(timestamp).format('HH:mm:ss')})
+              console.log(found[0].data)
             } else {
               
               const firstData = [{ y: data, x: moment(timestamp).format('HH:mm:ss')}] 
