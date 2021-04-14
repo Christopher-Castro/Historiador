@@ -557,7 +557,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"../config":10,"./line-chart":5,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"moment":448,"random-material-color":494,"request-promise-native":502,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],7:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".dates {\n  display: grid;\n}\n.date-time {\n  width: 40%;\n  display: flex;\n  margin: 5px 0px 5px 0px;\n  justify-content: space-between;\n}\n\n.buttonFilter {\n  width: 200px;\n  border-radius: 4px;\n  border: none;\n  color: white;\n  font-size: 14px;\n  background-color: blue;\n  padding: 5px 5px;\n}\n\n.buttonLive {\n  width: 200px;\n  border-radius: 4px;\n  border: 1px solid blue;\n  color: blue;\n  font-size: 14px;\n  background-color: white;\n  padding: 5px 5px;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".dates {\r\n  display: grid;\r\n}\r\n.date-time {\r\n  width: 40%;\r\n  display: flex;\r\n  margin: 5px 0px 5px 0px;\r\n  justify-content: space-between;\r\n}\r\n\r\n.buttonFilter {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: none;\r\n  color: white;\r\n  font-size: 14px;\r\n  background-color: blue;\r\n  padding: 5px 5px;\r\n}\r\n\r\n.buttonLive {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: 1px solid blue;\r\n  color: blue;\r\n  font-size: 14px;\r\n  background-color: white;\r\n  padding: 5px 5px;\r\n}")
 ;(function(){
 "use strict";
 
@@ -53670,37 +53670,49 @@ utils.intFromLE = intFromLE;
 arguments[4][69][0].apply(exports,arguments)
 },{"buffer":107,"dup":69}],321:[function(require,module,exports){
 module.exports={
-  "name": "elliptic",
-  "version": "6.5.3",
-  "description": "EC cryptography",
-  "main": "lib/elliptic.js",
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "jscs": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
-    "jshint": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
-    "lint": "npm run jscs && npm run jshint",
-    "unit": "istanbul test _mocha --reporter=spec test/index.js",
-    "test": "npm run lint && npm run unit",
-    "version": "grunt dist && git add dist/"
+  "_from": "elliptic@^6.5.3",
+  "_id": "elliptic@6.5.3",
+  "_inBundle": false,
+  "_integrity": "sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==",
+  "_location": "/elliptic",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "elliptic@^6.5.3",
+    "name": "elliptic",
+    "escapedName": "elliptic",
+    "rawSpec": "^6.5.3",
+    "saveSpec": null,
+    "fetchSpec": "^6.5.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:indutny/elliptic"
-  },
-  "keywords": [
-    "EC",
-    "Elliptic",
-    "curve",
-    "Cryptography"
+  "_requiredBy": [
+    "/browserify-sign",
+    "/create-ecdh"
   ],
-  "author": "Fedor Indutny <fedor@indutny.com>",
-  "license": "MIT",
+  "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz",
+  "_shasum": "cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6",
+  "_spec": "elliptic@^6.5.3",
+  "_where": "C:\\Users\\alex_\\OneDrive - Escuela Politécnica Nacional\\Tesis\\historiador-web\\node_modules\\browserify-sign",
+  "author": {
+    "name": "Fedor Indutny",
+    "email": "fedor@indutny.com"
+  },
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
-  "homepage": "https://github.com/indutny/elliptic",
+  "bundleDependencies": false,
+  "dependencies": {
+    "bn.js": "^4.4.0",
+    "brorand": "^1.0.1",
+    "hash.js": "^1.0.0",
+    "hmac-drbg": "^1.0.0",
+    "inherits": "^2.0.1",
+    "minimalistic-assert": "^1.0.0",
+    "minimalistic-crypto-utils": "^1.0.0"
+  },
+  "deprecated": false,
+  "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",
     "coveralls": "^3.0.8",
@@ -53717,15 +53729,32 @@ module.exports={
     "jshint": "^2.10.3",
     "mocha": "^6.2.2"
   },
-  "dependencies": {
-    "bn.js": "^4.4.0",
-    "brorand": "^1.0.1",
-    "hash.js": "^1.0.0",
-    "hmac-drbg": "^1.0.0",
-    "inherits": "^2.0.1",
-    "minimalistic-assert": "^1.0.0",
-    "minimalistic-crypto-utils": "^1.0.0"
-  }
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/indutny/elliptic",
+  "keywords": [
+    "EC",
+    "Elliptic",
+    "curve",
+    "Cryptography"
+  ],
+  "license": "MIT",
+  "main": "lib/elliptic.js",
+  "name": "elliptic",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/indutny/elliptic.git"
+  },
+  "scripts": {
+    "jscs": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
+    "jshint": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
+    "lint": "npm run jscs && npm run jshint",
+    "test": "npm run lint && npm run unit",
+    "unit": "istanbul test _mocha --reporter=spec test/index.js",
+    "version": "grunt dist && git add dist/"
+  },
+  "version": "6.5.3"
 }
 
 },{}],322:[function(require,module,exports){

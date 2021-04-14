@@ -7,7 +7,7 @@ var con = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "example",
-  database: "pump01"
+  database: "db01"
 });
 
 let data
@@ -15,7 +15,7 @@ var i = 0
 
 con.connect(function(err) {
   if (err) throw err;
-    con.query("SELECT startCmd, stopCmd, status, speedSP, speedPV FROM pump01", function (err, result, fields) {
+    con.query("SELECT metrica01 FROM tabla01", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
     data = result

@@ -74,8 +74,9 @@ services:
     # cambiar a la ejecucion del servidor web
     command: "npm run start-dev"
     ports: 
-      - "502:502"
       - "8000:8000"
+      - "502:502"
+      
     volumes:
       - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
       - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
@@ -128,7 +129,25 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
     depends_on:
       - mongo
-    
+  
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    #ports: 
+      #- 3306:3306
+      #- 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
+
 volumes:
   db-data:
   pgadmin-data:
@@ -137,3 +156,4 @@ volumes:
   noip-etc:
   
   mongodb-data:
+  mysql-data:
