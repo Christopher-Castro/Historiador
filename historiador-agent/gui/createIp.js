@@ -9,7 +9,7 @@ const [node, file, agents] = process.argv
 
 const _agents = JSON.parse(agents)
 
-_agents.map(({ name, group: username, entryType, interval, intervalType, deadline, deadlineType, modbus, db, metrics }) => {
+_agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlineType, modbus, db, metrics }) => {
     if (entryType === "example") {
 
         const timeMeasure2 =
@@ -31,7 +31,7 @@ _agents.map(({ name, group: username, entryType, interval, intervalType, deadlin
     
         const agent = new HistoriadorAgent({
             name,
-            username,
+            username: group,
             interval: timeMiliseconds
         })
         
@@ -76,7 +76,7 @@ _agents.map(({ name, group: username, entryType, interval, intervalType, deadlin
 
     if (entryType === "db") {
     //     try {
-        const { ip, password, dbName } = db
+        const { ip, username, password, dbName } = db
 
         const timeMeasure2 =
         deadlineType === "seconds" ? 1000 :
@@ -105,7 +105,7 @@ _agents.map(({ name, group: username, entryType, interval, intervalType, deadlin
 
         const agent = new HistoriadorAgent({
             name,
-            username,
+            username: group,
             interval: timeMiliseconds
         })
         
@@ -200,7 +200,7 @@ _agents.map(({ name, group: username, entryType, interval, intervalType, deadlin
 
         const agent = new HistoriadorAgent({
             name,
-            username,
+            username: group,
             interval: timeMiliseconds
         })
 
