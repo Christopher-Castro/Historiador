@@ -12,8 +12,10 @@ RUN cd /usr/src/app/historiador-db && npm install
 
 RUN cd /usr/src/app/historiador-mqtt && npm install 
 
-RUN cd /usr/src/app/historiador-agent && npm install 
+RUN cd /usr/src/app/historiador-api && npm install
 
-RUN cd /usr/src/app/historiador-api && npm install 
+RUN cd /usr/src/app/historiador-agent && npm install
+
+RUN cd /usr/src/app/historiador-agent/gui && npm install
 
 RUN cd /usr/src/app/historiador-web && npm install 
