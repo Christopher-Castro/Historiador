@@ -9,32 +9,27 @@ const [node, file, agents] = process.argv
 
 const _agents = JSON.parse(agents)
 
+const timeTotal = (time, timeType) => {
+    const timeMeasure =
+    timeType === "seconds" ? 1000 :
+    timeType === "minutes" ? 1000 * 60 :
+    timeType === "hours" ? 1000 * 60 * 60 :
+    timeType === "days" ? 1000 * 60 * 60 * 24 : 1
+    return time * timeMeasure
+}
+
 _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlineType, modbus, db, metrics }) => {
+ 
+    const timeout = timeTotal(parseInt(deadline), deadlineType)
+    const _interval = timeTotal(parseInt(interval), intervalType)
+    
+    const agent = new HistoriadorAgent({
+        name,
+        username: group,
+        interval: _interval
+    })
+ 
     if (entryType === "example") {
-
-        const timeMeasure2 =
-        deadlineType === "seconds" ? 1000 :
-        deadlineType === "minutes" ? 1000 * 60 :
-        deadlineType === "hours" ? 1000 * 60 * 60 :
-        deadlineType === "days" ? 1000 * 60 * 60 * 24 :
-        1
-  
-        const timeout = parseInt(deadline) * timeMeasure2
-
-        const timeMeasure =
-        intervalType === "seconds" ? 1000 :
-        intervalType === "minutes" ? 1000 * 60 :
-        intervalType === "hours" ? 1000 * 60 * 60 :
-        intervalType === "days" ? 1000 * 60 * 60 * 24 : 1
-    
-        const timeMiliseconds = parseInt(interval) * timeMeasure
-    
-        const agent = new HistoriadorAgent({
-            name,
-            username: group,
-            interval: timeMiliseconds
-        })
-        
         metrics.map(({ name, type }) => {
             // tipo de la métrica - agregamos sufijo bool para que
             // luego se muestre como booleano en el chart
@@ -47,162 +42,40 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
                 return Promise.resolve(Math.random() * 1000)             
             })
         })
-        // fs.writeFileSync(`${__dirname}/logs/${new Date().getTime()}-example.json`, JSON.stringify({timeMiliseconds, ...metrics}));
-
-        agent.connect()
-
-        // This agent only
-        agent.on('connected', handler)
-        agent.on('disconnected', handler)
-        agent.on('message', handler)
-
-        // Other Agents
-        agent.on('agent/connected', handler)
-        agent.on('agent/disconnected', handler)
-        agent.on('agent/message', handler)
-
-        function handler (payload) {
-            console.log(payload)
-        }
-        
-        setTimeout(() => {
-            agent.disconnect()
-            // process.exit(0);
-        }, timeout)
-
-
     }
-
 
     if (entryType === "db") {
     //     try {
         const { ip, username, password, dbName } = db
 
-        const timeMeasure2 =
-        deadlineType === "seconds" ? 1000 :
-        deadlineType === "minutes" ? 1000 * 60 :
-        deadlineType === "hours" ? 1000 * 60 * 60 :
-        deadlineType === "days" ? 1000 * 60 * 60 * 24 :
-        1
-  
-        const timeout = parseInt(deadline) * timeMeasure2
-
-        const timeMeasure =
-        intervalType === "seconds" ? 1000 :
-        intervalType === "minutes" ? 1000 * 60 :
-        intervalType === "hours" ? 1000 * 60 * 60 :
-        intervalType === "days" ? 1000 * 60 * 60 * 24 : 1
-    
-        const timeMiliseconds = parseInt(interval) * timeMeasure
-
         const connection = mysql.createConnection({
-            host: "mysql",
+            host: ip,
             port: 3306,
-            user: "root",
-            password: "example",
-            database: "db01"
+            user: username,
+            password: password,
+            database: dbName
         })
-
-        const agent = new HistoriadorAgent({
-            name,
-            username: group,
-            interval: timeMiliseconds
-        })
-        
         
         metrics.map(({ dbTable, dbColumn, type }) => {
-            //tipo de la métrica
-            //const nameMetric = type === "digital" ? `${name} bool` : name
-            
             connection.connect(function(err) {
                 if (err) throw err;
-                  con.query("SELECT metrica01 FROM tabla01", function (err, result, fields) {
+                  con.query(`SELECT ${dbColumn} FROM ${dbTable}`, function (err, result, fields) {
                   if (err) throw err;
                   return result
                   
                 });
               });
         })
-
-        agent.connect()
-
-        // This agent only
-        agent.on('connected', handler)
-        agent.on('disconnected', handler)
-        agent.on('message', handler)
-
-        // Other Agents
-        agent.on('agent/connected', handler)
-        agent.on('agent/disconnected', handler)
-        agent.on('agent/message', handler)
-
-        function handler (payload) {
-        console.log(payload)
-        }
-
-        setTimeout(() => agent.disconnect(), timeout)
-            
-    
-    //         fs.writeFileSync(
-    //             `${__dirname}/logs/${new Date().getTime()}-db-query.json`,
-    //             `select ${dbColumns.map(({name})=> name).join(",")} from ${dbTable};`
-    //         );
-    
-    //     } catch (e) {
-    //         fs.writeFileSync(
-    //             `${__dirname}/logs/${new Date().getTime()}-db-error.json`,
-    //             JSON.stringify([e, node, file, entryType, _modbus, db, ip, interval, deadline, intervalType, deadlineType, agents ])
-    //         );
-    
-    //     }
-    
-    
     }
     
-
-
     if (entryType === "modbus") {
-    //     const { ip, id } = _modbus
-    //     // client.connectTCP(ip);
-    //     // viene tambien si fuera modbus
-    //     // client.setID(1);
-    
-    //     fs.writeFileSync(
-    //         `${__dirname}/logs/${new Date().getTime()}-modbus-query.json`,
-    //         `leyendo ${ip} from ${id};`
-    //     );
         const { ip, id } = modbus
-        
-        const timeMeasure2 =
-        deadlineType === "seconds" ? 1000 :
-        deadlineType === "minutes" ? 1000 * 60 :
-        deadlineType === "hours" ? 1000 * 60 * 60 :
-        deadlineType === "days" ? 1000 * 60 * 60 * 24 :
-        1
-  
-        const timeout = parseInt(deadline) * timeMeasure2
-
-        const timeMeasure =
-        intervalType === "seconds" ? 1000 :
-        intervalType === "minutes" ? 1000 * 60 :
-        intervalType === "hours" ? 1000 * 60 * 60 :
-        intervalType === "days" ? 1000 * 60 * 60 * 24 : 1
-    
-        const timeMiliseconds = parseInt(interval) * timeMeasure
-
         var aux;
 
         // open connection to a tcp line
         //client.connectTCP("0.0.0.0", { port: 502 });
         client.connectTCP(ip);
         client.setID(parseInt(id, 10));
-
-
-        const agent = new HistoriadorAgent({
-            name,
-            username: group,
-            interval: timeMiliseconds
-        })
 
         metrics.map(({ name, type, modbusAddress }) => {
             //tipo de la métrica
@@ -222,30 +95,25 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
                 })
                 return aux
             })
-        })
-        
-
-        agent.connect()
-
-        // This agent only
-        agent.on('connected', handler)
-        agent.on('disconnected', handler)
-        agent.on('message', handler)
-
-        // Other Agents
-        agent.on('agent/connected', handler)
-        agent.on('agent/disconnected', handler)
-        agent.on('agent/message', handler)
-
-        function handler (payload) {
-        console.log(payload)
-        }
-
-        setTimeout(() => agent.disconnect(), timeout)
-
-        
-    
+        })    
     }
-    
+
+    agent.connect()
+
+    // This agent only
+    agent.on('connected', handler)
+    agent.on('disconnected', handler)
+    agent.on('message', handler)
+
+    // Other Agents
+    agent.on('agent/connected', handler)
+    agent.on('agent/disconnected', handler)
+    agent.on('agent/message', handler)
+
+    function handler (payload) {
+        console.log(payload)
+    }
+
+    setTimeout(() => agent.disconnect(), timeout)
     
 })
