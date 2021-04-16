@@ -55,8 +55,8 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
             password: password,
             database: dbName
         })
-        
-        metrics.map(({ dbTable, dbColumn, type }) => {
+        // TODO: aca agregue `name` 
+        metrics.map(({ name, dbTable, dbColumn, type }) => {
             connection.connect(function(err) {
                 if (err) throw err;
                   con.query(`SELECT ${dbColumn} FROM ${dbTable}`, function (err, result, fields) {
