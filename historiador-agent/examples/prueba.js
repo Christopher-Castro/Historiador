@@ -3,7 +3,7 @@ const HistoriadorAgent = require ('../')
 const mysql = require('mysql2');
 
 var con = mysql.createConnection({
-  host: "localhost",
+  host: "mysql",
   port: 3306,
   user: "root",
   password: "example",
@@ -15,9 +15,11 @@ var i = 0
 
 con.connect(function(err) {
   if (err) throw err;
-    con.query("SELECT metrica01 FROM tabla01", function (err, result, fields) {
+    con.query("SELECT LAST metrica01 FROM tabla01", function (err, result, fields) {
     if (err) throw err;
     console.log(result);
+    console.log(result[0]);
+    console.log(result[0].metrica01);
     data = result
     console.log(data)
   });
@@ -34,30 +36,8 @@ const agent = new HistoriadorAgent({
 
 //tipo de la métrica
 agent.addMetric('startCmd', function getStart () {
-  return Promise.resolve(data[i].startCmd)
+  return Promise.resolve(data[0])
 })
-
-agent.addMetric('stopCmd', function getStop () {
-  return Promise.resolve(data[i].stopCmd)
-})
-
-agent.addMetric('status', function getStatus () {
-  return Promise.resolve(data[i].status)
-})
-
-agent.addMetric('speedSP', function getSpeedSP () {
-  return Promise.resolve(data[i].speedSP)
-})
-
-agent.addMetric('PVspeed', function getSpeedPV () {
-  var aux =  data[i].speedPV
-  if (i < (data.length-1) ) {
-    i++
-  } else {
-    agent.disconnect()
-  }
-  return Promise.resolve(aux)
-  })
 
 agent.connect()
 
