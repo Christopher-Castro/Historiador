@@ -100,11 +100,14 @@
                 </div>
                 <!-- if DB -->
                 <div v-if="agents[_index].entryType === 'db'" class="db">
-                  <b class="title-bold">Nombre de la Tabla</b>
+                  <b class="title-bold">Nombre de la métrica #{{index}}</b>
+                  <input :placeholder="`Nombre de la métrica #${index}`" type="text" v-model="metric.name" id="metric-name">
+
+                  <b class="title-bold">Nombre de la tabla</b>
                   <input placeholder="Nombre de la Tabla" type="text" v-model="metric.dbTable">
 
-                  <b class="title-bold">Nombre de la metrica # {{index}}</b>
-                  <input :placeholder="`Nombre de la metrica # ${index}`" type="text" v-model="metric.dbColumn">
+                  <b class="title-bold">Nombre de la columna #{{index}}</b>
+                  <input :placeholder="`Nombre de la columna #${index}`" type="text" v-model="metric.dbColumn">
                 </div>
                 
                 <b class="metric-type-title">Tipo de métrica</b>
