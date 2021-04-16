@@ -108,6 +108,9 @@
 
                   <b class="title-bold">Nombre de la columna #{{index}}</b>
                   <input :placeholder="`Nombre de la columna #${index}`" type="text" v-model="metric.dbColumn">
+                  
+                  <b class="title-bold">Identidicador #{{index}}</b>
+                  <input :placeholder="`Identificador #${index}`" type="text" v-model="metric.fKey">
                 </div>
                 
                 <b class="metric-type-title">Tipo de métrica</b>

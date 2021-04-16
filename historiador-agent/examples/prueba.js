@@ -12,18 +12,9 @@ var con = mysql.createConnection({
 
 let data
 var i = 0
+var aux = "metrica01";
 
-con.connect(function(err) {
-  if (err) throw err;
-    con.query("SELECT LAST metrica01 FROM tabla01", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-    console.log(result[0]);
-    console.log(result[0].metrica01);
-    data = result
-    console.log(data)
-  });
-});
+
 
 
 
@@ -36,7 +27,14 @@ const agent = new HistoriadorAgent({
 
 //tipo de la métrica
 agent.addMetric('startCmd', function getStart () {
-  return Promise.resolve(data[0])
+  con.connect(function(err) {
+    if (err) throw err;
+      con.query("SELECT metrica01 FROM tabla01 ORDER BY id DESC LIMIT 1", function (err, result, fields) {
+      if (err) throw err;
+      data = result[0][aux]
+    });
+  });
+  return Promise.resolve(data)
 })
 
 agent.connect()

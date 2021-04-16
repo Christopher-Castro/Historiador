@@ -47,7 +47,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
     if (entryType === "db") {
     //     try {
         const { ip, username, password, dbName } = db
-
+        var data;
         const connection = mysql.createConnection({
             host: ip,
             port: 3306,
@@ -56,15 +56,22 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
             database: dbName
         })
         // TODO: aca agregue `name` 
-        metrics.map(({ name, dbTable, dbColumn, type }) => {
-            connection.connect(function(err) {
-                if (err) throw err;
-                  con.query(`SELECT ${dbColumn} FROM ${dbTable}`, function (err, result, fields) {
-                  if (err) throw err;
-                  return result
-                  
-                });
-              });
+        metrics.map(({ name, dbTable, dbColumn, fKey, type }) => {
+            const nameMetric = type === "digital" ? `${name} bool` : name
+            
+            agent.addMetric(nameMetric, function getDB() {
+                connection.connect(function(err) {
+                    if (err) throw err;
+                    connection.query(`SELECT ${dbColumn} FROM ${dbTable} ORDER BY ${fKey} DESC LIMIT 1`, function (err, result, fields) {
+                      if (err) throw err;
+                      data = result[0][dbColumn]
+                      
+                    });
+                  });
+                return Promise.resolve(data)
+            })
+            
+            
         })
     }
     
