@@ -1,9 +1,12 @@
 <template>
   <div class="w">
     <h1>Panel de creación de módulo</h1>
-    <div class="alert-success" v-if="success && success.length">
+    <div class="warning-wrapper" v-if="success && success.length">
+
+    </div>
+    <div class="alert-warning" v-for="({ message }, index) in success" :key="index" >
       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-      {{success}}
+      {{ message }}
     </div>
     <div class="alert" v-if="errors.length">
       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -128,16 +131,24 @@ const { serverHost } = require('../config')
 export default {
   data() {
     return {
-      success: null,
+      success: [],
       errors: [],
-      agents: [
+      agents: null,
+    }
+  },
+  created() {
+    this.init()
+  },
+  methods: {
+    init() {
+      this.agents = [
         {
           name: '',
           group: '',
           entryType: 'db',
           interval: 1,
-          deadline: 5,
           intervalType: "seconds",
+          deadline: 5,
           deadlineType: "minutes",
           modbus: {
             ip: null,
@@ -159,11 +170,8 @@ export default {
             }            
           ]
         },
-      ],
-
-    }
-  },
-  methods: {
+      ]
+    },
     async checkForm() {
       const { agents } = this
 
@@ -176,30 +184,25 @@ export default {
 
       let agentErrors = []
 
-      agents.forEach(({ metrics }) => {
+      agents.forEach(({ entryType, db, modbus, metrics }) => {
         if (!metrics) {
           agentErrors.push('Las metricas son obligatorios.')
           return false
         }
-        metrics.forEach(({ name }, index) => {
-          // if (!ip) {
-          //   this.errors.push('El IP es obligatorio.')
-          //   return false
-          // }
-          
-          // if (!interval) {
-          //   this.errors.push('El intervalo es obligatorio.')
-          //   return false
-          // }
+        metrics.forEach(({ name, dbTable, dbColumn, modbusAddress }, index) => {
+          if (entryType === 'db') {
+            const { ip, username, password, dbName } = db
+            if (!dbColumn || !dbTable || !ip || !username || !password || !dbName ) {
+              agentErrors.push('En el tipo de conexión Base de datos es necesario el Ip, username, password, nombre de las base de datos, tablas y columnas, por favor revisalo.')
+            }
 
-          // if (!deadline) {
-          //   this.errors.push('La duración es obligatoria.')
-          //   return false
-          // }
+          }
 
-          if (!name) {
-            agentErrors.push(`El nombre de la métrica #${index} es obligatorio.`)
-            return false
+          if (entryType === 'modbus') {
+            const { id, ip } = modbus
+            if (!id || !ip || !modbusAddress) {
+              agentErrors.push('En el tipo de conexión Modbus es necesario el Ip, Id y Dirección, por favor revisalo.')
+            }
           }
         })
       })
@@ -220,28 +223,54 @@ export default {
 
       try{
         const added = await request(options)
-        this.success = "Se han agregado los agentes con exito."
+        this.success.push({ message: "Se han ejecutado los procesos de creación de agentes. Por favor verifica la ejecución de los mismos."})
       }
       catch(e) {
         console.error('no se pudo agregar agente.', e)
       }
     },
-    newDbColumn() {
-      const dbColumn = { name: '' }
-      this.db.dbColumns.push(dbColumn)
-    },
-    deleteDbColumn(index) {
-      this.db.dbColumns.splice(index, 1)
-    },
     newAgentRow() {
-      const agent = { name:'', group: '', metrics: [{ name: '',type: 'analogic' }] }
+      const agent = {
+          name: '',
+          group: '',
+          entryType: 'db',
+          interval: 1,
+          intervalType: "seconds",
+          deadline: 5,
+          deadlineType: "minutes",
+          modbus: {
+            ip: null,
+            id: null
+          },
+          db: {
+            ip: null,
+            username: null,
+            password: null,
+            dbName: null     
+          },
+          metrics: [
+            {
+              name: '',
+              type: 'analogic',
+              dbTable: null,
+              dbColumn: null,
+              modbusAddress: null
+            }            
+          ]
+        }
       this.agents.push(agent)
     },
     deleteAgent(index) {
       this.agents.splice(index, 1)
     },
     newMetricRow(index){
-      const metric = { name: '',type: 'analogic' }
+      const metric = {
+        name: '',
+        type: 'analogic',
+        dbTable: null,
+        dbColumn: null,
+        modbusAddress: null
+      }  
       this.agents[index].metrics.push(metric)
     },
     deleteMetric(agentIndex, index) {
@@ -372,10 +401,10 @@ export default {
   color: white;
   margin-bottom: 15px;
 }
-.alert-success {
+.alert-warning {
   padding: 15px;
-  background-color: #98ca3f; /* Red */
-  color: white;
+  background-color: #eed202; /* Red */
+  color: black;
   margin-bottom: 15px;
 }
 
