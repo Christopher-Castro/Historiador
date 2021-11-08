@@ -109,7 +109,7 @@ export default {
         },
         responsive: true,
         animation: {
-          duration: 800
+          duration: 400
         },
         scales: {
             yAxes: [

@@ -4,7 +4,7 @@ var data;
 var vector = {
     getInputRegister: function(addr, unitID) {
         // Synchronous handling
-        return data;
+        return Promise.resolve(Math.random()*10);
     },
     getHoldingRegister: function(addr, unitID, callback) {
         // Asynchronous handling (with callback)
@@ -16,11 +16,7 @@ var vector = {
     },
     getCoil: function(addr, unitID) {
         // Asynchronous handling (with Promises, async/await supported)
-        return new Promise(function(resolve) {
-            setTimeout(function() {
-                resolve((addr % 2) === 0);
-            }, 10);
-        });
+        return Promise.resolve(Math.round(Math.random()))
     },
     setRegister: function(addr, value, unitID) {
         // Asynchronous handling supported also here
@@ -47,8 +43,8 @@ var vector = {
 };
  
 // set the server to answer for modbus requests
-console.log("ModbusTCP listening on modbus://0.0.0.0:8502");
-var serverTCP = new ModbusRTU.ServerTCP(vector, { host: "0.0.0.0", port: 8502, debug: true, unitID: 1 });
+console.log("ModbusTCP listening on modbus://0.0.0.0:502");
+var serverTCP = new ModbusRTU.ServerTCP(vector, { host: "0.0.0.0", port: 502, debug: true, unitID: 1 });
  
 serverTCP.on("socketError", function(err){
     // Handle socket error if needed, can be ignored

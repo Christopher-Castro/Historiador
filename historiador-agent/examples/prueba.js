@@ -3,25 +3,18 @@ const HistoriadorAgent = require ('../')
 const mysql = require('mysql2');
 
 var con = mysql.createConnection({
-  host: "localhost",
+  host: "mysql",
   port: 3306,
   user: "root",
   password: "example",
-  database: "pump01"
+  database: "db01"
 });
 
 let data
 var i = 0
+var aux = "metrica01";
 
-con.connect(function(err) {
-  if (err) throw err;
-    con.query("SELECT startCmd, stopCmd, status, speedSP, speedPV FROM pump01", function (err, result, fields) {
-    if (err) throw err;
-    console.log(result);
-    data = result
-    console.log(data)
-  });
-});
+
 
 
 
@@ -34,30 +27,15 @@ const agent = new HistoriadorAgent({
 
 //tipo de la métrica
 agent.addMetric('startCmd', function getStart () {
-  return Promise.resolve(data[i].startCmd)
+  con.connect(function(err) {
+    if (err) throw err;
+      con.query("SELECT metrica01 FROM tabla01 ORDER BY id DESC LIMIT 1", function (err, result, fields) {
+      if (err) throw err;
+      data = result[0][aux]
+    });
+  });
+  return Promise.resolve(data)
 })
-
-agent.addMetric('stopCmd', function getStop () {
-  return Promise.resolve(data[i].stopCmd)
-})
-
-agent.addMetric('status', function getStatus () {
-  return Promise.resolve(data[i].status)
-})
-
-agent.addMetric('speedSP', function getSpeedSP () {
-  return Promise.resolve(data[i].speedSP)
-})
-
-agent.addMetric('PVspeed', function getSpeedPV () {
-  var aux =  data[i].speedPV
-  if (i < (data.length-1) ) {
-    i++
-  } else {
-    agent.disconnect()
-  }
-  return Promise.resolve(aux)
-  })
 
 agent.connect()
 

@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       miliseconds: 1000, // miliseconds interval
-      metricLength: 40, // labels length
+      metricLength: 18, // labels length
       lastSeconds: 20, // how many seconds of register will it bring 
       live: true,
       loaded: false,
@@ -28,22 +28,48 @@ export default {
   methods: {
     pollData () {
       const seconds = this.miliseconds
+      const labels = this.liveChartData.labels
+      const datasets = this.liveChartData.datasets       
+
+
       this.polling = setInterval(() => {
-        const labels = this.liveChartData.labels
-        const datasets = this.liveChartData.datasets          
-        const newLabels = []
-        if ( labels.length >= this.metricLength) {
-          labels.shift()
-        }
+        const [hour, minute, second] = labels[labels.length -1].split(":")
         
-        // get last {metricLength} seconds
-        for(var i = this.metricLength + 1; i > 0; i-- ){
-          newLabels.push(moment().subtract(i,'seconds').format('HH:mm:ss'))
-        }
+        labels.shift()
+        labels.push(moment().set({hour, minute, second}).add(1, 'second').format('HH:mm:ss'))
+
+        // delete for every dataset the oldest value if before the last time
+        datasets.forEach(dataset => {
+          const end = moment(labels[0], "HH:mm:ss")
+          if (dataset.data) {
+
+            if (dataset.data[0]) {
+              const oldest = moment(dataset.data[0].x, "HH:mm:ss")
+              if (oldest.isBefore(end)){
+                dataset.data.shift()
+              }
+            }
+            
+            if (dataset.data[1]) {
+              const secondOld = moment(dataset.data[1].x, "HH:mm:ss")
+              if (secondOld.isBefore(end)){
+                dataset.data.shift()
+              }
+            }
+            
+            if (dataset.data[2]) {
+              const thirdOld = moment(dataset.data[2].x, "HH:mm:ss")
+              if (thirdOld.isBefore(end)){
+                dataset.data.shift()
+              }
+            }
+          }
+        })
+
 
         this.liveChartData = {
-          labels: newLabels,
-          datasets
+          datasets,
+          labels
         }
       }, seconds)
     },
@@ -54,7 +80,6 @@ export default {
         const agents = await this.getAgents()
         const datasets = this.liveChartData.datasets       
   
-        let newLabels = new Set()
         this.Metrics = await Promise.all(
           agents.map(async agent => {
             const { uuid } = agent
@@ -71,7 +96,7 @@ export default {
               const label = labelName
               const data = lasts.map(metric => {
                 const { value: data, createdAt: timestamp } = metric
-                newLabels.add(moment(timestamp).format())
+                // newLabels.add(moment(timestamp).format())
                 return { y: data, x: moment(timestamp).format('HH:mm:ss')}
               })
 
@@ -93,13 +118,18 @@ export default {
           })
         )
         this.loaded = true
-        const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
+        // const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
+        // get last {metricLength} seconds
+        let labels = []
 
+        for(var i = this.metricLength + 1; i >= 0; i-- ){
+          labels.push(moment().subtract(i,'seconds').format('HH:mm:ss'))
+        }
         this.liveChartData = {
-          labels: sortedLabels,
+          labels,
           datasets
         }
-
+        this.pollData()
         this.startRealtime()
       } catch (error) {
         console.error('no se pudo traer la data', error)
@@ -149,11 +179,10 @@ export default {
       } 
     },
     startRealtime() {
-      this.pollData()
       this.socket.on('agent/message', payload => {
           const { agent: { uuid }, timestamp, metrics } = payload
-          const labels = this.liveChartData.labels
-          const datasets = this.liveChartData.datasets          
+          const datasets = this.liveChartData.datasets
+          const labels = this.liveChartData.labels           
           
           // Add new elements
           metrics.map(m => {
@@ -164,17 +193,11 @@ export default {
             const found = datasets.filter(dataset => dataset.label == labelName)
             
             if(found && found[0]) {
-              if (found[0].data.length >= this.metricLength / 2) {
-                found[0].data.shift()
-              }
               found[0].hidden = hidden
               found[0].data.push({ y: data, x: moment(timestamp).format('HH:mm:ss')})
-              console.log(found[0].data)
             } else {
-              
               const firstData = [{ y: data, x: moment(timestamp).format('HH:mm:ss')}] 
               const newDataset = initDataset(labelName, firstData)
-
               if (String(labelName).includes('bool')){
                 newDataset.steppedLine = true
                 newDataset.fill = true
@@ -184,10 +207,10 @@ export default {
             }
           })
 
-          this.liveChartData = {
-            labels,
-            datasets
-          }
+          // this.liveChartData = {
+          //   datasets,
+          //   labels
+          // }
       })
     },
     async filterChart(){

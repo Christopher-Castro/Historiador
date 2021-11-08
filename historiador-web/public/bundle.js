@@ -613,7 +613,7 @@ exports.default = {
         },
         responsive: true,
         animation: {
-          duration: 800
+          duration: 400
         },
         scales: {
           yAxes: [{
@@ -763,13 +763,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
-
-var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
-
 var _from = require("babel-runtime/core-js/array/from");
 
 var _from2 = _interopRequireDefault(_from);
+
+var _set = require("babel-runtime/core-js/set");
+
+var _set2 = _interopRequireDefault(_set);
 
 var _extends2 = require("babel-runtime/helpers/extends");
 
@@ -779,9 +779,9 @@ var _promise = require("babel-runtime/core-js/promise");
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _set = require("babel-runtime/core-js/set");
+var _slicedToArray2 = require("babel-runtime/helpers/slicedToArray");
 
-var _set2 = _interopRequireDefault(_set);
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
 var _regenerator = require("babel-runtime/regenerator");
 
@@ -806,7 +806,7 @@ exports.default = {
   data: function data() {
     return {
       miliseconds: 1000, // miliseconds interval
-      metricLength: 40, // labels length
+      metricLength: 18, // labels length
       lastSeconds: 20, // how many seconds of register will it bring 
       live: true,
       loaded: false,
@@ -844,22 +844,50 @@ exports.default = {
       var _this2 = this;
 
       var seconds = this.miliseconds;
-      this.polling = setInterval(function () {
-        var labels = _this2.liveChartData.labels;
-        var datasets = _this2.liveChartData.datasets;
-        var newLabels = [];
-        if (labels.length >= _this2.metricLength) {
-          labels.shift();
-        }
+      var labels = this.liveChartData.labels;
+      var datasets = this.liveChartData.datasets;
 
-        // get last {metricLength} seconds
-        for (var i = _this2.metricLength + 1; i > 0; i--) {
-          newLabels.push(moment().subtract(i, 'seconds').format('HH:mm:ss'));
-        }
+      this.polling = setInterval(function () {
+        var _labels$split = labels[labels.length - 1].split(":"),
+            _labels$split2 = (0, _slicedToArray3.default)(_labels$split, 3),
+            hour = _labels$split2[0],
+            minute = _labels$split2[1],
+            second = _labels$split2[2];
+
+        labels.shift();
+        labels.push(moment().set({ hour: hour, minute: minute, second: second }).add(1, 'second').format('HH:mm:ss'));
+
+        // delete for every dataset the oldest value if before the last time
+        datasets.forEach(function (dataset) {
+          var end = moment(labels[0], "HH:mm:ss");
+          if (dataset.data) {
+
+            if (dataset.data[0]) {
+              var oldest = moment(dataset.data[0].x, "HH:mm:ss");
+              if (oldest.isBefore(end)) {
+                dataset.data.shift();
+              }
+            }
+
+            if (dataset.data[1]) {
+              var secondOld = moment(dataset.data[1].x, "HH:mm:ss");
+              if (secondOld.isBefore(end)) {
+                dataset.data.shift();
+              }
+            }
+
+            if (dataset.data[2]) {
+              var thirdOld = moment(dataset.data[2].x, "HH:mm:ss");
+              if (thirdOld.isBefore(end)) {
+                dataset.data.shift();
+              }
+            }
+          }
+        });
 
         _this2.liveChartData = {
-          labels: newLabels,
-          datasets: datasets
+          datasets: datasets,
+          labels: labels
         };
       }, seconds);
     },
@@ -867,7 +895,7 @@ exports.default = {
       var _this3 = this;
 
       return (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
-        var agents, datasets, newLabels, sortedLabels;
+        var agents, datasets, labels, i;
         return _regenerator2.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
@@ -880,8 +908,7 @@ exports.default = {
               case 4:
                 agents = _context4.sent;
                 datasets = _this3.liveChartData.datasets;
-                newLabels = new _set2.default();
-                _context4.next = 9;
+                _context4.next = 8;
                 return _promise2.default.all(agents.map(function () {
                   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(agent) {
                     var uuid, metrics, results;
@@ -918,8 +945,8 @@ exports.default = {
                                         data = lasts.map(function (metric) {
                                           var data = metric.value,
                                               timestamp = metric.createdAt;
+                                          // newLabels.add(moment(timestamp).format())
 
-                                          newLabels.add(moment(timestamp).format());
                                           return { y: data, x: moment(timestamp).format('HH:mm:ss') };
                                         });
                                         newDataset = (0, _utils.initDataset)(label, data);
@@ -967,39 +994,40 @@ exports.default = {
                   };
                 }()));
 
-              case 9:
+              case 8:
                 _this3.Metrics = _context4.sent;
 
                 _this3.loaded = true;
-                sortedLabels = (0, _from2.default)(newLabels).sort(function (a, b) {
-                  return new Date(a) - new Date(b);
-                }).map(function (date) {
-                  return moment(date).format('HH:mm:ss');
-                });
+                // const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
+                // get last {metricLength} seconds
+                labels = [];
 
 
+                for (i = _this3.metricLength + 1; i >= 0; i--) {
+                  labels.push(moment().subtract(i, 'seconds').format('HH:mm:ss'));
+                }
                 _this3.liveChartData = {
-                  labels: sortedLabels,
+                  labels: labels,
                   datasets: datasets
                 };
-
+                _this3.pollData();
                 _this3.startRealtime();
-                _context4.next = 20;
+                _context4.next = 21;
                 break;
 
-              case 16:
-                _context4.prev = 16;
+              case 17:
+                _context4.prev = 17;
                 _context4.t0 = _context4["catch"](1);
 
                 console.error('no se pudo traer la data', _context4.t0);
                 _this3.Agents = [];
 
-              case 20:
+              case 21:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, _this3, [[1, 16]]);
+        }, _callee4, _this3, [[1, 17]]);
       }))();
     },
     getAgents: function getAgents() {
@@ -1109,14 +1137,13 @@ exports.default = {
     startRealtime: function startRealtime() {
       var _this7 = this;
 
-      this.pollData();
       this.socket.on('agent/message', function (payload) {
         var uuid = payload.agent.uuid,
             timestamp = payload.timestamp,
             metrics = payload.metrics;
 
-        var labels = _this7.liveChartData.labels;
         var datasets = _this7.liveChartData.datasets;
+        var labels = _this7.liveChartData.labels;
 
         // Add new elements
         metrics.map(function (m) {
@@ -1131,17 +1158,11 @@ exports.default = {
           });
 
           if (found && found[0]) {
-            if (found[0].data.length >= _this7.metricLength / 2) {
-              found[0].data.shift();
-            }
             found[0].hidden = hidden;
             found[0].data.push({ y: data, x: moment(timestamp).format('HH:mm:ss') });
-            console.log(found[0].data);
           } else {
-
             var firstData = [{ y: data, x: moment(timestamp).format('HH:mm:ss') }];
             var newDataset = (0, _utils.initDataset)(labelName, firstData);
-
             if (String(labelName).includes('bool')) {
               newDataset.steppedLine = true;
               newDataset.fill = true;
@@ -1151,10 +1172,10 @@ exports.default = {
           }
         });
 
-        _this7.liveChartData = {
-          labels: labels,
-          datasets: datasets
-        };
+        // this.liveChartData = {
+        //   datasets,
+        //   labels
+        // }
       });
     },
     filterChart: function filterChart() {
