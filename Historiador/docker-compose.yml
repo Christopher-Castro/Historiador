@@ -31,32 +31,32 @@ services:
     depends_on:
       - db
   
-  noip:
-    image:  coppit/no-ip
-    volumes:
-      - noip-config:/config
-      - noip-etc:/etc
+  # noip:
+  #   image:  coppit/no-ip
+  #   volumes:
+  #     - noip-config:/config
+  #     - noip-etc:/etc
     
-  openvpn:
-    image: kylemanna/openvpn
-    container_name: openvpn
-    ports:
-     - "1194:1194/udp"
-    volumes:
-     - openvpn-data:/etc/openvpn
+  # openvpn:
+  #   image: kylemanna/openvpn
+  #   container_name: openvpn
+  #   ports:
+  #    - "1194:1194/udp"
+  #   volumes:
+  #    - openvpn-data:/etc/openvpn
   
-  node:
-    image: node
-    working_dir: /home/node/app
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - ./nodejs/Historiador:/home/node/app
-    command: "npm run server"
-    ports: 
-      - "3001:3001"
-    depends_on:
-      - mongo
+  # node:
+  #   image: node
+  #   working_dir: /home/node/app
+  #   environment:
+  #     - NODE_ENV=production
+  #   volumes:
+  #     - ./nodejs/Historiador:/home/node/app
+  #   command: "npm run server"
+  #   ports: 
+  #     - "3001:3001"
+  #   depends_on:
+  #     - mongo
 
   mqtt:
     image: christopher57/historiador_image
@@ -126,6 +126,7 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      
     depends_on:
       - mongo
     

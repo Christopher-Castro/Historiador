@@ -1,5 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".header[data-v-2fa7c47b] {\n  background: white;\n  height: 64px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.header-container[data-v-2fa7c47b] {\n  padding-left: 15px;\n}\n.menu[data-v-2fa7c47b] {\n    display:flex;\n}\n.menu-item[data-v-2fa7c47b] {\n    border: 1px solid black ;\n    border: 1px solid blue;\n    border-radius: 2px;\n    margin: 0 15px;\n    padding: 7px 7px;\n}\n.menu-item > *[data-v-2fa7c47b] {\n    text-decoration: none;\n    color: blue;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".header[data-v-4202a6ad] {\n  background: white;\n  height: 64px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.header-container[data-v-4202a6ad] {\n  padding-left: 15px;\n}\n.menu[data-v-4202a6ad] {\n    display:flex;\n}\n.menu-item[data-v-4202a6ad] {\n    border: 1px solid black ;\n    border: 1px solid blue;\n    border-radius: 2px;\n    margin: 0 15px;\n    padding: 7px 7px;\n}\n.menu-item > *[data-v-4202a6ad] {\n    text-decoration: none;\n    color: blue;\n}")
 ;(function(){
 "use strict";
 
@@ -13,16 +13,16 @@ var __vue__options__ = (typeof module.exports === "function"? module.exports.opt
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"header-container"},[_c('router-link',{attrs:{"to":"/"}},[_c('img',{attrs:{"src":"/images/platziverse.png","width":"185","height":"38","alt":"PlatziVerse"}})])],1),_vm._v(" "),_c('div',{staticClass:"menu"})]),_vm._v(" "),_c('div',{attrs:{"id":"app"}},[_c('router-view')],1)])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-2fa7c47b"
+__vue__options__._scopeId = "data-v-4202a6ad"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2fa7c47b", __vue__options__)
+    hotAPI.createRecord("data-v-4202a6ad", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2fa7c47b", __vue__options__)
+    hotAPI.reload("data-v-4202a6ad", __vue__options__)
   }
 })()}
 },{"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],2:[function(require,module,exports){
@@ -225,9 +225,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3c2b9738", __vue__options__)
+    hotAPI.createRecord("data-v-bf1d781c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3c2b9738", __vue__options__)
+    hotAPI.reload("data-v-bf1d781c", __vue__options__)
   }
 })()}
 },{"../config":10,"./utils":9,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"request-promise-native":502,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],3:[function(require,module,exports){
@@ -366,9 +366,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-73fb2340", __vue__options__)
+    hotAPI.createRecord("data-v-4c7cbe4e", __vue__options__)
   } else {
-    hotAPI.reload("data-v-73fb2340", __vue__options__)
+    hotAPI.reload("data-v-4c7cbe4e", __vue__options__)
   }
 })()}
 },{"../config":10,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"request-promise-native":502,"socket.io-client":532,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],5:[function(require,module,exports){
@@ -551,13 +551,13 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ffd7a03e", __vue__options__)
+    hotAPI.createRecord("data-v-db21dbda", __vue__options__)
   } else {
-    hotAPI.reload("data-v-ffd7a03e", __vue__options__)
+    hotAPI.reload("data-v-db21dbda", __vue__options__)
   }
 })()}
 },{"../config":10,"./line-chart":5,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"moment":448,"random-material-color":494,"request-promise-native":502,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],7:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".dates {\n  display: grid;\n}\n.date-time {\n  width: 40%;\n  display: flex;\n  margin: 5px 0px 5px 0px;\n  justify-content: space-between;\n}\n\n.buttonFilter {\n  width: 200px;\n  border-radius: 4px;\n  border: none;\n  color: white;\n  font-size: 14px;\n  background-color: blue;\n  padding: 5px 5px;\n}\n\n.buttonLive {\n  width: 200px;\n  border-radius: 4px;\n  border: 1px solid blue;\n  color: blue;\n  font-size: 14px;\n  background-color: white;\n  padding: 5px 5px;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".dates {\r\n  display: grid;\r\n}\r\n.date-time {\r\n  width: 40%;\r\n  display: flex;\r\n  margin: 5px 0px 5px 0px;\r\n  justify-content: space-between;\r\n}\r\n\r\n.buttonFilter {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: none;\r\n  color: white;\r\n  font-size: 14px;\r\n  background-color: blue;\r\n  padding: 5px 5px;\r\n}\r\n\r\n.buttonLive {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: 1px solid blue;\r\n  color: blue;\r\n  font-size: 14px;\r\n  background-color: white;\r\n  padding: 5px 5px;\r\n}")
 ;(function(){
 "use strict";
 
@@ -751,9 +751,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f3c5253c", __vue__options__)
+    hotAPI.createRecord("data-v-81c25d20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-f3c5253c", __vue__options__)
+    hotAPI.reload("data-v-81c25d20", __vue__options__)
   }
 })()}
 },{"./line-chart":5,"./mixin":8,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],8:[function(require,module,exports){
@@ -1411,7 +1411,7 @@ var exportCSVFile = exports.exportCSVFile = function exportCSVFile(headers, item
 'use strict';
 
 module.exports = {
-  endpoint: process.env.API_ENDPOINT || 'http://api:3000',
+  endpoint: process.env.API_ENDPOINT || 'http://localhost:3000',
   serverHost: process.env.SERVER_HOST || 'http://localhost:8080',
   apiToken: process.env.API_TOKEN || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiYWRtaW4iOnRydWUsInBlcm1pc3Npb25zIjpbIm1ldHJpY3M6cmVhZCJdLCJpYXQiOjE2MDkxODk4ODV9.J_OHmSIPpC62dEJ3_p2GhwGWXGE8oOcjdEWRaiVQMD8'
 };
@@ -53670,37 +53670,49 @@ utils.intFromLE = intFromLE;
 arguments[4][69][0].apply(exports,arguments)
 },{"buffer":107,"dup":69}],321:[function(require,module,exports){
 module.exports={
-  "name": "elliptic",
-  "version": "6.5.3",
-  "description": "EC cryptography",
-  "main": "lib/elliptic.js",
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "jscs": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
-    "jshint": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
-    "lint": "npm run jscs && npm run jshint",
-    "unit": "istanbul test _mocha --reporter=spec test/index.js",
-    "test": "npm run lint && npm run unit",
-    "version": "grunt dist && git add dist/"
+  "_from": "elliptic@^6.5.3",
+  "_id": "elliptic@6.5.3",
+  "_inBundle": false,
+  "_integrity": "sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==",
+  "_location": "/elliptic",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "elliptic@^6.5.3",
+    "name": "elliptic",
+    "escapedName": "elliptic",
+    "rawSpec": "^6.5.3",
+    "saveSpec": null,
+    "fetchSpec": "^6.5.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:indutny/elliptic"
-  },
-  "keywords": [
-    "EC",
-    "Elliptic",
-    "curve",
-    "Cryptography"
+  "_requiredBy": [
+    "/browserify-sign",
+    "/create-ecdh"
   ],
-  "author": "Fedor Indutny <fedor@indutny.com>",
-  "license": "MIT",
+  "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz",
+  "_shasum": "cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6",
+  "_spec": "elliptic@^6.5.3",
+  "_where": "C:\\Users\\alex_\\OneDrive - Escuela Politécnica Nacional\\Tesis\\historiador-web\\node_modules\\browserify-sign",
+  "author": {
+    "name": "Fedor Indutny",
+    "email": "fedor@indutny.com"
+  },
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
-  "homepage": "https://github.com/indutny/elliptic",
+  "bundleDependencies": false,
+  "dependencies": {
+    "bn.js": "^4.4.0",
+    "brorand": "^1.0.1",
+    "hash.js": "^1.0.0",
+    "hmac-drbg": "^1.0.0",
+    "inherits": "^2.0.1",
+    "minimalistic-assert": "^1.0.0",
+    "minimalistic-crypto-utils": "^1.0.0"
+  },
+  "deprecated": false,
+  "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",
     "coveralls": "^3.0.8",
@@ -53717,15 +53729,32 @@ module.exports={
     "jshint": "^2.10.3",
     "mocha": "^6.2.2"
   },
-  "dependencies": {
-    "bn.js": "^4.4.0",
-    "brorand": "^1.0.1",
-    "hash.js": "^1.0.0",
-    "hmac-drbg": "^1.0.0",
-    "inherits": "^2.0.1",
-    "minimalistic-assert": "^1.0.0",
-    "minimalistic-crypto-utils": "^1.0.0"
-  }
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/indutny/elliptic",
+  "keywords": [
+    "EC",
+    "Elliptic",
+    "curve",
+    "Cryptography"
+  ],
+  "license": "MIT",
+  "main": "lib/elliptic.js",
+  "name": "elliptic",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/indutny/elliptic.git"
+  },
+  "scripts": {
+    "jscs": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
+    "jshint": "jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js",
+    "lint": "npm run jscs && npm run jshint",
+    "test": "npm run lint && npm run unit",
+    "unit": "istanbul test _mocha --reporter=spec test/index.js",
+    "version": "grunt dist && git add dist/"
+  },
+  "version": "6.5.3"
 }
 
 },{}],322:[function(require,module,exports){
