@@ -88,15 +88,15 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
             //tipo de la métrica
             const nameMetric = type === "digital" ? `${name} bool` : name
 
-            agent.addMetric(nameMetric, function getModbus () {
+            agent.addMetric(nameMetric, async function getModbus () {
                 if(type== "digital"){
-                    client.readCoils(modbusAddress, 1)
+                    await client.readCoils(modbusAddress, 1)
                     .then(function(data) {
                         aux=data.data[0];
                     })
                     return aux
                 }
-                client.readInputRegisters(modbusAddress, 1)
+                await client.readInputRegisters(modbusAddress, 1)
                 .then(function(data) {
                     aux=data.data[0];
                 })

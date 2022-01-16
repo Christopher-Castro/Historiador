@@ -4,7 +4,8 @@ var data;
 var vector = {
     getInputRegister: function(addr, unitID) {
         // Synchronous handling
-        return Promise.resolve(Math.random()*10);
+        if (addr == 1) return Promise.resolve(Math.random()*100);
+        if (addr == 2) return Promise.resolve(Math.random()*10);
     },
     getHoldingRegister: function(addr, unitID, callback) {
         // Asynchronous handling (with callback)

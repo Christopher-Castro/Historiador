@@ -58,6 +58,14 @@ services:
   #   depends_on:
   #     - mongo
 
+  db-setup:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-db
+    command: "export DB_HOST=db && node setup.js --yes"
+    depends_on:
+      - mongo
+      - db
+
   mqtt:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-mqtt
@@ -77,9 +85,9 @@ services:
       - "8000:8000"
       - "502:502"
       
-    volumes:
-      - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
-      - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
+    # volumes:
+    #   - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
+    #   - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
     depends_on:
       - mqtt
       - api
@@ -88,8 +96,8 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-api
     command: "npm run start-dev"
-    volumes:
-      - "../historiador-api/:/usr/src/app/historiador-api/"
+    # volumes:
+    #   - "../historiador-api:/usr/src/app/historiador-api"
     ports: 
       - "3000:3000"
     depends_on:
@@ -99,8 +107,8 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-web
     command: "npm run start-dev"
-    volumes:
-      - "../historiador-web/:/usr/src/app/historiador-web/"
+    # volumes:
+    #   - "../historiador-web:/usr/src/app/historiador-web"
     ports: 
       - "8080:8080"
     depends_on:

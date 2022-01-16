@@ -6,8 +6,8 @@ var client = new ModbusRTU();
 var aux;
 
 // open connection to a tcp line
-//client.connectTCP("0.0.0.0", { port: 8502 });
-client.connectTCP("192.168.100.54");
+client.connectTCP("0.0.0.0", { port: 502 });
+// client.connectTCP("192.168.100.54");
 client.setID(1);
 
 
@@ -18,8 +18,16 @@ const agent = new HistoriadorAgent({
 })
 
 //tipo de la métrica
-agent.addMetric('modbus', function getModbus () {
-    client.readInputRegisters(100, 1)
+agent.addMetric('modbus1', async function getModbus () {
+    await client.readInputRegisters(1, 1)
+    .then(function(data) {
+        aux=data.data[0];
+    })
+    return aux
+})
+
+agent.addMetric('modbus2', async function getModbus () {
+    await client.readInputRegisters(2, 1)
     .then(function(data) {
         aux=data.data[0];
     })
