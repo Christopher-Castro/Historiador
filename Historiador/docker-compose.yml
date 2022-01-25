@@ -73,7 +73,7 @@ services:
     working_dir: /usr/src/app/historiador-mqtt
     command: "npm run start-dev"
     environment:
-      DB_HOST: db
+      DB_HOST: 'db'
       MONGO_HOST: 'mongodb://root:example@mongo:27017/mqtt?authSource=admin'
     ports: 
       - "1883:1883"
@@ -88,15 +88,15 @@ services:
     command: bash -c "npm run build && npm run start-dev"
     environment:
       MQTT_HOST: mqtt://mqtt
-      # API_ENDPOINT: http://api:3000
-      # SERVER_HOST: http://localhost:8000
+      API_ENDPOINT: http://api:3000
+      SERVER_HOST: http://localhost:8000
     ports: 
       - "8000:8000"
       - "502:502"
       
-    # volumes:
-    #   - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
-    #   - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
+    volumes:
+      - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
+      - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
     depends_on:
       - mqtt
       - api
@@ -122,6 +122,7 @@ services:
     #   - "../historiador-web:/usr/src/app/historiador-web"
     environment:
       API_ENDPOINT: http://api:3000
+      MQTT_HOST: mqtt://mqtt
     ports: 
       - "8080:8080"
     depends_on:

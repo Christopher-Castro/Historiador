@@ -14,16 +14,18 @@ api.post('/ips', async(req, res) => {
   const { body: { agents } } = req 
 
   try {
-    const timeMeasure =
-      agents.deadlineType === "seconds" ? 1000 :
-      agents.deadlineType === "minutes" ? 1000 * 60 :
-      agents.deadlineType === "hours" ? 1000 * 60 * 60 :
-      agents.deadlineType === "days" ? 1000 * 60 * 60 * 24 :
-      1
-
-    const timeout = parseInt(agents.deadline) * timeMeasure
+    // const timeMeasure =
+    //   agents.deadlineType === "seconds" ? 1000 :
+    //   agents.deadlineType === "minutes" ? 1000 * 60 :
+    //   agents.deadlineType === "hours" ? 1000 * 60 * 60 :
+    //   agents.deadlineType === "days" ? 1000 * 60 * 60 * 24 :
+    //   1 * 1000 * 60
+    // console.log(agents)
+    // console.log(timeMeasure)
+    // console.log(agents[0].deadline)
+    // const timeout = parseInt(agents[0].deadline) * timeMeasure
     child_process.spawn("node", ["createIp.js", JSON.stringify(agents)], {
-      timeout,
+      // timeout,
       detached: true,
     })
     return res.send(JSON.stringify(agents))

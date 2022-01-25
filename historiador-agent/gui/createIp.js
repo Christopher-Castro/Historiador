@@ -64,11 +64,11 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
                     if (err) throw err;
                     connection.query(`SELECT ${dbColumn} FROM ${dbTable} ORDER BY ${fKey} DESC LIMIT 1`, function (err, result, fields) {
                       if (err) throw err;
-                      data = result[0][dbColumn]
+                      global[nameMetric + 'data'] = result[0][dbColumn]
                       
                     });
                   });
-                return Promise.resolve(data)
+                return Promise.resolve(global[nameMetric + 'data'])
             })
             
             

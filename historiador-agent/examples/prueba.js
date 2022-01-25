@@ -7,10 +7,11 @@ var con = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "example",
-  database: "db01"
+  database: "db_test"
 });
 
-let data
+let data = 'dataa'
+let data1 = 'dataa1'
 var i = 0
 var aux = "metrica01";
 
@@ -26,15 +27,26 @@ const agent = new HistoriadorAgent({
 })
 
 //tipo de la métrica
-agent.addMetric('startCmd', function getStart () {
-  con.connect(function(err) {
+agent.addMetric('Power', async function getStart () {
+  await con.connect(function(err) {
     if (err) throw err;
-      con.query("SELECT metrica01 FROM tabla01 ORDER BY id DESC LIMIT 1", function (err, result, fields) {
+      con.query("SELECT Power FROM pump ORDER BY id DESC LIMIT 1", function (err, result, fields) {
       if (err) throw err;
-      data = result[0][aux]
+      global[data] = result[0]['Power']
     });
   });
-  return Promise.resolve(data)
+  return Promise.resolve(global[data])
+})
+
+agent.addMetric('Rpms', async function getStart () {
+  await con.connect(function(err) {
+    if (err) throw err;
+      con.query("SELECT Rpms FROM pump ORDER BY id DESC LIMIT 1", function (err, result, fields) {
+      if (err) throw err;
+      global[data1] = result[0]['Rpms']
+    });
+  });
+  return Promise.resolve(global[data1])
 })
 
 agent.connect()
