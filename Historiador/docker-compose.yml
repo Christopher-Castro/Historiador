@@ -61,7 +61,9 @@ services:
   db-setup:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-db
-    command: "export DB_HOST=db && node setup.js --yes"
+    command: "node setup.js --yes"
+    environment:
+      DB_HOST: db
     depends_on:
       - mongo
       - db
@@ -70,6 +72,9 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-mqtt
     command: "npm run start-dev"
+    environment:
+      DB_HOST: db
+      MONGO_HOST: 'mongodb://root:example@mongo:27017/mqtt?authSource=admin'
     ports: 
       - "1883:1883"
     depends_on:
@@ -80,7 +85,11 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-agent/gui
     # cambiar a la ejecucion del servidor web
-    command: "npm run start-dev"
+    command: bash -c "npm run build && npm run start-dev"
+    environment:
+      MQTT_HOST: mqtt://mqtt
+      # API_ENDPOINT: http://api:3000
+      # SERVER_HOST: http://localhost:8000
     ports: 
       - "8000:8000"
       - "502:502"
@@ -96,6 +105,8 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-api
     command: "npm run start-dev"
+    environment:
+      DB_HOST: db
     # volumes:
     #   - "../historiador-api:/usr/src/app/historiador-api"
     ports: 
@@ -109,6 +120,8 @@ services:
     command: "npm run start-dev"
     # volumes:
     #   - "../historiador-web:/usr/src/app/historiador-web"
+    environment:
+      API_ENDPOINT: http://api:3000
     ports: 
       - "8080:8080"
     depends_on:
@@ -143,9 +156,9 @@ services:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
-    #ports: 
-      #- 3306:3306
-      #- 33060:33060
+    ports: 
+      - 3306:3306
+      - 33060:33060
     environment:
       MYSQL_ROOT_PASSWORD: example
     volumes:
