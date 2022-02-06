@@ -1,5 +1,10 @@
 <template>
 <div class="wrapper">
+    <Popup>
+        <div>
+            hola
+        </div>
+    </Popup>
     <header class="header">
         <div class="header-container">
             <router-link to="/">
@@ -11,15 +16,57 @@
                 <router-link to="/">Panel</router-link>
             </div> -->
         </div>
+        <div> 
+            <ul id="example-1">
+                <button v-for="item in items" :key="item.pid" :title="item.name" @click="kill(item)">
+                    {{ item.name }}
+                </button>
+            </ul>
+        </div>
     </header>
     <div id="app">
-        <router-view></router-view>
+        <router-view :active_agents="items"></router-view>
     </div>
 </div>
 </template>
 
 <script>
-export default { }
+const request = require('request-promise-native')
+const { serverHost } = require('../config')
+const Popup = require('./PopUp.vue')
+
+export default { 
+    setup () {
+		return {
+			Popup
+		}
+	},
+    data() {
+        return {
+            items: [ ]
+        }
+    },
+    methods: {
+        async kill(agent){
+            const options = {
+            method: 'POST',
+            url: `${serverHost}/kill`,
+            body: {
+                agent: agent
+            },
+                json: true
+            }
+
+            try{
+                const added = await request(options)
+                this.items = this.items.filter(item => item.pid != agent.pid)
+            }
+            catch(e) {
+                console.error('no se pudo detener el agente.', e)
+            }
+        }
+    }
+}
 </script>
 
 <style scoped>

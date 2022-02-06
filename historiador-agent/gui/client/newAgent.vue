@@ -145,6 +145,9 @@ export default {
   created() {
     this.init()
   },
+  props: {
+    active_agents: Array
+  },
   methods: {
     init() {
       this.agents = [
@@ -230,6 +233,10 @@ export default {
       try{
         const added = await request(options)
         this.success.push({ message: "Se han ejecutado los procesos de creación de agentes. Por favor verifica la ejecución de los mismos."})
+        this.active_agents.push({
+          pid: added.pid,
+          name: this.agents[0].name
+        })
       }
       catch(e) {
         console.error('no se pudo agregar agente.', e)
