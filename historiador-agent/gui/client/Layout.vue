@@ -1,10 +1,5 @@
 <template>
 <div class="wrapper">
-    <Popup>
-        <div>
-            hola
-        </div>
-    </Popup>
     <header class="header">
         <div class="header-container">
             <router-link to="/">
@@ -17,9 +12,19 @@
             </div> -->
         </div>
         <div> 
+            <ul>
+                Agentes activos:
+            </ul>
             <ul id="example-1">
-                <button v-for="item in items" :key="item.pid" :title="item.name" @click="kill(item)">
+                <button v-for="item in items" :key="item.pid" :title="item.name" @click.self="() => TogglePopup('buttonTrigger')">
                     {{ item.name }}
+                    <Popup 
+                        v-if="popupTriggers.buttonTrigger" 
+                        :TogglePopup="() => TogglePopup('buttonTrigger', item)"
+                        :ClosePopup="() => ClosePopup('buttonTrigger')">
+                        <h2>¿Está seguro que desea finalizar la ejecución del agente: {{ item.name }}?</h2>
+                        <h2>Al finalizar la ejecución del agente se finaliza la ejecución de todos los demás agentes asociados al mismo durante su creación.</h2>
+                    </Popup>
                 </button>
             </ul>
         </div>
@@ -33,9 +38,11 @@
 <script>
 const request = require('request-promise-native')
 const { serverHost } = require('../config')
-const Popup = require('./PopUp.vue')
+import { ref } from 'vue'
+import Popup from './Popup.vue'
 
-export default { 
+export default {
+    components: { Popup },
     setup () {
 		return {
 			Popup
@@ -43,7 +50,11 @@ export default {
 	},
     data() {
         return {
-            items: [ ]
+            items: [ ],
+            popupTriggers: {
+                buttonTrigger: false,
+                timedTrigger: false
+            }
         }
     },
     methods: {
@@ -64,7 +75,20 @@ export default {
             catch(e) {
                 console.error('no se pudo detener el agente.', e)
             }
-        }
+        },
+        TogglePopup(trigger, item) {
+            if (this.popupTriggers[trigger] == true && item ) {
+                this.popupTriggers[trigger] = false
+                this.kill(item)
+            }else {
+                this.popupTriggers[trigger] = true
+            }
+            return
+		},
+        ClosePopup(trigger) {
+            this.popupTriggers[trigger] = false
+            return
+		}
     }
 }
 </script>

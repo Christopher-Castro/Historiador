@@ -9,6 +9,8 @@ const [node, file, agents] = process.argv
 
 const _agents = JSON.parse(agents)
 
+const { Pool } = require('pg')
+
 const timeTotal = (time, timeType) => {
     const timeMeasure =
     timeType === "seconds" ? 1000 :
@@ -18,7 +20,40 @@ const timeTotal = (time, timeType) => {
     return time * timeMeasure
 }
 
-_agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlineType, modbus, db, metrics }) => {
+const pool = new Pool({
+    host: 'localhost',
+    port: 5432,
+    user: 'admin',
+    database: 'Historiador',
+    password: 'example',
+})
+
+const deleteMetrics = async (agentName, timeOffset) => {
+const text = `
+DELETE FROM metrics 
+USING agents 
+WHERE agents.id=metrics."agentId" 
+AND agents.name=$1
+AND NOT metrics."createdAt" between $2 and $3
+`
+    const now = new Date()
+    const offset = new Date(now.getTime()-timeOffset)
+    const values = [agentName, offset, now]
+    try {
+        pool.query(text, values)
+        .then(res => console.log('user:', res.rows[0]))
+        .catch(err =>
+            setImmediate(() => {
+                throw err
+            })
+            )
+        return true;
+    } catch (error) {
+        console.error(error.stack);
+        return false;
+    }
+};
+_agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, deadline, deadlineType, modbus, db, metrics, memory }) => {
  
     const timeout = timeTotal(parseInt(deadline), deadlineType)
     const _interval = timeTotal(parseInt(interval), intervalType)
@@ -121,6 +156,12 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadline, deadlin
         console.log(payload)
     }
 
-    setTimeout(() => agent.disconnect(), timeout)
+    if (deadlineMode == "definida") {
+        setTimeout(() => agent.disconnect(), timeout)
+    } else {
+        if (memory == 'memoria'){
+            setInterval(() => deleteMetrics(name, timeout), timeout)
+        }
+    }
     
 })

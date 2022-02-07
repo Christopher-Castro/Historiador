@@ -74,8 +74,22 @@
                 </select>
 
                 <b class="title-bold">Duración de la toma de datos</b>
-                <input placeholder="Duración de la toma de datos" type="number" min="1" name="deadline" v-model="agents[_index].deadline">
-                <select name="time-range-deadline" v-model="agents[_index].deadlineType">
+                <div>
+                  <label for="definida">Definida</label>
+                  <input type="radio" id="definida" value="definida" v-model="agents[_index].deadlineMode" />
+                  
+                  <label class="left-margin" for="indefinida">Indefinida</label>
+                  <input type="radio" id="indefinida" value="indefinida" v-model="agents[_index].deadlineMode" />
+                </div>
+                <div v-if="agents[_index].deadlineMode == 'indefinida'">
+                  <label for="todo">Guardar todo</label>
+                  <input type="radio" id="todo" value="todo" v-model="agents[_index].memory" />
+                  
+                  <label class="left-margin" for="memoria">Optimizar memoria</label>
+                  <input type="radio" id="memoria" value="memoria" v-model="agents[_index].memory" />
+                </div>
+                <input v-if="agents[_index].deadlineMode == 'definida' || agents[_index].memory == 'memoria'" placeholder="Duración de la toma de datos" type="number" min="1" name="deadline" v-model="agents[_index].deadline">
+                <select v-if="agents[_index].deadlineMode == 'definida' || agents[_index].memory == 'memoria'" name="time-range-deadline" v-model="agents[_index].deadlineType">
                   <option value="seconds">Segundos</option>
                   <option value="minutes">Minutos</option>
                   <option value="hours">Horas</option>
@@ -157,6 +171,7 @@ export default {
           entryType: 'db',
           interval: 1,
           intervalType: "seconds",
+          deadlineMode: "definida",
           deadline: 5,
           deadlineType: "minutes",
           modbus: {
@@ -177,7 +192,8 @@ export default {
               dbColumn: null,
               modbusAddress: null
             }            
-          ]
+          ],
+          memory: 'todo'
         },
       ]
     },
@@ -249,6 +265,7 @@ export default {
           entryType: 'db',
           interval: 1,
           intervalType: "seconds",
+          deadlineMode: "definida",
           deadline: 5,
           deadlineType: "minutes",
           modbus: {
@@ -269,7 +286,8 @@ export default {
               dbColumn: null,
               modbusAddress: null
             }            
-          ]
+          ],
+          memory: 'todo'
         }
       this.agents.push(agent)
     },
