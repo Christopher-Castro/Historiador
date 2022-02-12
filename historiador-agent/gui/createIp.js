@@ -160,7 +160,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
         setTimeout(() => agent.disconnect(), timeout)
     } else {
         if (memory == 'memoria'){
-            setInterval(() => deleteMetrics(name, timeout), timeout)
+            setInterval(() => deleteMetrics(name, timeout), 1000)
         }
     }
     
