@@ -21,7 +21,7 @@ const timeTotal = (time, timeType) => {
 }
 
 const pool = new Pool({
-    host: 'localhost',
+    host: process.env.DB_HOST || 'localhost',
     port: 5432,
     user: 'admin',
     database: 'Historiador',

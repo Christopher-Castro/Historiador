@@ -87,6 +87,7 @@ services:
     # cambiar a la ejecucion del servidor web
     command: bash -c "npm run build && npm run start-dev"
     environment:
+      DB_HOST: db
       MQTT_HOST: mqtt://mqtt
       API_ENDPOINT: http://api:3000
       SERVER_HOST: http://localhost:8000
