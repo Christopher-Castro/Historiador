@@ -1,5 +1,5 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".header[data-v-4202a6ad] {\n  background: white;\n  height: 64px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.header-container[data-v-4202a6ad] {\n  padding-left: 15px;\n}\n.menu[data-v-4202a6ad] {\n    display:flex;\n}\n.menu-item[data-v-4202a6ad] {\n    border: 1px solid black ;\n    border: 1px solid blue;\n    border-radius: 2px;\n    margin: 0 15px;\n    padding: 7px 7px;\n}\n.menu-item > *[data-v-4202a6ad] {\n    text-decoration: none;\n    color: blue;\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("h1[data-v-893a0e4c] {\r\n    padding-right: 75px;\r\n    font-family: 'Roboto', sans-serif;\r\n    font-size: 25px;\r\n  }\r\n.header[data-v-893a0e4c] {\r\n    background: white;\r\n    height: 64px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n}\r\n.header-container[data-v-893a0e4c] {\r\n    padding-left: 15px;\r\n}\r\n.menu[data-v-893a0e4c] {\r\n    display:flex;\r\n}\r\n.menu-item[data-v-893a0e4c] {\r\n    border: 1px solid black ;\r\n    border: 1px solid blue;\r\n    border-radius: 2px;\r\n    margin: 0 15px;\r\n    padding: 7px 7px;\r\n}\r\n.menu-item > *[data-v-893a0e4c] {\r\n    text-decoration: none;\r\n    color: blue;\r\n}")
 ;(function(){
 "use strict";
 
@@ -11,18 +11,18 @@ exports.default = {};
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"header-container"},[_c('router-link',{attrs:{"to":"/"}},[_c('img',{attrs:{"src":"/images/platziverse.png","width":"185","height":"38","alt":"PlatziVerse"}})])],1),_vm._v(" "),_c('div',{staticClass:"menu"})]),_vm._v(" "),_c('div',{attrs:{"id":"app"}},[_c('router-view')],1)])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('header',{staticClass:"header"},[_c('div',{staticClass:"header-container"},[_c('router-link',{attrs:{"to":"/"}},[_c('img',{attrs:{"src":"/images/platziverse.png","width":"185","height":"38","alt":"PlatziVerse"}})])],1),_vm._v(" "),_c('h1',[_vm._v("Historiador de procesos: Interfaz de monitorieo")])]),_vm._v(" "),_c('div',{attrs:{"id":"app"}},[_c('router-view')],1)])}
 __vue__options__.staticRenderFns = []
-__vue__options__._scopeId = "data-v-4202a6ad"
+__vue__options__._scopeId = "data-v-893a0e4c"
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4202a6ad", __vue__options__)
+    hotAPI.createRecord("data-v-893a0e4c", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4202a6ad", __vue__options__)
+    hotAPI.reload("data-v-893a0e4c", __vue__options__)
   }
 })()}
 },{"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],2:[function(require,module,exports){
@@ -225,9 +225,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-bf1d781c", __vue__options__)
+    hotAPI.createRecord("data-v-d8510fb6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-bf1d781c", __vue__options__)
+    hotAPI.reload("data-v-d8510fb6", __vue__options__)
   }
 })()}
 },{"../config":10,"./utils":9,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"request-promise-native":502,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],3:[function(require,module,exports){
@@ -366,9 +366,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4c7cbe4e", __vue__options__)
+    hotAPI.createRecord("data-v-40386341", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4c7cbe4e", __vue__options__)
+    hotAPI.reload("data-v-40386341", __vue__options__)
   }
 })()}
 },{"../config":10,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"request-promise-native":502,"socket.io-client":532,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],5:[function(require,module,exports){
@@ -551,13 +551,13 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-db21dbda", __vue__options__)
+    hotAPI.createRecord("data-v-0bcf6440", __vue__options__)
   } else {
-    hotAPI.reload("data-v-db21dbda", __vue__options__)
+    hotAPI.reload("data-v-0bcf6440", __vue__options__)
   }
 })()}
 },{"../config":10,"./line-chart":5,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"moment":448,"random-material-color":494,"request-promise-native":502,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],7:[function(require,module,exports){
-var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert(".dates {\r\n  display: grid;\r\n}\r\n.date-time {\r\n  width: 40%;\r\n  display: flex;\r\n  margin: 5px 0px 5px 0px;\r\n  justify-content: space-between;\r\n}\r\n\r\n.buttonFilter {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: none;\r\n  color: white;\r\n  font-size: 14px;\r\n  background-color: blue;\r\n  padding: 5px 5px;\r\n}\r\n\r\n.buttonLive {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: 1px solid blue;\r\n  color: blue;\r\n  font-size: 14px;\r\n  background-color: white;\r\n  padding: 5px 5px;\r\n}")
+var __vueify_style_dispose__ = require("vueify/lib/insert-css").insert("h1 {\r\n    padding-right: 200px;\r\n    font-family: 'Roboto', sans-serif;\r\n    font-size: 20px;\r\n  }\r\n.dates {\r\n  display: grid;\r\n}\r\n.date-time {\r\n  width: 40%;\r\n  display: flex;\r\n  margin: 5px 0px 5px 0px;\r\n  justify-content: space-between;\r\n}\r\n\r\n.buttonFilter {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: none;\r\n  color: white;\r\n  font-size: 14px;\r\n  background-color: blue;\r\n  padding: 5px 5px;\r\n}\r\n\r\n.buttonLive {\r\n  width: 200px;\r\n  border-radius: 4px;\r\n  border: 1px solid blue;\r\n  color: blue;\r\n  font-size: 14px;\r\n  background-color: white;\r\n  padding: 5px 5px;\r\n}\r\n\r\n.alert-warning {\r\n  padding: 15px;\r\n  background-color: #eed202; /* Red */\r\n  color: black;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.closebtn {\r\n  margin-left: 15px;\r\n  color: white;\r\n  font-weight: bold;\r\n  float: right;\r\n  font-size: 22px;\r\n  line-height: 20px;\r\n  cursor: pointer;\r\n  transition: 0.3s;\r\n}\r\n\r\n/* When moving the mouse over the close button */\r\n.closebtn:hover {\r\n  color: black;\r\n}")
 ;(function(){
 "use strict";
 
@@ -595,6 +595,8 @@ exports.default = {
   },
   data: function data() {
     return {
+      modo: 'Live',
+      success: [],
       liveChartData: {
         labels: [],
         datasets: []
@@ -743,7 +745,9 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('div',{staticClass:"chart-wrapper",staticStyle:{"overflow-x":"auto"}},[(_vm.loaded)?_c('line-chart',{attrs:{"chart-data":_vm.live ? _vm.liveChartData : _vm.filteredChartData,"options":_vm.options,"width":400,"height":200}}):_vm._e()],1),_vm._v(" "),_c('div',[_c('form',{staticClass:"dates",on:{"submit":function($event){$event.preventDefault();}}},[_c('p',{staticClass:"date-time"},[_vm._m(0),_vm._v(" "),_c('label',{attrs:{"for":"timeInitIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateInit),expression:"dateInit"}],attrs:{"required":"","type":"date","id":"dateInitIn"},domProps:{"value":(_vm.dateInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateInit=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeInit),expression:"timeInit"}],attrs:{"required":"","type":"time","step":"1","id":"timeInitIn"},domProps:{"value":(_vm.timeInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeInit=$event.target.value}}})])]),_vm._v(" "),_c('p',{staticClass:"date-time"},[_vm._m(1),_vm._v(" "),_c('label',{attrs:{"for":"timeFinishIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateFinish),expression:"dateFinish"}],attrs:{"required":"","type":"date","id":"dateFinishIn"},domProps:{"value":(_vm.dateFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateFinish=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeFinish),expression:"timeFinish"}],attrs:{"required":"","type":"time","step":"1","id":"timeFinishIn"},domProps:{"value":(_vm.timeFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeFinish=$event.target.value}}})])]),_vm._v(" "),_c('div',[_c('button',{staticClass:"buttonFilter",attrs:{"type":"submit"},on:{"click":_vm.filterChart}},[_vm._v("\n          Filtrar\n        ")]),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.toggleLiveMode}},[_vm._v("\n          Modo Live\n        ")]):_vm._e(),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.exportCsv}},[_vm._v("\n          Exportar CSV\n        ")]):_vm._e()])])])])}
+__vue__options__.render = function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wrapper"},[_c('div',[_c('h1',[_vm._v("Visualización de datos en modo: "+_vm._s(_vm.modo))])]),_vm._v(" "),_vm._l((_vm.success),function(ref,index){
+var message = ref.message;
+return _c('div',{key:index,staticClass:"alert-warning"},[_c('span',{staticClass:"closebtn",attrs:{"onclick":"this.parentElement.style.display='none';"}},[_vm._v("×")]),_vm._v("\n    "+_vm._s(message)+"\n  ")])}),_vm._v(" "),_c('div',{staticClass:"chart-wrapper",staticStyle:{"overflow-x":"auto"}},[(_vm.loaded)?_c('line-chart',{attrs:{"chart-data":_vm.live ? _vm.liveChartData : _vm.filteredChartData,"options":_vm.options,"width":400,"height":200}}):_vm._e()],1),_vm._v(" "),_c('div',[_c('form',{staticClass:"dates",on:{"submit":function($event){$event.preventDefault();}}},[_c('p',{staticClass:"date-time"},[_vm._m(0),_vm._v(" "),_c('label',{attrs:{"for":"timeInitIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateInit),expression:"dateInit"}],attrs:{"required":"","type":"date","id":"dateInitIn"},domProps:{"value":(_vm.dateInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateInit=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeInit),expression:"timeInit"}],attrs:{"required":"","type":"time","step":"1","id":"timeInitIn"},domProps:{"value":(_vm.timeInit)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeInit=$event.target.value}}})])]),_vm._v(" "),_c('p',{staticClass:"date-time"},[_vm._m(1),_vm._v(" "),_c('label',{attrs:{"for":"timeFinishIn"}},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.dateFinish),expression:"dateFinish"}],attrs:{"required":"","type":"date","id":"dateFinishIn"},domProps:{"value":(_vm.dateFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.dateFinish=$event.target.value}}}),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.timeFinish),expression:"timeFinish"}],attrs:{"required":"","type":"time","step":"1","id":"timeFinishIn"},domProps:{"value":(_vm.timeFinish)},on:{"input":function($event){if($event.target.composing){ return; }_vm.timeFinish=$event.target.value}}})])]),_vm._v(" "),_c('div',[_c('button',{staticClass:"buttonFilter",attrs:{"type":"submit"},on:{"click":_vm.filterChart}},[_vm._v("\n          Modo Histórico\n        ")]),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.toggleLiveMode}},[_vm._v("\n          Modo Live\n        ")]):_vm._e(),_vm._v(" "),(!_vm.live)?_c('button',{staticClass:"buttonLive",attrs:{"type":"button"},on:{"click":_vm.exportCsv}},[_vm._v("\n          Exportar CSV\n        ")]):_vm._e()])])])],2)}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{attrs:{"for":"dateInitIn"}},[_c('span',[_vm._v("Fecha de inicio: ")])])},function render () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('label',{attrs:{"for":"dateFinishIn"}},[_c('span',[_vm._v("Fecha fin: ")])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -751,9 +755,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   module.hot.accept()
   module.hot.dispose(__vueify_style_dispose__)
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-81c25d20", __vue__options__)
+    hotAPI.createRecord("data-v-71c8c4e3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-81c25d20", __vue__options__)
+    hotAPI.reload("data-v-71c8c4e3", __vue__options__)
   }
 })()}
 },{"./line-chart":5,"./mixin":8,"babel-runtime/helpers/asyncToGenerator":96,"babel-runtime/regenerator":100,"vue":631,"vue-hot-reload-api":628,"vueify/lib/insert-css":633}],8:[function(require,module,exports){
@@ -1194,8 +1198,9 @@ exports.default = {
                 newDatasets = [];
 
                 _this8.live = false; // set filter mode
-                _context9.prev = 6;
-                _context9.next = 9;
+                _this8.modo = 'Históricos';
+                _context9.prev = 7;
+                _context9.next = 10;
                 return _promise2.default.all(datasets.map(function () {
                   var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(dataset) {
                     var label, _label$split, _label$split2, uuid, typeMetric, res;
@@ -1211,9 +1216,13 @@ exports.default = {
 
                           case 4:
                             res = _context8.sent;
+
+                            if (!res) {
+                              _this8.success.push({ message: "No se encontraron datos para la m\xE9trica: " + typeMetric });
+                            }
                             return _context8.abrupt("return", { res: res, label: label });
 
-                          case 6:
+                          case 7:
                           case "end":
                             return _context8.stop();
                         }
@@ -1226,9 +1235,10 @@ exports.default = {
                   };
                 }()));
 
-              case 9:
+              case 10:
                 dataCollected = _context9.sent;
 
+                debugger;
 
                 dataCollected.map(function (metrics) {
                   var label = metrics.label,
@@ -1236,29 +1246,32 @@ exports.default = {
 
                   var data = [];
 
-                  res.map(function (metric) {
-                    var createdAt = metric.createdAt,
-                        value = metric.value;
+                  if (res) {
+                    res.map(function (metric) {
+                      var createdAt = metric.createdAt,
+                          value = metric.value;
 
-                    newLabels.add(moment(createdAt).format());
-                    data.push({ y: value, x: moment(createdAt).format('HH:mm:ss') });
-                  });
-                  var hidden = !_this8.filtered.includes(label);
-                  var newDataset = (0, _utils.initDataset)(label, data, hidden);
+                      newLabels.add(moment(createdAt).format());
+                      data.push({ y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss') });
+                    });
+                    debugger;
+                    var hidden = !_this8.filtered.includes(label);
+                    var newDataset = (0, _utils.initDataset)(label, data, hidden);
 
-                  if (String(label).includes('bool')) {
-                    newDataset.steppedLine = true;
-                    newDataset.fill = true;
-                    newDataset.yAxisID = 'boolean-axis';
+                    if (String(label).includes('bool')) {
+                      newDataset.steppedLine = true;
+                      newDataset.fill = true;
+                      newDataset.yAxisID = 'boolean-axis';
+                    }
+
+                    newDatasets.push(newDataset);
                   }
-
-                  newDatasets.push(newDataset);
                 });
                 // sort dates
                 sortedLabels = (0, _from2.default)(newLabels).sort(function (a, b) {
                   return new Date(a) - new Date(b);
                 }).map(function (date) {
-                  return moment(date).format('HH:mm:ss');
+                  return moment(date).format('DD-MM-YYYY HH:mm:ss');
                 });
 
 
@@ -1266,24 +1279,25 @@ exports.default = {
                   labels: sortedLabels,
                   datasets: newDatasets
                 };
-                _context9.next = 18;
+                _context9.next = 20;
                 break;
 
-              case 15:
-                _context9.prev = 15;
-                _context9.t0 = _context9["catch"](6);
+              case 17:
+                _context9.prev = 17;
+                _context9.t0 = _context9["catch"](7);
 
                 console.error('no se pudo obtener la data', _context9.t0);
 
-              case 18:
+              case 20:
               case "end":
                 return _context9.stop();
             }
           }
-        }, _callee9, _this8, [[6, 15]]);
+        }, _callee9, _this8, [[7, 17]]);
       }))();
     },
     toggleLiveMode: function toggleLiveMode() {
+      this.modo = 'Live';
       return this.live = true;
     },
     exportCsv: function exportCsv() {
@@ -1310,6 +1324,19 @@ exports.default = {
         tiempo: 'Tiempo',
         valor: 'Valor'
       }, csvData, 'Metrica');
+    },
+    generateDate: function generateDate(date_) {
+      var t = new Date(date_);
+      t.setHours(t.getHours() + 5);
+      var date = ('0' + t.getDate()).slice(-2);
+      var month = ('0' + (t.getMonth() + 1)).slice(-2);
+      var year = t.getFullYear();
+      var hours = ('0' + t.getHours()).slice(-2);
+      var minutes = ('0' + t.getMinutes()).slice(-2);
+      var seconds = ('0' + t.getSeconds()).slice(-2);
+      var miliSeconds = ('00' + t.getMilliseconds()).slice(-3);
+      var time = year + "-" + month + "-" + date + "T" + hours + ":" + minutes + ":" + seconds + "." + miliSeconds + "Z";
+      return time;
     }
   }
 };
@@ -53691,30 +53718,36 @@ utils.intFromLE = intFromLE;
 arguments[4][69][0].apply(exports,arguments)
 },{"buffer":107,"dup":69}],321:[function(require,module,exports){
 module.exports={
-  "_from": "elliptic@^6.5.3",
+  "_args": [
+    [
+      "elliptic@6.5.3",
+      "/mnt/c/Users/alex_/OneDrive/Escritorio/Historiador/historiador-web"
+    ]
+  ],
+  "_development": true,
+  "_from": "elliptic@6.5.3",
   "_id": "elliptic@6.5.3",
   "_inBundle": false,
   "_integrity": "sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==",
   "_location": "/elliptic",
   "_phantomChildren": {},
   "_requested": {
-    "type": "range",
+    "type": "version",
     "registry": true,
-    "raw": "elliptic@^6.5.3",
+    "raw": "elliptic@6.5.3",
     "name": "elliptic",
     "escapedName": "elliptic",
-    "rawSpec": "^6.5.3",
+    "rawSpec": "6.5.3",
     "saveSpec": null,
-    "fetchSpec": "^6.5.3"
+    "fetchSpec": "6.5.3"
   },
   "_requiredBy": [
     "/browserify-sign",
     "/create-ecdh"
   ],
   "_resolved": "https://registry.npmjs.org/elliptic/-/elliptic-6.5.3.tgz",
-  "_shasum": "cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6",
-  "_spec": "elliptic@^6.5.3",
-  "_where": "C:\\Users\\alex_\\OneDrive - Escuela Politécnica Nacional\\Tesis\\historiador-web\\node_modules\\browserify-sign",
+  "_spec": "6.5.3",
+  "_where": "/mnt/c/Users/alex_/OneDrive/Escritorio/Historiador/historiador-web",
   "author": {
     "name": "Fedor Indutny",
     "email": "fedor@indutny.com"
@@ -53722,7 +53755,6 @@ module.exports={
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "bn.js": "^4.4.0",
     "brorand": "^1.0.1",
@@ -53732,7 +53764,6 @@ module.exports={
     "minimalistic-assert": "^1.0.0",
     "minimalistic-crypto-utils": "^1.0.0"
   },
-  "deprecated": false,
   "description": "EC cryptography",
   "devDependencies": {
     "brfs": "^1.4.3",

@@ -1,12 +1,12 @@
 <template>
   <div class="w">
-    <h1>Panel de creación de módulo</h1>
+    <h1>Interfaz de configuración de Agentes</h1>
     <div class="warning-wrapper" v-if="success && success.length">
 
     </div>
     <div class="alert-warning" v-for="({ message }, index) in success" :key="index" >
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
       {{ message }}
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
     </div>
     <div class="alert" v-if="errors.length">
       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -75,17 +75,17 @@
 
                 <b class="title-bold">Duración de la toma de datos</b>
                 <div>
-                  <label for="definida">Definida</label>
+                  <label for="definida">Duración definida</label>
                   <input type="radio" id="definida" value="definida" v-model="agents[_index].deadlineMode" />
                   
-                  <label class="left-margin" for="indefinida">Indefinida</label>
+                  <label class="left-margin" for="indefinida">Duración indefinida</label>
                   <input type="radio" id="indefinida" value="indefinida" v-model="agents[_index].deadlineMode" />
                 </div>
                 <div v-if="agents[_index].deadlineMode == 'indefinida'">
-                  <label for="todo">Guardar todo</label>
+                  <label for="todo">Guardado total</label>
                   <input type="radio" id="todo" value="todo" v-model="agents[_index].memory" />
                   
-                  <label class="left-margin" for="memoria">Optimizar memoria</label>
+                  <label class="left-margin" for="memoria">Guardado parcial</label>
                   <input type="radio" id="memoria" value="memoria" v-model="agents[_index].memory" />
                 </div>
                 <input v-if="agents[_index].deadlineMode == 'definida' || agents[_index].memory == 'memoria'" placeholder="Duración de la toma de datos" type="number" min="1" name="deadline" v-model="agents[_index].deadline">

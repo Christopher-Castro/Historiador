@@ -1,5 +1,12 @@
 <template>
   <div class="wrapper">
+    <div>
+      <h1>Visualización de datos en modo: {{ modo }}</h1>
+    </div>
+    <div class="alert-warning" v-for="({ message }, index) in success" :key="index" >
+      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      {{ message }}
+    </div>
     <div class="chart-wrapper" style="overflow-x: auto;">
       <line-chart
         v-if="loaded"
@@ -48,7 +55,7 @@
         </p>
         <div>
           <button class="buttonFilter" type="submit" @click="filterChart">
-            Filtrar
+            Modo Histórico
           </button>
           <button
             v-if="!live"
@@ -91,6 +98,8 @@ export default {
   },
   data() {
     return {
+      modo: 'Live',
+      success: [],
       liveChartData: {
         labels: [],
         datasets:[]
@@ -212,6 +221,11 @@ export default {
 </script>
 
 <style>
+h1 {
+    padding-right: 200px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+  }
 .dates {
   display: grid;
 }
@@ -240,6 +254,29 @@ export default {
   font-size: 14px;
   background-color: white;
   padding: 5px 5px;
+}
+
+.alert-warning {
+  padding: 15px;
+  background-color: #eed202; /* Red */
+  color: black;
+  margin-bottom: 15px;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+  color: black;
 }
 
 

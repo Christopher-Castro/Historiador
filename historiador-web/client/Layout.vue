@@ -6,8 +6,7 @@
                 <img src="/images/platziverse.png" width="185" height="38" alt="PlatziVerse">
             </router-link>
         </div>
-        <div class="menu">
-        </div>
+        <h1>Historiador de procesos: Interfaz de monitorieo</h1>
     </header>
     <div id="app">
         <router-view></router-view>
@@ -23,28 +22,33 @@ export default {
 </script>
 
 <style scoped>
-    .header {
-      background: white;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .header-container {
-      padding-left: 15px;
-    }
-    .menu {
-        display:flex;
-    }
-    .menu-item {
-        border: 1px solid black ;
-        border: 1px solid blue;
-        border-radius: 2px;
-        margin: 0 15px;
-        padding: 7px 7px;
-    }
-    .menu-item > * {
-        text-decoration: none;
-        color: blue;
-    }
+h1 {
+    padding-right: 75px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+  }
+.header {
+    background: white;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-container {
+    padding-left: 15px;
+}
+.menu {
+    display:flex;
+}
+.menu-item {
+    border: 1px solid black ;
+    border: 1px solid blue;
+    border-radius: 2px;
+    margin: 0 15px;
+    padding: 7px 7px;
+}
+.menu-item > * {
+    text-decoration: none;
+    color: blue;
+}
 </style>

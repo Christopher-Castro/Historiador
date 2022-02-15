@@ -222,36 +222,45 @@ export default {
       let newLabels = new Set()
       let newDatasets = []
       this.live = false // set filter mode
+      this.modo = 'Históricos'
       try {
         let dataCollected = await Promise.all(datasets.map(async dataset => {
           const { label } = dataset
           const [uuid, typeMetric] = label.split('#')
           let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast)
+          if (!res){
+            this.success.push({ message: `No se encontraron datos para la métrica: ${typeMetric}`})
+          }
           return {res, label}
         }))
+        debugger
 
         dataCollected.map(metrics => {
           const { label, res } = metrics;
           let data = [];
           
-          res.map(metric => {
-            const { createdAt, value } = metric
-            newLabels.add(moment(createdAt).format())
-            data.push({y: value, x: moment(createdAt).format('HH:mm:ss') })
-          })
-          const hidden = !this.filtered.includes(label)
-          const newDataset = initDataset(label, data, hidden) 
-
-          if (String(label).includes('bool')){
-            newDataset.steppedLine = true
-            newDataset.fill = true
-            newDataset.yAxisID = 'boolean-axis'
+          if (res) {
+            res.map(metric => {
+              const { createdAt, value } = metric
+              newLabels.add(moment(createdAt).format())
+              data.push({y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss') })
+            })
+            debugger
+            const hidden = !this.filtered.includes(label)
+            const newDataset = initDataset(label, data, hidden) 
+  
+            if (String(label).includes('bool')){
+              newDataset.steppedLine = true
+              newDataset.fill = true
+              newDataset.yAxisID = 'boolean-axis'
+            }
+  
+            newDatasets.push(newDataset)
           }
-
-          newDatasets.push(newDataset)
+          
         })
         // sort dates
-        const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
+        const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('DD-MM-YYYY HH:mm:ss'))
 
         this.filteredChartData = {
           labels: sortedLabels,
@@ -262,6 +271,7 @@ export default {
       }
     },
     toggleLiveMode(){
+      this.modo = 'Live'
       return this.live = true
     },
     exportCsv(){
@@ -278,6 +288,19 @@ export default {
         tiempo: 'Tiempo',
         valor: 'Valor'
       }, csvData , 'Metrica')
+    },
+    generateDate(date_){
+      const t = new Date(date_);
+      t.setHours( t.getHours() + 5 );
+      const date = ('0' + t.getDate()).slice(-2);
+      const month = ('0' + (t.getMonth() + 1)).slice(-2);
+      const year = t.getFullYear();
+      const hours = ('0' + t.getHours()).slice(-2);
+      const minutes = ('0' + t.getMinutes()).slice(-2);
+      const seconds = ('0' + t.getSeconds()).slice(-2);
+      const miliSeconds = ('00' + t.getMilliseconds()).slice(-3);
+      const time = `${year}-${month}-${date}T${hours}:${minutes}:${seconds}.${miliSeconds}Z`;
+      return time
     }
   }
 }
