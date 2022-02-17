@@ -6,7 +6,7 @@
                 <img src="/images/platziverse.png" width="185" height="38" alt="PlatziVerse">
             </router-link>
         </div>
-        <h1>Historiador de procesos: Interfaz de monitorieo</h1>
+        <h1>Historiador de procesos: Interfaz de monitoreo</h1>
     </header>
     <div id="app">
         <router-view></router-view>
