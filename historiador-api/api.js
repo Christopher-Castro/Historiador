@@ -121,13 +121,8 @@ api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   try {
     metrics = await Metric.findByDateTypeAgentUuid(dateInit, dateFinish, type, uuid)
   } catch (e) {
-    return next(e)
+    return next(new Error(`Metrics (${type}) not found for agent with uuid ${uuid}`));
   }
-
-  if (!metrics || metrics.length === 0) {
-    return next(new Error(`Metrics (${type}) not found for agent with uuid ${uuid}`))
-  }
-
   res.send(metrics)
 })
 
