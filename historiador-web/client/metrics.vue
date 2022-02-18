@@ -32,7 +32,7 @@
               />
             </label>
           </div>
-          <dib>
+          <div>
             <label class="label" for="dateFinishIn">Fecha fin:</label>
             <label for="timeFinishIn">
               <input
@@ -49,7 +49,7 @@
                 v-model="timeFinish"
               />
             </label>
-          </dib>
+          </div>
           <div>
             <button class="button buttonFilter" type="submit" @click="filterChart(
               `${dateInit}T${timeInit}`,
