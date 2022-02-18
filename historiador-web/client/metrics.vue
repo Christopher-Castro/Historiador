@@ -18,84 +18,78 @@
     </div>
     <div>
       <form class="dates" v-on:submit.prevent>
-        <p class="date-time" v-if="!live">
-          <label for="range">
-            <span>Rango de tiempo: </span>       
-          </label>
-          <span>
-
-            <MultiRangeSlider
-              style="width: 300px;"
-              :min="minDateRangeMiliseconds"
-              :max="maxDateRangeMiliseconds"
-              :minValue="barMinValue"
-              :maxValue="barMaxValue"
-              :labels="false"
-              :ruler="false"
-              :step="1000"
-              @input="updateValues"
-            />
-
-          </span>
-        </p>
-        <p class="date-time">
-          <label for="dateInitIn">
-            <span>Fecha de inicio: </span>
-          </label>
-          <label for="timeInitIn">
-            <input required type="date" id="dateInitIn" v-model="dateInit" />
-            <input
-              required
-              type="time"
-              step="1"
-              id="timeInitIn"
-              v-model="timeInit"
-            />
-          </label>
-        </p>
-        <p class="date-time">
-          <label for="dateFinishIn">
-            <span>Fecha fin: </span>
-          </label>
-          <label for="timeFinishIn">
-            <input
-              required
-              type="date"
-              id="dateFinishIn"
-              v-model="dateFinish"
-            />
-            <input
-              required
-              type="time"
-              step="1"
-              id="timeFinishIn"
-              v-model="timeFinish"
-            />
-          </label>
-        </p>
-        <div>
-          <button class="buttonFilter" type="submit" @click="filterChart(
-            `${dateInit}T${timeInit}`,
-            `${dateFinish}T${timeFinish}`
-          )">
-            Modo Histórico
-          </button>
-          <button
-            v-if="!live"
-            class="buttonLive"
-            type="button"
-            @click="toggleLiveMode"
-          >
-            Modo Live
-          </button>
-          <button
-            v-if="!live"
-            class="buttonLive"
-            type="button"
-            @click="exportCsv"
-          >
-            Exportar CSV
-          </button>
+        <div class="date-picker">
+          <div>
+            <label class="label" for="dateInitIn">Fecha de inicio:</label>
+            <label for="timeInitIn">
+              <input required type="date" id="dateInitIn" v-model="dateInit" />
+              <input
+                required
+                type="time"
+                step="1"
+                id="timeInitIn"
+                v-model="timeInit"
+              />
+            </label>
+          </div>
+          <dib>
+            <label class="label" for="dateFinishIn">Fecha fin:</label>
+            <label for="timeFinishIn">
+              <input
+                required
+                type="date"
+                id="dateFinishIn"
+                v-model="dateFinish"
+              />
+              <input
+                required
+                type="time"
+                step="1"
+                id="timeFinishIn"
+                v-model="timeFinish"
+              />
+            </label>
+          </dib>
+          <div>
+            <button class="button buttonFilter" type="submit" @click="filterChart(
+              `${dateInit}T${timeInit}`,
+              `${dateFinish}T${timeFinish}`
+            )">
+              Modo Histórico
+            </button>
+            <button
+              v-if="!live"
+              class="button buttonLive"
+              type="button"
+              @click="toggleLiveMode"
+            >
+              Modo Live
+            </button>
+            <button
+              v-if="!live"
+              class="button buttonLive"
+              type="button"
+              @click="exportCsv"
+            >
+              Exportar CSV
+            </button>
+          </div>
+        </div>
+        <div class="range-picker">
+          <div v-if="!live">
+            <label class="label" for="range">Rango de tiempo:</label>
+              <MultiRangeSlider
+                style="width: 300px;"
+                :min="minDateRangeMiliseconds"
+                :max="maxDateRangeMiliseconds"
+                :minValue="barMinValue"
+                :maxValue="barMaxValue"
+                :labels="false"
+                :ruler="false"
+                :step="1000"
+                @input="updateValues"
+              />
+          </div>
         </div>
       </form>
     </div>
@@ -241,19 +235,28 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: 'Roboto', sans-serif;
+}
 h1 {
     padding-right: 200px;
-    font-family: 'Roboto', sans-serif;
     font-size: 20px;
   }
 .dates {
   display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-top:15px;
 }
 .date-time {
   width: 40%;
   display: flex;
   margin: 5px 0px 5px 0px;
   justify-content: space-between;
+}
+
+.button {
+  cursor: pointer;
 }
 
 .buttonFilter {
@@ -299,5 +302,9 @@ h1 {
   color: black;
 }
 
+.label {
+  font-size: 12px;
+  font-weight: bold;
+}
 
 </style>
