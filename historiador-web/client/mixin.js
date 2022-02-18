@@ -260,6 +260,13 @@ export default {
         }))
         // debugger
 
+        // generate dates
+        const labels = []
+        // given the first and last date, generate only twenty the labels
+        for(var i = moment(dateFirst).valueOf(); i <= moment(dateLast).valueOf(); i += 1000) {
+          labels.push(moment(i).format('DD-MM-YYYY HH:mm:ss'))
+        }
+
         dataCollected.map(metrics => {
           const { label, res } = metrics;
           let data = [];
@@ -267,8 +274,10 @@ export default {
           if (res) {
             res.map(metric => {
               const { createdAt, value } = metric
-              newLabels.add(moment(createdAt).format())
-              data.push({y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss')})
+              // newLabels.add(moment(createdAt).format())
+              if (labels.includes(moment(createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
+                data.push({y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss')})
+              }
             })
             // debugger
             const hidden = !this.filtered.includes(label)
@@ -285,7 +294,7 @@ export default {
           
         })
         // sort dates
-        const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('DD-MM-YYYY HH:mm:ss'))
+        // const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('DD-MM-YYYY HH:mm:ss'))
         if (keepLabels) {
           this.filteredChartData = {
             ...this.filteredChartData,
@@ -293,7 +302,7 @@ export default {
           }
         } else {
           this.filteredChartData = {
-            labels: sortedLabels,
+            labels,
             datasets: newDatasets
           }
         }
