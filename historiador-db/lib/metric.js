@@ -45,8 +45,8 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
       where: {
         type,
         createdAt: {
-          [Op.lt]: dateFinish,
-          [Op.gt]: dateInit
+          [Op.lte]: dateFinish,
+          [Op.gte]: dateInit
         } 
       },
       order: [['createdAt', 'ASC']],
