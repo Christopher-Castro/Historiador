@@ -111,11 +111,14 @@ export default {
               const labelName = `${uuid}#${type}` 
               // dont remove this line below, labelName is changed by lineColor
               const label = labelName
-              const data = lasts.map(metric => {
-                const { value: data, createdAt: timestamp } = metric
-                // newLabels.add(moment(timestamp).format())
-                return { y: data, x: moment(timestamp).format('HH:mm:ss')}
-              })
+              let data = []
+              if (lasts) {
+                data = lasts.map(metric => {
+                  const { value: data, createdAt: timestamp } = metric
+                  // newLabels.add(moment(timestamp).format())
+                  return { y: data, x: moment(timestamp).format('HH:mm:ss')}
+                })
+              }
 
               const newDataset = initDataset(label, data)
               // check if type contains boolean
