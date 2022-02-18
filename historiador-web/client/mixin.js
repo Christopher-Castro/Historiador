@@ -358,10 +358,6 @@ export default {
       } catch (error) {
         console.error(error)
       }
-
     }, 1000),
-    localFilter: _.throttle(({barMinValue, barMaxValue}) => {
-      console.log(this.filte)
-    }, 3000)
   },
 }
