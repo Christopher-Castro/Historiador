@@ -18,6 +18,26 @@
     </div>
     <div>
       <form class="dates" v-on:submit.prevent>
+        <p class="date-time" v-if="!live">
+          <label for="range">
+            <span>Rango de tiempo: </span>       
+          </label>
+          <span>
+
+            <MultiRangeSlider
+              style="width: 300px;"
+              :min="minDateRangeMiliseconds"
+              :max="maxDateRangeMiliseconds"
+              :minValue="barMinValue"
+              :maxValue="barMaxValue"
+              :labels="false"
+              :ruler="false"
+              :step="1000"
+              @input="updateValues"
+            />
+
+          </span>
+        </p>
         <p class="date-time">
           <label for="dateInitIn">
             <span>Fecha de inicio: </span>
@@ -54,7 +74,10 @@
           </label>
         </p>
         <div>
-          <button class="buttonFilter" type="submit" @click="filterChart">
+          <button class="buttonFilter" type="submit" @click="filterChart(
+            `${dateInit}T${timeInit}`,
+            `${dateFinish}T${timeFinish}`
+          )">
             Modo Histórico
           </button>
           <button
@@ -81,7 +104,7 @@
 
 <script>
 const LineChart = require("./line-chart")
-
+import MultiRangeSlider from "./MultiRange.vue"
 import mixin from './mixin'
 
 export default {
@@ -89,7 +112,8 @@ export default {
   mixins: [mixin],
   props: ["agents", "metrics", "socket", "uuid"],
   components: {
-    LineChart
+    LineChart,
+    MultiRangeSlider
   },
   mounted(){
     this.$root.$on('toggleMetric', this.handleMetrics)
@@ -141,10 +165,6 @@ export default {
             ]
         }
       },
-      dateInit: null,
-      timeInit: null,
-      dateFinish: null,
-      timeFinish: null,
       error: null,
       color: null,
     };

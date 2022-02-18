@@ -1,6 +1,7 @@
 const { serverHost } = require("../config");
 const request = require("request-promise-native");
 const moment = require("moment");
+const _ = require('lodash');
 
 import { exportCSVFile, initDataset } from './utils'
 
@@ -16,7 +17,15 @@ export default {
       polling: null,
       filtered: [],
       Agents: [],
-      Metrics: []
+      Metrics: [],
+      barMin: 0,
+      barMax: 0,
+      barMinValue: 0,
+      barMaxValue: 0,
+      dateInit: null,
+      timeInit: null,
+      dateFinish: null,
+      timeFinish: null,
     }
   },
   async mounted(){
@@ -24,6 +33,14 @@ export default {
   },
   beforeDestroy () {
     clearInterval(this.polling)
+  },
+  computed: {
+    minDateRangeMiliseconds(){
+      return moment(this.barMin).valueOf()
+    },
+    maxDateRangeMiliseconds(){
+      return moment(this.barMax).valueOf()
+    }
   },
   methods: {
     pollData () {
@@ -161,8 +178,16 @@ export default {
         return e.error.error
       }
     },
-    async getFilteredData(uuid, type, dateInit, dateFinish){
+    async getFilteredData(uuid, type, dateInit, dateFinish, updateBar = true){
       try {
+        if (updateBar) {
+          this.barMax = moment(dateFinish).valueOf();
+          this.barMin = moment(dateInit).valueOf();
+
+          this.barMaxValue = moment(dateFinish).valueOf();
+          this.barMinValue = moment(dateInit).valueOf();
+        }
+
         const options = {
           method: 'POST',
           url: `${serverHost}/metrics/date/${uuid}/${type}`,
@@ -213,12 +238,9 @@ export default {
           // }
       })
     },
-    async filterChart(){
-      const { dateInit, timeInit, dateFinish, timeFinish, liveChartData: { datasets } } = this
-
-      const dateFirst = moment(`${dateInit}T${timeInit}`).format()
-      const dateLast = moment(`${dateFinish}T${timeFinish}`).format()
-      
+    async filterChart(dateFirst, dateLast, keepLabels = false){
+      const { liveChartData: { datasets } } = this
+    
       let newLabels = new Set()
       let newDatasets = []
       this.live = false // set filter mode
@@ -227,13 +249,13 @@ export default {
         let dataCollected = await Promise.all(datasets.map(async dataset => {
           const { label } = dataset
           const [uuid, typeMetric] = label.split('#')
-          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast)
+          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, !keepLabels)
           if (!res){
             this.success.push({ message: `No se encontraron datos para la métrica: ${typeMetric}`})
           }
           return {res, label}
         }))
-        debugger
+        // debugger
 
         dataCollected.map(metrics => {
           const { label, res } = metrics;
@@ -243,9 +265,9 @@ export default {
             res.map(metric => {
               const { createdAt, value } = metric
               newLabels.add(moment(createdAt).format())
-              data.push({y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss') })
+              data.push({y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss')})
             })
-            debugger
+            // debugger
             const hidden = !this.filtered.includes(label)
             const newDataset = initDataset(label, data, hidden) 
   
@@ -261,10 +283,16 @@ export default {
         })
         // sort dates
         const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('DD-MM-YYYY HH:mm:ss'))
-
-        this.filteredChartData = {
-          labels: sortedLabels,
-          datasets: newDatasets
+        if (keepLabels) {
+          this.filteredChartData = {
+            ...this.filteredChartData,
+            datasets: newDatasets
+          }
+        } else {
+          this.filteredChartData = {
+            labels: sortedLabels,
+            datasets: newDatasets
+          }
         }
       } catch (error) {
         console.error('no se pudo obtener la data', error)
@@ -301,6 +329,36 @@ export default {
       const miliSeconds = ('00' + t.getMilliseconds()).slice(-3);
       const time = `${year}-${month}-${date}T${hours}:${minutes}:${seconds}.${miliSeconds}Z`;
       return time
-    }
-  }
+    },
+    updateValues(e) {
+      this.barMinValue = e.minValue;
+      this.barMaxValue = e.maxValue;
+      this.makeRequest({
+        barMinValue: e.minValue,
+        barMaxValue: e.maxValue,
+        _ref: this
+      })
+    },
+    makeRequest: _.debounce(({barMinValue, barMaxValue, _ref}) => {
+      try {
+        const [dateInit, timeInit] = moment(barMinValue).format('YYYY-MM-DDTHH:mm:ss').split('T')
+        const [dateFinish, timeFinish] = moment(barMaxValue).format('YYYY-MM-DDTHH:mm:ss').split('T')
+
+        if (!moment(`${dateInit}T${timeInit}`).isValid()) throw new Error('Invalid date 1')
+        if (!moment(`${dateFinish}T${timeFinish}`).isValid()) throw new Error('Invalid date 2')
+
+        _ref.filterChart(
+          moment(`${dateInit}T${timeInit}`),
+          moment(`${dateFinish}T${timeFinish}`),
+          true
+        )
+      } catch (error) {
+        console.error(error)
+      }
+
+    }, 1000),
+    localFilter: _.throttle(({barMinValue, barMaxValue}) => {
+      console.log(this.filte)
+    }, 3000)
+  },
 }

@@ -45,6 +45,7 @@
     "express": "^4.17.1",
     "express-asyncify": "^1.0.1",
     "historiador-agent": "file:../historiador-agent",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "random-material-color": "^1.0.5",
     "request": "^2.88.2",
