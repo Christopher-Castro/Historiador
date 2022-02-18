@@ -263,7 +263,12 @@ export default {
         // generate dates
         const labels = []
         // given the first and last date, generate only twenty the labels
-        for(var i = moment(dateFirst).valueOf(); i <= moment(dateLast).valueOf(); i += 1000) {
+        const labelQuantity = 20;
+
+        // miliseconds to seconds
+        const valuesQuantity = moment(dateLast).diff(moment(dateFirst)) / labelQuantity;
+
+        for(var i = moment(dateFirst).valueOf(); i <= moment(dateLast).valueOf(); i += valuesQuantity) {
           labels.push(moment(i).format('DD-MM-YYYY HH:mm:ss'))
         }
 
@@ -273,10 +278,10 @@ export default {
           
           if (res) {
             res.map(metric => {
-              const { createdAt, value } = metric
-              // newLabels.add(moment(createdAt).format())
-              if (labels.includes(moment(createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
-                data.push({y: value, x: moment(createdAt).format('DD-MM-YYYY HH:mm:ss')})
+              if (metric.value && metric.createdAt && moment(metric.createdAt)) {
+                if (labels.includes(moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
+                  data.push({y: metric.value, x: moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss')})
+                }
               }
             })
             // debugger
