@@ -18,8 +18,23 @@
     </div>
     <div>
       <form class="dates" v-on:submit.prevent>
+        <div >
+          <div class="range-picker" v-if="!live">
+            <label class="label" for="range">Rango de tiempo:</label>
+              <MultiRangeSlider
+                :min="minDateRangeMiliseconds"
+                :max="maxDateRangeMiliseconds"
+                :minValue="barMinValue"
+                :maxValue="barMaxValue"
+                :labels="false"
+                :ruler="false"
+                :step="1000"
+                @input="updateValues"
+              />
+          </div>
+        </div>
         <div class="date-picker">
-          <div>
+          <div class="choose-dates">
             <label class="label" for="dateInitIn">Fecha de inicio:</label>
             <label for="timeInitIn">
               <input required type="date" id="dateInitIn" v-model="dateInit" />
@@ -31,8 +46,6 @@
                 v-model="timeInit"
               />
             </label>
-          </div>
-          <div>
             <label class="label" for="dateFinishIn">Fecha fin:</label>
             <label for="timeFinishIn">
               <input
@@ -75,22 +88,6 @@
             >
               Exportar CSV
             </button>
-          </div>
-        </div>
-        <div class="range-picker">
-          <div v-if="!live">
-            <label class="label" for="range">Rango de tiempo:</label>
-              <MultiRangeSlider
-                style="width: 300px;"
-                :min="minDateRangeMiliseconds"
-                :max="maxDateRangeMiliseconds"
-                :minValue="barMinValue"
-                :maxValue="barMaxValue"
-                :labels="false"
-                :ruler="false"
-                :step="1000"
-                @input="updateValues"
-              />
           </div>
         </div>
       </form>
@@ -255,7 +252,7 @@ h1 {
   }
 .dates {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   width: 100%;
   margin-top:15px;
 }
@@ -265,7 +262,20 @@ h1 {
   margin: 5px 0px 5px 0px;
   justify-content: space-between;
 }
+.range-picker {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.choose-dates {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
 
+.choose-dates > label {
+  margin: 2px 0;
+}
 .button {
   cursor: pointer;
 }
