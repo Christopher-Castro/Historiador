@@ -53,7 +53,9 @@
           <div>
             <button class="button buttonFilter" type="submit" @click="filterChart(
               `${dateInit}T${timeInit}`,
-              `${dateFinish}T${timeFinish}`
+              `${dateFinish}T${timeFinish}`,
+              null,
+              true
             )">
               Modo Histórico
             </button>

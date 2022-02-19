@@ -104,8 +104,8 @@ export default {
 
             const results = await Promise.all(metrics.map(async metric => {
               const { type } = metric
-              const dateInit = moment().subtract(this.lastSeconds,'seconds').format()
-              const dateFinish = moment().format()
+              const dateInit = moment().subtract(this.lastSeconds - 1,'seconds').format()
+              const dateFinish = moment().add(1, 'seconds').format()
 
               const lasts = await this.getFilteredData(uuid, type, dateInit, dateFinish)
               const labelName = `${uuid}#${type}` 
@@ -241,10 +241,9 @@ export default {
           // }
       })
     },
-    async filterChart(dateFirst, dateLast, keepLabels = false){
+    async filterChart(dateFirst, dateLast, keepLabels = false, updateLabels = false) {
       const { liveChartData: { datasets } } = this
     
-      let newLabels = new Set()
       let newDatasets = []
       this.live = false // set filter mode
       this.modo = 'Históricos'
@@ -266,9 +265,9 @@ export default {
         const labelQuantity = 20;
 
         // miliseconds to seconds
-        const valuesQuantity = moment(dateLast).diff(moment(dateFirst)) / labelQuantity;
+        const valuesQuantity =(moment(dateLast).diff(moment(dateFirst)) / 1000) / labelQuantity;
 
-        for(var i = moment(dateFirst).valueOf(); i <= moment(dateLast).valueOf(); i += valuesQuantity) {
+        for(var i = moment(dateFirst).valueOf(); i <= moment(dateLast).valueOf(); i+= valuesQuantity) {
           labels.push(moment(i).format('DD-MM-YYYY HH:mm:ss'))
         }
 
@@ -300,14 +299,14 @@ export default {
         })
         // sort dates
         // const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('DD-MM-YYYY HH:mm:ss'))
-        if (keepLabels) {
+        if (updateLabels) {
           this.filteredChartData = {
-            ...this.filteredChartData,
+            labels,
             datasets: newDatasets
           }
         } else {
           this.filteredChartData = {
-            labels,
+            ...this.filteredChartData,
             datasets: newDatasets
           }
         }
@@ -367,6 +366,7 @@ export default {
         _ref.filterChart(
           moment(`${dateInit}T${timeInit}`),
           moment(`${dateFinish}T${timeFinish}`),
+          true,
           true
         )
       } catch (error) {
