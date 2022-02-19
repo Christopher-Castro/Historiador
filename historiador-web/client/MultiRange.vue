@@ -336,7 +336,7 @@ export default {
   border: solid 1px gray;
   border-radius: 10px;
   padding: 20px 10px;
-  box-shadow: 1px 1px 4px black;
+  /* box-shadow: 1px 1px 4px black; */
   flex-direction: column;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -355,14 +355,14 @@ export default {
   width: 25%;
   background-color: #f0f0f0;
   border-radius: 10px 0px 0px 10px;
-  box-shadow: inset 0px 0px 5px black;
+  /* box-shadow: inset 0px 0px 5px black; */
   padding: 4px 0px;
 }
 .multi-range-slider .bar-right {
   width: 25%;
   background-color: #f0f0f0;
   border-radius: 0px 10px 10px 0px;
-  box-shadow: inset 0px 0px 5px black;
+  /* box-shadow: inset 0px 0px 5px black; */
 }
 .multi-range-slider .bar-inner {
   background-color: lime;
@@ -373,7 +373,7 @@ export default {
   position: relative;
   border: solid 1px black;
   justify-content: space-between;
-  box-shadow: inset 0px 0px 5px black;
+  /* box-shadow: inset 0px 0px 5px black; */
 }
 .multi-range-slider .bar-inner-left {
   width: 50%;
@@ -394,7 +394,7 @@ export default {
   width: 20px;
   height: 20px;
   border: solid 1px black;
-  box-shadow: 0px 0px 3px black, inset 0px 0px 5px gray;
+  /* box-shadow: 0px 0px 3px black, inset 0px 0px 5px gray; */
   border-radius: 50%;
   z-index: 1;
   margin: -8px;
@@ -410,7 +410,7 @@ export default {
   z-index: 2;
   border-radius: 50%;
   border: dotted 1px black;
-  box-shadow: 0px 0px 5px white, inset 0px 0px 10px black;
+  /* box-shadow: 0px 0px 5px white, inset 0px 0px 10px black; */
 }
 
 .multi-range-slider .thumb * {
@@ -425,7 +425,7 @@ export default {
   background-color: blue;
   border-radius: 50%;
   color: white;
-  box-shadow: 0px 0px 5px black;
+  /* box-shadow: 0px 0px 5px black; */
   display: none;
 }
 .multi-range-slider .thumb:active * {
