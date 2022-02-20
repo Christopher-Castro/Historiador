@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 export const hashCode = (str) => {
   // java String#hashCode
   var hash = 0
@@ -87,4 +89,31 @@ export const exportCSVFile = (headers, items, fileTitle) => {
           document.body.removeChild(link);
       }
   }
+}
+
+export const generateLabels = (dateInit, dateFinish, labelsWeNeed = 20) => {
+  const init = moment(dateInit)
+  const finish = moment(dateFinish)
+  const labels = []
+
+  // find out how the difference between the dates
+  const diff = finish.diff(init, 'seconds')
+
+  if (diff > labelsWeNeed) {
+    const step = Math.floor(diff / labelsWeNeed)
+    // return the labels with the step
+    for (let i = 0; i < labelsWeNeed; i++) {
+      labels.push(init.add(step * i, 'seconds').format('YYYY-MM-DD HH:mm:ss'))
+    }
+    
+    return labels;
+  }
+  let current = init;
+  // generate the labels for every second
+  while (current.isSameOrBefore(finish)) {
+    labels.push(current.format('YYYY-MM-DD HH:mm:ss'))
+    current = current.add(1, 'seconds')
+  }
+
+  return labels
 }
