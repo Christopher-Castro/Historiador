@@ -112,8 +112,8 @@ api.get('/metrics/:uuid/:type', async (req, res, next) => {
 
 api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   const { uuid, type } = req.params
-  const dateInit = new Date(req.body.dateInit)
-  const dateFinish = new Date(req.body.dateFinish)
+  const dateInit = req.body.dateInit
+  const dateFinish = req.body.dateFinish
 
   debug(`request to /metrics/date/${uuid}/${type} dateInit: ${dateInit}, dateFinish: ${dateFinish}`)
 
