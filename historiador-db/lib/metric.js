@@ -65,8 +65,7 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
     if (metrics.length > labelsWeNeed) {
       const step = Math.floor(metrics.length / labelsWeNeed);
       // return the metrics with the step      
-      return metrics.filter((metric, index) => {
-        return index % step === 0});
+      return metrics.filter((metric, index) => index % step === 0);
     }    
     return metrics; 
 
