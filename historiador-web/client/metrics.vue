@@ -138,15 +138,6 @@ export default {
           duration: 400
         },
         scales: {
-          xAxes: [
-            {
-                ticks: {
-                  autoSkip: true,
-                  maxTicksLimit: 20
-                }
-            }
-
-          ],
             yAxes: [
               {
                 id: 'boolean-axis',
