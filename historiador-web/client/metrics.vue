@@ -64,12 +64,12 @@
             </label>
           </div>
           <div>
-            <button class="button buttonFilter" type="submit" @click="filterChart(
-              `${dateInit}T${timeInit}`,
-              `${dateFinish}T${timeFinish}`,
-              null,
-              true
-            )">
+            <button
+              class="button buttonFilter"
+              type="submit"
+              @click="handleApplyFilter"
+              :disabled="!loaded"
+            >
               Modo Histórico
             </button>
             <button
@@ -163,6 +163,20 @@ export default {
     };
   },
   methods: {
+    async handleApplyFilter() {
+      try {        
+        this.loaded = false;
+        await this.filterChart(
+          `${this.dateInit}T${this.timeInit}`,
+          `${this.dateFinish}T${this.timeFinish}`,
+          null,
+          true
+        )
+      } catch (error) {
+        console.error(error)
+      }
+      this.loaded = true;
+    },
     handleMetrics(label){
       // TODO do it more declarative less imperative 
       let hide = false
