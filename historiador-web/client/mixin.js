@@ -115,7 +115,6 @@ export default {
               if (lasts) {
                 data = lasts.map(metric => {
                   const { value: data, createdAt: timestamp } = metric
-                  // newLabels.add(moment(timestamp).format())
                   return { y: data, x: moment(timestamp).format('HH:mm:ss')}
                 })
               }
@@ -138,8 +137,6 @@ export default {
           })
         )
         this.loaded = true
-        // const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('HH:mm:ss'))
-        // get last {metricLength} seconds
         let labels = []
 
         for(var i = this.metricLength + 1; i >= 0; i-- ){
@@ -235,10 +232,6 @@ export default {
             }
           })
 
-          // this.liveChartData = {
-          //   datasets,
-          //   labels
-          // }
       })
     },
     async filterChart(dateFirst, dateLast, keepLabels = false, updateLabels = false) {
