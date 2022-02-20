@@ -103,7 +103,7 @@ export const generateLabels = (dateInit, dateFinish, labelsWeNeed = 20) => {
     const step = Math.floor(diff / labelsWeNeed)
     // return the labels with the step
     for (let i = 0; i < labelsWeNeed; i++) {
-      labels.push(init.add(step * i, 'seconds').format('YYYY-MM-DD HH:mm:ss'))
+      labels.push(init.add(step * i, 'seconds').format('DD-MM-YYYY HH:mm:ss'))
     }
     
     return labels;
@@ -111,7 +111,7 @@ export const generateLabels = (dateInit, dateFinish, labelsWeNeed = 20) => {
   let current = init;
   // generate the labels for every second
   while (current.isSameOrBefore(finish)) {
-    labels.push(current.format('YYYY-MM-DD HH:mm:ss'))
+    labels.push(current.format('DD-MM-YYYY HH:mm:ss'))
     current = current.add(1, 'seconds')
   }
 
