@@ -1,6 +1,7 @@
 'use strict'
 
 const { Op } = require("sequelize")
+const moment = require('moment')
 
 module.exports = function setupMetric (MetricModel, AgentModel) {
   
@@ -38,15 +39,16 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
     })
   }
 
-  async function findByDateTypeAgentUuid (dateInit, dateFinish, type, uuid) {
-    
-    return MetricModel.findAll({
+  async function findByDateTypeAgentUuid (dateInit, dateFinish, type, uuid, labelsWeNeed = 20) {
+    const init = moment(dateInit).utcOffset(0)
+    const finish = moment(dateFinish).utcOffset(0)
+    const metrics = await MetricModel.findAll({
       attributes: ['id', 'type', 'value', 'createdAt'],
       where: {
         type,
         createdAt: {
-          [Op.lte]: dateFinish,
-          [Op.gte]: dateInit
+          [Op.lte]: finish,
+          [Op.gte]: init
         } 
       },
       order: [['createdAt', 'ASC']],
@@ -59,6 +61,15 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
       }],
       raw: true
     })
+    // if the quantity of dates is more than the quantity of dates we need
+    if (metrics.length > labelsWeNeed) {
+      const step = Math.floor(metrics.length / labelsWeNeed);
+      // return the metrics with the step      
+      return metrics.filter((metric, index) => {
+        return index % step === 0});
+    }    
+    return metrics; 
+
   }
 
   async function create (uuid, metric) {
