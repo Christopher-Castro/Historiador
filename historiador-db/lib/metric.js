@@ -63,9 +63,16 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
     })
     // if the quantity of dates is more than the quantity of dates we need
     if (metrics.length > labelsWeNeed) {
-      const step = Math.floor(metrics.length / labelsWeNeed);
+      // get the difference between dates in miliseconds
+        const format = 'DD-MM-YYYY HH:mm:ss'
+        const diffMs = finish.diff(init)
+        
+        const msPerLabel = Math.floor(diffMs / labelsWeNeed);    
+        const labels = Array.from(Array(labelsWeNeed + 1).keys()).map(i => moment(dateInit).add(msPerLabel * i, 'milliseconds').format(format));
+        return metrics.filter((metric) => {
+          return labels.includes(moment(metric.createdAt).format(format))
+        });
       // return the metrics with the step      
-      return metrics.filter((metric, index) => index % step === 0);
     }    
     return metrics; 
 
