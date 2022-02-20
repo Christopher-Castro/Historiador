@@ -99,6 +99,8 @@
 const LineChart = require("./line-chart")
 import MultiRangeSlider from "./MultiRange.vue"
 import mixin from './mixin'
+const moment = require("moment");
+
 
 export default {
   name: "metrics",
