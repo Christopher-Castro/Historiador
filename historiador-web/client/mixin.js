@@ -3,7 +3,7 @@ const request = require("request-promise-native");
 const moment = require("moment");
 const _ = require('lodash');
 
-import { exportCSVFile, initDataset } from './utils'
+import { exportCSVFile, initDataset, generateLabels } from './utils'
 
 export default {
   name: 'AgentMetricMixin',
@@ -260,16 +260,9 @@ export default {
         // debugger
 
         // generate dates
-        const labels = []
         // given the first and last date, generate only twenty the labels
         const labelQuantity = 20;
-
-        // miliseconds to seconds
-        const valuesQuantity =(moment(dateLast).diff(moment(dateFirst)) / 1000) / labelQuantity;
-
-        for(var i = moment(dateFirst).valueOf(); i <= moment(dateLast).valueOf(); i+= valuesQuantity) {
-          labels.push(moment(i).format('DD-MM-YYYY HH:mm:ss'))
-        }
+        const labels = generateLabels(dateFirst, dateLast, labelQuantity)
 
         dataCollected.map(metrics => {
           const { label, res } = metrics;
@@ -278,9 +271,7 @@ export default {
           if (res) {
             res.map(metric => {
               if (metric.value && metric.createdAt && moment(metric.createdAt)) {
-                if (labels.includes(moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
                   data.push({y: metric.value, x: moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss')})
-                }
               }
             })
             // debugger
@@ -297,8 +288,6 @@ export default {
           }
           
         })
-        // sort dates
-        // const sortedLabels = Array.from(newLabels).sort((a,b) => new Date(a) - new Date(b)).map(date => moment(date).format('DD-MM-YYYY HH:mm:ss'))
         if (updateLabels) {
           this.filteredChartData = {
             labels,
