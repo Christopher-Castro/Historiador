@@ -132,6 +132,13 @@ export default {
         datasets:[]
       },
       options: {
+        tooltips: {
+            callbacks: {
+                title: function(context, value) {
+                  return null;
+                }
+            }
+        },
         legend: {
           display: false
         },
@@ -171,7 +178,6 @@ export default {
         await this.filterChart(
           `${this.dateInit}T${this.timeInit}`,
           `${this.dateFinish}T${this.timeFinish}`,
-          null,
           true
         )
       } catch (error) {

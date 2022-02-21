@@ -178,7 +178,7 @@ export default {
         return e.error.error
       }
     },
-    async getFilteredData(uuid, type, dateInit, dateFinish, updateBar = true){
+    async getFilteredData(uuid, type, dateInit, dateFinish, updateBar = false){
       try {
         if (updateBar) {
           this.barMax = moment(dateFinish).valueOf();
@@ -234,7 +234,7 @@ export default {
 
       })
     },
-    async filterChart(dateFirst, dateLast, keepLabels = false, updateLabels = false) {
+    async filterChart(dateFirst, dateLast, updateLabels = false) {
       const { liveChartData: { datasets } } = this
     
       let newDatasets = []
@@ -244,7 +244,7 @@ export default {
         let dataCollected = await Promise.all(datasets.map(async dataset => {
           const { label } = dataset
           const [uuid, typeMetric] = label.split('#')
-          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, !keepLabels)
+          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, updateLabels)
           if (!res){
             this.success.push({ message: `No se encontraron datos para la métrica: ${typeMetric}`})
           }
@@ -348,8 +348,7 @@ export default {
         _ref.filterChart(
           moment(`${dateInit}T${timeInit}`),
           moment(`${dateFinish}T${timeFinish}`),
-          true,
-          true
+          false
         )
       } catch (error) {
         console.error(error)
