@@ -110,10 +110,10 @@ api.get('/metrics/:uuid/:type', async (req, res, next) => {
   res.send(metrics)
 })
 
-api.get('/metrics/date/:uuid/:type', async (req, res, next) => {
+api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   const { uuid, type } = req.params
-  const dateInit = new Date(req.body.dateInit)
-  const dateFinish = new Date(req.body.dateFinish)
+  const dateInit = req.body.dateInit
+  const dateFinish = req.body.dateFinish
 
   debug(`request to /metrics/date/${uuid}/${type} dateInit: ${dateInit}, dateFinish: ${dateFinish}`)
 
@@ -121,13 +121,8 @@ api.get('/metrics/date/:uuid/:type', async (req, res, next) => {
   try {
     metrics = await Metric.findByDateTypeAgentUuid(dateInit, dateFinish, type, uuid)
   } catch (e) {
-    return next(e)
+    return next(new Error(`Metrics (${type}) not found for agent with uuid ${uuid}`));
   }
-
-  if (!metrics || metrics.length === 0) {
-    return next(new Error(`Metrics (${type}) not found for agent with uuid ${uuid}`))
-  }
-
   res.send(metrics)
 })
 

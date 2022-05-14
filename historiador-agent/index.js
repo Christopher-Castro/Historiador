@@ -15,7 +15,7 @@ const options = {
   username: 'historiador',
   interval: 5000,
   mqtt: {
-    host: 'mqtt://localhost'
+    host: process.env.MQTT_HOST || 'mqtt://localhost'
   }
 }
 

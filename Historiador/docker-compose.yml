@@ -5,7 +5,7 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: Historiador
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: example
       PGDATA: /var/lib/postgresql/data
@@ -31,34 +31,104 @@ services:
     depends_on:
       - db
   
-  noip:
-    image:  coppit/no-ip
-    volumes:
-      - noip-config:/config
-      - noip-etc:/etc
+  # noip:
+  #   image:  coppit/no-ip
+  #   volumes:
+  #     - noip-config:/config
+  #     - noip-etc:/etc
     
-  openvpn:
-    image: kylemanna/openvpn
-    container_name: openvpn
-    ports:
-     - "1194:1194/udp"
-    volumes:
-     - openvpn-data:/etc/openvpn
+  # openvpn:
+  #   image: kylemanna/openvpn
+  #   container_name: openvpn
+  #   ports:
+  #    - "1194:1194/udp"
+  #   volumes:
+  #    - openvpn-data:/etc/openvpn
   
-  node:
-    image: node
-    working_dir: /home/node/app
+  # node:
+  #   image: node
+  #   working_dir: /home/node/app
+  #   environment:
+  #     - NODE_ENV=production
+  #   volumes:
+  #     - ./nodejs/Historiador:/home/node/app
+  #   command: "npm run server"
+  #   ports: 
+  #     - "3001:3001"
+  #   depends_on:
+  #     - mongo
+
+  db-setup:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-db
+    command: "node setup.js --yes"
     environment:
-      - NODE_ENV=production
-    volumes:
-      - ./nodejs/Historiador:/home/node/app
-    command: "npm run server"
+      DB_HOST: db
+    depends_on:
+      - mongo
+      - db
+
+  mqtt:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-mqtt
+    command: "npm run start-dev"
+    environment:
+      DB_HOST: 'db'
+      MONGO_HOST: 'mongodb://root:example@mongo:27017/mqtt?authSource=admin'
+    ports: 
+      - "1883:1883"
+    depends_on:
+      - mongo
+      - db
+  
+  agent:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-agent/gui
+    # cambiar a la ejecucion del servidor web
+    command: bash -c "npm run build && npm run start-dev"
+    environment:
+      DB_HOST: db
+      MQTT_HOST: mqtt://mqtt
+      API_ENDPOINT: http://api:3000
+      SERVER_HOST: http://localhost:8000
+    ports: 
+      - "8000:8000"
+      - "502:502"
+      
+    # volumes:
+    #   - "../historiador-agent/examples:/usr/src/app/historiador-agent/examples"
+    #   - "../historiador-agent/gui:/usr/src/app/historiador-agent/gui"
+    depends_on:
+      - mqtt
+      - api
+
+  api:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-api
+    command: "npm run start-dev"
+    environment:
+      DB_HOST: db
+    # volumes:
+    #   - "../historiador-api:/usr/src/app/historiador-api"
     ports: 
       - "3000:3000"
     depends_on:
-      - mongo
-    
+      - db
 
+  web:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-web
+    command: "npm run start-dev"
+    # volumes:
+    #   - "../historiador-web:/usr/src/app/historiador-web"
+    environment:
+      API_ENDPOINT: http://api:3000
+      MQTT_HOST: mqtt://mqtt
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - api
+      - mqtt
 
   mongo:
     image: mongo
@@ -80,10 +150,27 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      
     depends_on:
       - mongo
-    
+  
+  mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports: 
+      - 3306:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - mysql-data:/var/lib/mysql
 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8082:8080
 
 volumes:
   db-data:
@@ -93,6 +180,4 @@ volumes:
   noip-etc:
   
   mongodb-data:
-
-  
-  
+  mysql-data:

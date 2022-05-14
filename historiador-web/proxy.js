@@ -97,8 +97,12 @@ api.get('/metrics/:uuid/:type', async (req, res, next) => {
 
 api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   const { uuid, type } = req.params
+  const { dateInit, dateFinish } = req.body
+
+  if (!dateInit || !dateFinish) return next(new Error(`no date init or date finish dateInit: ${dateInit}, dateFinish: ${dateFinish} `))
+
   const options = {
-    method: 'GET',
+    method: 'POST',
     url: `${endpoint}/api/metrics/date/${uuid}/${type}`,
     headers: {
       'Authorization': `Bearer ${apiToken}`
