@@ -178,7 +178,7 @@ export default {
         return e.error.error
       }
     },
-    async getFilteredData(uuid, type, dateInit, dateFinish, updateBar = false){
+    async getFilteredData(uuid, type, dateInit, dateFinish, labelsWeNeed, updateBar = false){
       try {
         if (updateBar) {
           this.barMax = moment(dateFinish).valueOf();
@@ -193,7 +193,8 @@ export default {
           url: `${serverHost}/metrics/date/${uuid}/${type}`,
           body: {
             dateInit,
-            dateFinish
+            dateFinish,
+            labelsWeNeed
           },
           json: true
         }
@@ -236,15 +237,17 @@ export default {
     },
     async filterChart(dateFirst, dateLast, updateLabels = false) {
       const { liveChartData: { datasets } } = this
-    
+      console.log(dateFirst)
+      console.log(dateLast)
       let newDatasets = []
       this.live = false // set filter mode
       this.modo = 'Históricos'
       try {
+        const labelQuantity = 1000;
         let dataCollected = await Promise.all(datasets.map(async dataset => {
           const { label } = dataset
           const [uuid, typeMetric] = label.split('#')
-          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, updateLabels)
+          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, labelQuantity, updateLabels)
           if (!res){
             this.success.push({ message: `No se encontraron datos para la métrica: ${typeMetric}`})
           }
@@ -254,7 +257,6 @@ export default {
 
         // generate dates
         // given the first and last date, generate only twenty the labels
-        const labelQuantity = 20;
         const labels = generateLabels(dateFirst, dateLast, labelQuantity)
 
         dataCollected.map(metrics => {
@@ -281,16 +283,29 @@ export default {
           }
           
         })
-        if (updateLabels) {
+        if (true) { // before updateLabels
           this.filteredChartData = {
             labels,
             datasets: newDatasets
           }
+          this.options_.colors = newDatasets.map(dataset => dataset.borderColor)
+          this.series = newDatasets.map(dataset => {
+            return {
+              name: dataset.label.split('#')[1],
+              data: dataset.data
+            }
+          })
         } else {
           this.filteredChartData = {
             ...this.filteredChartData,
             datasets: newDatasets
           }
+          this.series = newDatasets.map(dataset => {
+            return {
+              name: dataset.label.split('#')[1],
+              data: dataset.data
+            }
+          })
         }
       } catch (error) {
         console.error('no se pudo obtener la data', error)

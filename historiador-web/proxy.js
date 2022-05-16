@@ -97,7 +97,7 @@ api.get('/metrics/:uuid/:type', async (req, res, next) => {
 
 api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   const { uuid, type } = req.params
-  const { dateInit, dateFinish } = req.body
+  const { dateInit, dateFinish, labelsWeNeed } = req.body
 
   if (!dateInit || !dateFinish) return next(new Error(`no date init or date finish dateInit: ${dateInit}, dateFinish: ${dateFinish} `))
 
@@ -109,7 +109,8 @@ api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
     },
     body: {
       dateInit: req.body.dateInit,
-      dateFinish: req.body.dateFinish
+      dateFinish: req.body.dateFinish,
+      labelsWeNeed: req.body.labelsWeNeed,
     },
     json: true
   }
