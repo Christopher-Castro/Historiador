@@ -16,7 +16,8 @@ const options = {
   interval: 5000,
   mqtt: {
     host: process.env.MQTT_HOST || 'mqtt://localhost'
-  }
+  },
+  uuid: this._agentId = uuid.v4()
 }
 
 class HistoriadorAgent extends EventEmitter {
@@ -50,7 +51,7 @@ class HistoriadorAgent extends EventEmitter {
       this._client.subscribe('agent/disconnected')
 
       this._client.on('connect', () => {
-        this._agentId = uuid.v4()
+        this._agentId = opts.uuid
 
         this.emit('connected', this._agentId)
 
