@@ -39,7 +39,7 @@
 const request = require('request-promise-native')
 const { serverHost } = require('../config')
 import { ref } from 'vue'
-import Popup from './Popup.vue'
+import Popup from './PopUp.vue'
 
 export default {
     components: { Popup },
