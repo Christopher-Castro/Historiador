@@ -180,7 +180,7 @@ export default {
     },
     async getFilteredData(uuid, type, dateInit, dateFinish, labelsWeNeed, updateBar = false){
       try {
-        if (updateBar) {
+        if (true) { // before updateBar. this updates minValue y maxValue in scooter
           this.barMax = moment(dateFinish).valueOf();
           this.barMin = moment(dateInit).valueOf();
 
@@ -253,7 +253,7 @@ export default {
           }
           return {res, label}
         }))
-        // debugger
+        debugger
 
         // generate dates
         // given the first and last date, generate only twenty the labels
@@ -288,13 +288,13 @@ export default {
             labels,
             datasets: newDatasets
           }
-          this.options_.colors = newDatasets.map(dataset => dataset.borderColor)
-          this.series = newDatasets.map(dataset => {
-            return {
-              name: dataset.label.split('#')[1],
-              data: dataset.data
-            }
-          })
+          // this.options_.colors = newDatasets.map(dataset => dataset.borderColor)
+          // this.series = newDatasets.map(dataset => {
+          //   return {
+          //     name: dataset.label.split('#')[1],
+          //     data: dataset.data
+          //   }
+          // })
         } else {
           this.filteredChartData = {
             ...this.filteredChartData,
@@ -359,7 +359,7 @@ export default {
 
         if (!moment(`${dateInit}T${timeInit}`).isValid()) throw new Error('Invalid date 1')
         if (!moment(`${dateFinish}T${timeFinish}`).isValid()) throw new Error('Invalid date 2')
-
+        _ref.loaded = false;
         _ref.filterChart(
           moment(`${dateInit}T${timeInit}`),
           moment(`${dateFinish}T${timeFinish}`),
@@ -368,6 +368,7 @@ export default {
       } catch (error) {
         console.error(error)
       }
+      _ref.loaded = true;
     }, 1000),
   },
 }

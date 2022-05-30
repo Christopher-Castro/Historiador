@@ -15,6 +15,9 @@
         :width="400"
         :height="200"
       />
+      <!-- <div>
+        <apexchart width="1000" type="line" :options="options_" :series="series" ></apexchart>
+      </div> -->
     </div>
     <div>
       <form class="dates" v-on:submit.prevent>
@@ -127,6 +130,10 @@ export default {
         labels: [],
         datasets:[]
       },
+      filteredChartData_: {
+        name: "",
+        data:[]
+      },
       chartData: {
         labels: [],
         datasets:[]
@@ -169,6 +176,34 @@ export default {
       },
       error: null,
       color: null,
+      options_: {
+        chart: {
+          id: 'vuechart-example',
+          animations: {
+            enabled: false
+          }
+        },
+        stroke: {
+          width: 1,
+          curve: 'straight'
+        },
+        markers: {
+          size: 0
+        },
+        dataLabels: {
+          enabled: false,
+          enabledOnSeries: false
+        },
+        // colors: ['#3EAED9']
+        // xaxis: {
+        //   type: 'datetime'
+        // },
+        
+      },
+      series: [{
+        name: 'series-1',
+        data: []
+      }]
     };
   },
   methods: {
@@ -180,6 +215,14 @@ export default {
           `${this.dateFinish}T${this.timeFinish}`,
           true
         )
+        // if (true) { // before updateBar. this updates minValue y maxValue in scooter
+        // this.live = false // set filter mode
+        //   this.barMax = moment(`${this.dateFinish}T${this.timeFinish}`).valueOf();
+        //   this.barMin = moment(`${this.dateInit}T${this.timeInit}`).valueOf();
+
+        //   this.barMaxValue = moment(`${this.dateFinish}T${this.timeFinish}`).valueOf();
+        //   this.barMinValue = moment(`${this.dateInit}T${this.timeInit}`).valueOf();
+        // }
       } catch (error) {
         console.error(error)
       }
@@ -266,8 +309,9 @@ h1 {
 .dates {
   display: grid;
   grid-template-columns: 1fr;
-  width: 100%;
+  width: 94%;
   margin-top:15px;
+  margin-left: 60px;
 }
 .date-time {
   width: 40%;
