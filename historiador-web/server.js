@@ -5,6 +5,8 @@ const http = require('http')
 const path = require('path')
 const fs = require("fs");
 
+var cors = require('cors')
+
 const express = require('express')
 const asyncify = require('express-asyncify')
 const socketio = require('socket.io')
@@ -20,6 +22,7 @@ const server = http.createServer(app)
 const io = socketio(server)
 const agent = new HistoriadorAgent()
 
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
 // es lo mismo que hacer ./public
 app.use('/', proxy)
