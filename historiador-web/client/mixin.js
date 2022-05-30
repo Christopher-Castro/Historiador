@@ -265,7 +265,7 @@ export default {
           
           if (res) {
             res.map(metric => {
-              if (metric.value && metric.createdAt && moment(metric.createdAt)) {
+              if (metric.value && metric.createdAt && labels.includes(moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
                   data.push({y: metric.value, x: moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss')})
               }
             })

@@ -16,7 +16,7 @@ const HistoriadorAgent = require('historiador-agent')
 const proxy = require('./proxy')
 const {pipe} = require('./utils')
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8001
 const app = asyncify(express())
 const server = http.createServer(app)
 const io = socketio(server)

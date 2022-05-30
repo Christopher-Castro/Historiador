@@ -125,7 +125,7 @@ services:
       API_ENDPOINT: http://api:3000
       MQTT_HOST: mqtt://mqtt
     ports: 
-      - "8080:8080"
+      - "8001:8001"
     depends_on:
       - api
       - mqtt
