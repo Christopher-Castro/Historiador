@@ -253,7 +253,6 @@ export default {
           }
           return {res, label}
         }))
-        debugger
 
         // generate dates
         // given the first and last date, generate only twenty the labels
@@ -262,6 +261,7 @@ export default {
         dataCollected.map(metrics => {
           const { label, res } = metrics;
           let data = [];
+          let data_fixed = [];
           
           if (res) {
             res.map(metric => {
@@ -269,9 +269,18 @@ export default {
                   data.push({y: metric.value, x: moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss')})
               }
             })
-            // debugger
+            labels.map(label => {
+              if (data.some(e => label == e.x)){
+                data_fixed.push(data.find(e => label == e.x))
+              } else {
+                data_fixed.push({y: null, x: label})
+              }
+            })
+            if (data_fixed.some(e => null == e.y)){
+              this.success.push({ message: `Se encontraron datos en intervalos de tiempo para la métrica: ${typeMetric}`})
+            }
             const hidden = !this.filtered.includes(label)
-            const newDataset = initDataset(label, data, hidden) 
+            const newDataset = initDataset(label, data_fixed, hidden) 
   
             if (String(label).includes('bool')){
               newDataset.steppedLine = true
