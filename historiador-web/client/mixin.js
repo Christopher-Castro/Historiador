@@ -277,7 +277,10 @@ export default {
               }
             })
             if (data_fixed.some(e => null == e.y)){
-              this.success.push({ message: `Se encontraron datos en intervalos de tiempo para la métrica: ${typeMetric}`})
+              let message_ = `Se encontraron datos en intervalos de tiempo para la métrica: ${label.split('#')[1]}`
+              if (!this.success.some(e => message_ == e.message)){
+                this.success.push({ message: message_})
+              }
             }
             const hidden = !this.filtered.includes(label)
             const newDataset = initDataset(label, data_fixed, hidden) 

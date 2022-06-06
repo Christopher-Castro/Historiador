@@ -4,7 +4,7 @@
       <h1>Visualización de datos en modo: {{ modo }}</h1>
     </div>
     <div class="alert-warning" v-for="({ message }, index) in success" :key="index" >
-      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+      <span class="closebtn" onclick="this.parentElement.style.display='none';" @click="messagePop(message)">&times;</span>
       {{ message }}
     </div>
     <div class="chart-wrapper" style="overflow-x: auto;">
@@ -263,6 +263,12 @@ export default {
       const { uuid } = payload
       const metrics = await this.getMetrics({ uuid })
       const metricsNames = metrics.map(m => m.type)
+
+    },
+    messagePop(message_){
+      this.success = this.success.filter(e => {
+        return e.message !== message_;
+      });
 
     },
     handleColor({ newColor, label }){

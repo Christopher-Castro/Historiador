@@ -114,5 +114,5 @@ export const generateLabels = (dateInit, dateFinish, labelsWeNeed = 20) => {
     current = current.add(1, 'seconds')
   }
 
-  return labels
+  return labels.slice(0, -1)
 }
