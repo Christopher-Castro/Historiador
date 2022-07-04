@@ -136,7 +136,8 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
                 agent.addMetric(nameMetric, function getDB() {
                     connection.connect(function(err) {
                         if (err) throw err;
-                        connection.query(`SELECT ${dbColumn} FROM ${dbTable} ORDER BY ${fKey} DESC LIMIT 1`, function (err, result, fields) {
+                        // connection.query(`SELECT ${dbColumn} FROM ${dbTable} ORDER BY ${fKey} DESC LIMIT 1`, function (err, result, fields) {
+                        connection.query(`SELECT * FROM ${dbTable} WHERE ${dbColumn} = ${fKey} LIMIT 1`, function (err, result, fields) {
                           if (err) throw err;
                           if (type === "digital" && isBinary === 'binary'){
                             var a = parseInt(result[0][dbColumn]);
