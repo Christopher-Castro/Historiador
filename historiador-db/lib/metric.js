@@ -71,9 +71,9 @@ module.exports = function setupMetric (MetricModel, AgentModel) {
         filter_metrics.push(metric)
       } else {
         filter_metrics.push(metric)
-        let var_time =  current_time.add(ts, 's')
+        let var_time =  current_time
         try{
-          while (moment(metrics[index + 1].createdAt).diff(var_time) > 0) {
+          while (moment(metrics[index + 1].createdAt).diff(var_time, 's') > ts) {
   
             filter_metrics.push(
               {
