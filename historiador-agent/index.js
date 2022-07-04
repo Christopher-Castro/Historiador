@@ -63,7 +63,8 @@ class HistoriadorAgent extends EventEmitter {
                 username: opts.username,
                 name: opts.name,
                 hostname: os.hostname() || 'localhost',
-                pid: process.pid
+                pid: process.pid,
+                interval: opts.interval
               },
               metrics: [],
               timestamp: new Date().getTime()

@@ -123,7 +123,8 @@ export default {
               // check if type contains boolean
               if (String(type).includes('bool')){
                 newDataset.steppedLine = true
-                newDataset.fill = true
+                // newDataset.fill = true
+                newDataset.fill = false
                 newDataset.yAxisID = 'boolean-axis'
               }
 
@@ -178,7 +179,7 @@ export default {
         return e.error.error
       }
     },
-    async getFilteredData(uuid, type, dateInit, dateFinish, labelsWeNeed, updateBar = false){
+    async getFilteredData(uuid, type, dateInit, dateFinish, labelsWeNeed, updateBar = false, ts = 1){
       try {
         if (true) { // before updateBar. this updates minValue y maxValue in scooter
           this.barMax = moment(dateFinish).valueOf();
@@ -194,7 +195,8 @@ export default {
           body: {
             dateInit,
             dateFinish,
-            labelsWeNeed
+            labelsWeNeed,
+            ts
           },
           json: true
         }
@@ -226,7 +228,8 @@ export default {
               const newDataset = initDataset(labelName, firstData)
               if (String(labelName).includes('bool')){
                 newDataset.steppedLine = true
-                newDataset.fill = true
+                // newDataset.fill = true
+                newDataset.fill = false
                 newDataset.yAxisID = 'boolean-axis'
               }
               datasets.push(newDataset)
@@ -240,19 +243,31 @@ export default {
       console.log(dateFirst)
       console.log(dateLast)
       let newDatasets = []
+      this.success = []
       this.live = false // set filter mode
       this.modo = 'Históricos'
       try {
         const labelQuantity = 1000;
         let dataCollected = await Promise.all(datasets.map(async dataset => {
           const { label } = dataset
-          const [uuid, typeMetric] = label.split('#')
-          let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, labelQuantity, updateLabels)
-          if (!res){
-            this.success.push({ message: `No se encontraron datos para la métrica: ${typeMetric}`})
+          if (this.filtered.includes(label)) {
+            const [uuid, typeMetric] = label.split('#')
+            let ts = this.agents.find(e => e.uuid == uuid).interval / 1000
+            console.log(ts)
+            let res = await this.getFilteredData(uuid, typeMetric, dateFirst, dateLast, labelQuantity, updateLabels, ts)
+            if (!res){
+              this.success.push({ message: `No se encontraron datos para la métrica: ${typeMetric}`})
+            }
+            return {res, label}
+          } else {
+            return false
           }
-          return {res, label}
         }))
+        dataCollected = dataCollected.filter(e => e != false)
+        if (dataCollected.length == 0) {
+          this.success.push({ message: `No se seleccionaron métricas para graficar`})
+          throw false
+        }
 
         // generate dates
         // given the first and last date, generate only twenty the labels
@@ -261,40 +276,79 @@ export default {
         dataCollected.map(metrics => {
           const { label, res } = metrics;
           let data = [];
+          let pre_data = [];
           let data_fixed = [];
+          let interval = this.agents.find(e => e.uuid == metrics.label.split('#')[0]).interval
           
-          if (res) {
+          if (res.length > 0) {
             res.map(metric => {
-              if (metric.value && metric.createdAt && labels.includes(moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
+              // if (metric.value && metric.createdAt && labels.includes(moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
+              if (metric.createdAt && labels.includes(moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss'))) {
                   data.push({y: metric.value, x: moment(metric.createdAt).format('DD-MM-YYYY HH:mm:ss')})
               }
             })
-            labels.map(label => {
-              if (data.some(e => label == e.x)){
-                data_fixed.push(data.find(e => label == e.x))
-              } else {
-                data_fixed.push({y: null, x: label})
-              }
-            })
-            if (data_fixed.some(e => null == e.y)){
-              let message_ = `Se encontraron datos en intervalos de tiempo para la métrica: ${label.split('#')[1]}`
+            let message_txt = ''
+            if (data.length == 0) {
+              return false
+            }
+            if (moment(data[0].x, 'DD-MM-YYYY HH:mm:ss').diff(moment(dateFirst), 'ms') > (interval)){
+              message_txt += `Desde ${moment(dateFirst).format('DD-MM-YYYY HH:mm:ss')} hasta ${data[0].x}. `
+            }
+            if (data.some(e => null == e.y)) {
+              let null_founded = false
+              let text = ''
+              data.forEach(element => {
+                if (element.y == null) {
+                  if (!null_founded){
+                    null_founded = true
+                    text += `Desde ${element.x} `
+                  }
+                } else {
+                  if (null_founded){
+                    null_founded = false
+                    text += `hasta ${element.x}. `
+                    message_txt += text
+                    text = ''
+                  }
+                }
+              })
+            }
+            if (moment(dateLast).diff(moment(data[data.length - 1].x, 'DD-MM-YYYY HH:mm:ss'), 'ms') > (interval)){
+              message_txt += `Desde ${data[data.length - 1].x} hasta ${moment(dateLast).format('DD-MM-YYYY HH:mm:ss')}. `
+            }
+            if (message_txt.length > 0) {
+              let message_ = `Métrica ${label.split('#')[1]}: No se encontraron datos ${message_txt}`
               if (!this.success.some(e => message_ == e.message)){
                 this.success.push({ message: message_})
               }
             }
+            // labels.map(label => {
+            //   if (data.some(e => label == e.x)){
+            //     data_fixed.push(data.find(e => label == e.x))
+            //   } else {
+            //     data_fixed.push({y: null, x: label})
+            //   }
+            // })
+            // if (data_fixed.some(e => null == e.y)){
+            //   let message_ = `Se encontraron datos en intervalos de tiempo para la métrica: ${label.split('#')[1]}`
+            //   if (!this.success.some(e => message_ == e.message)){
+            //     this.success.push({ message: message_})
+            //   }
+            // }
             const hidden = !this.filtered.includes(label)
-            const newDataset = initDataset(label, data_fixed, hidden) 
+            const newDataset = initDataset(label, data, hidden) 
   
             if (String(label).includes('bool')){
               newDataset.steppedLine = true
-              newDataset.fill = true
+              // newDataset.fill = true
+              newDataset.fill = false
               newDataset.yAxisID = 'boolean-axis'
             }
   
             newDatasets.push(newDataset)
           }
-          
         })
+        // debugger
         if (true) { // before updateLabels
           this.filteredChartData = {
             labels,
@@ -372,6 +426,7 @@ export default {
         if (!moment(`${dateInit}T${timeInit}`).isValid()) throw new Error('Invalid date 1')
         if (!moment(`${dateFinish}T${timeFinish}`).isValid()) throw new Error('Invalid date 2')
         _ref.loaded = false;
+        debugger
         _ref.filterChart(
           moment(`${dateInit}T${timeInit}`),
           moment(`${dateFinish}T${timeFinish}`),

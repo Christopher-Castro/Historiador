@@ -133,7 +133,18 @@
                 <input type="radio" id="analogic" value="analogic" v-model="metric.type" />
                 
                 <label class="left-margin" for="digital">Digital</label>
-                <input type="radio" id="digital" value="digital" v-model="metric.type" />             
+                <input type="radio" id="digital" value="digital" v-model="metric.type" />
+                <div v-if="metric.type == 'digital'">
+                  <b class="title-bold">Tipo de dato</b>
+                  <label for="todo">Bool/Int</label>
+                  <input type="radio" id="todo" value="int" v-model="metric.isBinary" />
+                  
+                  <label class="left-margin" for="memoria">int16</label>
+                  <input type="radio" id="memoria" value="binary" v-model="metric.isBinary" />
+
+                  <b v-if="metric.isBinary == 'binary'" class="title-bold">int16 índice</b>
+                  <input v-if="metric.isBinary == 'binary'" placeholder="Index" type="number" min="0" max="15" v-model="metric.pos">             
+                </div>
               </div>
               
               <button type="button" class="buttonFilter" @click="newMetricRow(_index)">Agregar Métrica</button>
@@ -190,7 +201,9 @@ export default {
               type: 'analogic',
               dbTable: null,
               dbColumn: null,
-              modbusAddress: null
+              modbusAddress: null,
+              isBinary: 'int',
+              pos: 0
             }            
           ],
           memory: 'todo'
@@ -214,11 +227,11 @@ export default {
           agentErrors.push('Las metricas son obligatorios.')
           return false
         }
-        metrics.forEach(({ name, dbTable, dbColumn, modbusAddress }, index) => {
+        metrics.forEach(({ name, dbTable, dbColumn, modbusAddress, isBinary, pos }, index) => {
           if (entryType === 'db') {
             const { ip, username, password, dbName } = db
-            if (!dbColumn || !dbTable || !ip || !username || !password || !dbName ) {
-              agentErrors.push('En el tipo de conexión Base de datos es necesario el Ip, username, password, nombre de las base de datos, tablas y columnas, por favor revisalo.')
+            if (!dbColumn || !dbTable || !ip || !username || !password || !dbName || (isBinary == 'binary' && !pos)) {
+              agentErrors.push('En el tipo de conexión Base de datos es necesario el Ip, username, password, nombre de las base de datos, tablas y columnas e índice, por favor revisalo.')
             }
 
           }
@@ -284,7 +297,9 @@ export default {
               type: 'analogic',
               dbTable: null,
               dbColumn: null,
-              modbusAddress: null
+              modbusAddress: null,
+              isBinary: 'int',
+              pos : 0
             }            
           ],
           memory: 'todo'

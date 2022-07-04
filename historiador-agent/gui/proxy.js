@@ -25,6 +25,7 @@ api.post('/ips', async(req, res) => {
     // console.log(timeMeasure)
     // console.log(agents[0].deadline)
     // const timeout = parseInt(agents[0].deadline) * timeMeasure
+    console.log(agents)
     var child = child_process.spawn("node", ["createIp.js", JSON.stringify(agents)], {
       // timeout,
       // detached: true,

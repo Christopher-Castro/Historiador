@@ -31,6 +31,11 @@ module.exports = function setupAgentModel (config) {
       type: Sequelize.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    interval: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 1000
     }
   })
 }

@@ -115,12 +115,13 @@ api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
   const dateInit = req.body.dateInit
   const dateFinish = req.body.dateFinish
   const labelsWeNeed = req.body.labelsWeNeed
+  const ts = req.body.ts
 
   debug(`request to /metrics/date/${uuid}/${type} dateInit: ${dateInit}, dateFinish: ${dateFinish}`)
 
   let metrics = []
   try {
-    metrics = await Metric.findByDateTypeAgentUuid(dateInit, dateFinish, type, uuid, labelsWeNeed)
+    metrics = await Metric.findByDateTypeAgentUuid(dateInit, dateFinish, type, uuid, labelsWeNeed, ts)
   } catch (e) {
     return next(new Error(`Metrics (${type}) not found for agent with uuid ${uuid}`));
   }

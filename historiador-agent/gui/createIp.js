@@ -130,7 +130,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
                 database: dbName
             })
             // TODO: aca agregue `name` 
-            metrics.map(({ name, dbTable, dbColumn, fKey, type }) => {
+            metrics.map(({ name, dbTable, dbColumn, fKey, type, isBinary, pos }) => {
                 const nameMetric = type === "digital" ? `${name} bool` : name
                 
                 agent.addMetric(nameMetric, function getDB() {
@@ -138,8 +138,16 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
                         if (err) throw err;
                         connection.query(`SELECT ${dbColumn} FROM ${dbTable} ORDER BY ${fKey} DESC LIMIT 1`, function (err, result, fields) {
                           if (err) throw err;
-                          global[nameMetric + 'data'] = result[0][dbColumn]
-                          
+                          if (type === "digital" && isBinary === 'binary'){
+                            var a = parseInt(result[0][dbColumn]);
+                            var b = [];
+                            for (var i = 0; i < 16; i++){
+                                b[i] = (a >> i) & 1;
+                            }
+                            global[nameMetric + 'data'] = b[parseInt(pos)]
+                          } else {
+                            global[nameMetric + 'data'] = result[0][dbColumn]
+                          }
                         });
                       });
                     return Promise.resolve(global[nameMetric + 'data'])

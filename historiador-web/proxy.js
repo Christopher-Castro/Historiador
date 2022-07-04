@@ -111,6 +111,7 @@ api.post('/metrics/date/:uuid/:type', async (req, res, next) => {
       dateInit: req.body.dateInit,
       dateFinish: req.body.dateFinish,
       labelsWeNeed: req.body.labelsWeNeed,
+      ts: req.body.ts,
     },
     json: true
   }
