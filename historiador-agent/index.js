@@ -10,21 +10,22 @@ const EventEmitter = require('events')
 
 const { parsePayload } = require('./utils')
 
-const options = {
-  name: 'untitled',
-  username: 'historiador',
-  interval: 5000,
-  mqtt: {
-    host: process.env.MQTT_HOST || 'mqtt://localhost'
-  },
-  uuid: this._agentId = uuid.v4()
-}
 
 class HistoriadorAgent extends EventEmitter {
   constructor (opts) {
     super()
+    this.options = {
+      name: 'untitled',
+      username: 'historiador',
+      interval: 5000,
+      mqtt: {
+        host: process.env.MQTT_HOST || 'mqtt://localhost'
+      },
+      uuid: this._agentId = uuid.v4()
+    }
 
-    this._options = defaults(opts, options)
+    this._options = defaults(opts, this.options)
+    console.log(this._options)
     this._started = false
     this._timer = null
     this._client = null

@@ -67,6 +67,7 @@ async function validateUuid(name) {
         // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
         return res.rows[0].uuid
       } catch (err) {
+        return false
         console.log(err.stack)
       }
 }

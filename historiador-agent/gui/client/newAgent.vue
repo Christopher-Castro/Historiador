@@ -120,14 +120,14 @@
                   <b class="title-bold">Nombre de la tabla</b>
                   <input placeholder="Nombre de la Tabla" type="text" v-model="metric.dbTable">
 
-                  <b class="title-bold">Nombre de la columna #{{index}}</b>
-                  <input :placeholder="`Nombre de la columna #${index}`" type="text" v-model="metric.dbColumn">
+                  <b class="title-bold">Columna Data #{{index}}</b>
+                  <input :placeholder="`Columna Data #${index}`" type="text" v-model="metric.dbColumn">
                   
-                  <b class="title-bold">Identidicador nombre #{{index}}</b>
-                  <input :placeholder="`Identificador nombre #${index}`" type="text" v-model="metric.idKey">
+                  <b class="title-bold">Columna ID #{{index}}</b>
+                  <input :placeholder="`Columna ID #${index}`" type="text" v-model="metric.idKey">
                   
-                  <b class="title-bold">Identidicador valor #{{index}}</b>
-                  <input :placeholder="`Identificador valor #${index}`" type="text" v-model="metric.fKey">
+                  <b class="title-bold">Columna ID valor#{{index}}</b>
+                  <input :placeholder="`Columna ID valor #${index}`" type="text" v-model="metric.fKey">
                 </div>
                 
                 <b class="metric-type-title">Tipo de métrica</b>
@@ -233,7 +233,7 @@ export default {
         metrics.forEach(({ name, dbTable, dbColumn, modbusAddress, isBinary, pos }, index) => {
           if (entryType === 'db') {
             const { ip, username, password, dbName } = db
-            if (!dbColumn || !dbTable || !ip || !username || !password || !dbName || (isBinary == 'binary' && !pos)) {
+            if (!dbColumn || !dbTable || !ip || !username || !password || !dbName || (isBinary == 'binary' && pos == null)) {
               agentErrors.push('En el tipo de conexión Base de datos es necesario el Ip, username, password, nombre de las base de datos, tablas y columnas e índice, por favor revisalo.')
             }
 

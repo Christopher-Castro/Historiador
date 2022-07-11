@@ -94,6 +94,7 @@ services:
     volumes:
       - "../historiador-agent/gui/createIp.js:/usr/src/app/historiador-agent/gui/createIp.js"
       - "../historiador-agent/gui/client:/usr/src/app/historiador-agent/gui/client"
+      - "../historiador-agent/index.js:/usr/src/app/historiador-agent/index.js"
     ports: 
       - "8000:8000"
       - "502:502"
