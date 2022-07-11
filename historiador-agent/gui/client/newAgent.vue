@@ -451,6 +451,7 @@ export default {
   margin-bottom: 15px;
 }
 .alert-warning {
+  font-size: 15px;
   padding: 15px;
   background-color: #eed202; /* Red */
   color: black;

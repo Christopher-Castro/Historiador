@@ -236,6 +236,7 @@ export default {
       if (index > -1) {
         this.filtered.splice(index, 1);
         hide = true
+        this.messagePop2(label.split('#')[1])
       } else {
         this.filtered.push(label)
         hide = false
@@ -270,6 +271,11 @@ export default {
         return e.message !== message_;
       });
 
+    },
+    messagePop2(name){
+      this.success = this.success.filter(e => {
+        return !e.message.includes(name);
+      });
     },
     handleColor({ newColor, label }){
       //  filter
@@ -364,10 +370,11 @@ h1 {
 }
 
 .alert-warning {
-  padding: 15px;
+  font-size: 13px;
+  padding: 5px;
   background-color: #eed202; /* Red */
   color: black;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
 .closebtn {

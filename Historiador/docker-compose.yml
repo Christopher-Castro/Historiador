@@ -124,8 +124,8 @@ services:
     image: christopher57/historiador_image
     working_dir: /usr/src/app/historiador-web
     command: "npm run start-dev"
-    # volumes:
-    #   - "../historiador-web:/usr/src/app/historiador-web"
+    volumes:
+      - "../historiador-web/client:/usr/src/app/historiador-web/client"
     environment:
       API_ENDPOINT: http://api:3000
       MQTT_HOST: mqtt://mqtt
