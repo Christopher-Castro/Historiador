@@ -86,7 +86,7 @@ async function validateUuid(name) {
 
 
 
-_agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, deadline, deadlineType, modbus, db, metrics, memory }) => {
+_agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, deadline, deadlineType, modbus, mqtt, db, metrics, memory }) => {
     validateUuid(name).then(uuid_ => {
         
         const timeout = timeTotal(parseInt(deadline), deadlineType)
@@ -185,6 +185,50 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
                         aux=data.data[0];
                     })
                     return aux
+                })
+            })    
+        }
+
+        if (entryType === "mqtt") {
+            const { ip, port_ } = mqtt
+            
+    
+            // open connection to a tcp line
+            //client.connectTCP("0.0.0.0", { port: 502 });
+            const mqtt_ = require('mqtt')
+            // const client  = mqtt_.connect({ port: port_, host: `mqtt://${ip}`})
+            const client  = mqtt_.connect(`mqtt://${ip}`)
+
+            topic_map = {}
+
+            client.on('message', function (topic, message) {
+                topic_map[topic] = message
+                // message_value = message
+            })
+
+            metrics.map(({ name, type, mqttTopic }) => {
+                client.subscribe(mqttTopic)
+                //tipo de la métrica
+                const nameMetric = type === "digital" ? `${name} bool` : name
+    
+                agent.addMetric(nameMetric, async function getMqtt () {
+                    if (topic_map[mqttTopic] === undefined){
+                        return null
+                    }
+                    if(type== "digital"){
+                        aux = parseInt(topic_map[mqttTopic])
+                        if(isNaN(aux)){
+                            return topic_map[mqttTopic] == 'true' ? 1 : 0
+                        } else {
+                            return aux == 0 ? 0 : 1
+                        }
+                    }
+                    aux = parseFloat(topic_map[mqttTopic])
+                    if(isNaN(aux)){
+                        return null
+                    } else {
+                        return aux
+                    }
                 })
             })    
         }

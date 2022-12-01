@@ -36,7 +36,10 @@
                   <input type="radio" id="db" value="db" v-model="agents[_index].entryType" />
                   
                   <label class="left-margin" for="modbus">Modbus</label>
-                  <input type="radio" id="modbus" value="modbus" v-model="agents[_index].entryType" />   
+                  <input type="radio" id="modbus" value="modbus" v-model="agents[_index].entryType" />
+
+                  <label class="left-margin" for="mqtt">MQTT</label>
+                  <input type="radio" id="mqtt" value="mqtt" v-model="agents[_index].entryType" />   
 
                   <label class="left-margin" for="example">Example</label>
                   <input type="radio" id="example" value="example" v-model="agents[_index].entryType" />  
@@ -62,6 +65,14 @@
 
                   <b class="title-bold">Id Modbus</b>
                   <input placeholder="Id Modbus" type="number" v-model="agents[_index].modbus.id">
+                </div>
+
+                <div class="modbus-inputs" v-if="agents[_index].entryType === 'mqtt'">
+                  <b class="title-bold">Ip MQTT Broker</b>
+                  <input placeholder="Ip MQTT Broker" type="text" v-model="agents[_index].mqtt.ip">
+
+                  <b class="title-bold">Puerto MQTT Broker</b>
+                  <input placeholder="Puerto MQTT Broker" type="number" v-model="agents[_index].mqtt.port_">
                 </div>
 
                 <b class="title-bold">Intervalo de muestreo</b>
@@ -111,6 +122,14 @@
 
                   <b class="title-bold">Dirección de la métrica #{{index}}</b>
                   <input :placeholder="`Dirección de la métrica #${index}`" type="text" v-model="metric.modbusAddress" id="metric-name">
+                </div>
+                <!-- if mqtt -->
+                <div v-if="agents[_index].entryType === 'mqtt'" class="mqtt-wrapper">
+                  <b class="metric-name-title">{{`Nombre de la métrica #${index}`}}</b>
+                  <input :placeholder="`Nombre de la métrica #${index}`" type="text" v-model="metric.name" id="metric-name">
+
+                  <b class="title-bold">Tópico del broker de la métrica #{{index}}</b>
+                  <input :placeholder="`Tópico del broker de la métrica #${index}`" type="text" v-model="metric.mqttTopic" id="metric-name">
                 </div>
                 <!-- if DB -->
                 <div v-if="agents[_index].entryType === 'db'" class="db">
@@ -192,6 +211,10 @@ export default {
             ip: null,
             id: null
           },
+          mqtt: {
+            ip: null,
+            port_: null
+          },
           db: {
             ip: null,
             username: null,
@@ -205,6 +228,7 @@ export default {
               dbTable: null,
               dbColumn: null,
               modbusAddress: null,
+              mqttTopic: null,
               isBinary: 'int',
               pos: 0
             }            
@@ -225,12 +249,12 @@ export default {
 
       let agentErrors = []
 
-      agents.forEach(({ entryType, db, modbus, metrics }) => {
+      agents.forEach(({ entryType, db, modbus, mqtt, metrics }) => {
         if (!metrics) {
           agentErrors.push('Las metricas son obligatorios.')
           return false
         }
-        metrics.forEach(({ name, dbTable, dbColumn, modbusAddress, isBinary, pos }, index) => {
+        metrics.forEach(({ name, dbTable, dbColumn, modbusAddress, mqttTopic, isBinary, pos }, index) => {
           if (entryType === 'db') {
             const { ip, username, password, dbName } = db
             if (!dbColumn || !dbTable || !ip || !username || !password || !dbName || (isBinary == 'binary' && pos == null)) {
@@ -243,6 +267,13 @@ export default {
             const { id, ip } = modbus
             if (!id || !ip || !modbusAddress) {
               agentErrors.push('En el tipo de conexión Modbus es necesario el Ip, Id y Dirección, por favor revisalo.')
+            }
+          }
+
+          if (entryType === 'mqtt') {
+            const { ip, port_ } = mqtt
+            if (!ip || !port_ || !mqttTopic) {
+              agentErrors.push('En el tipo de conexión MQTT es necesario el puerto, Dirección y tópico, por favor revisalo.')
             }
           }
         })
@@ -288,6 +319,10 @@ export default {
             ip: null,
             id: null
           },
+          mqtt: {
+            ip: null,
+            port_: null
+          },
           db: {
             ip: null,
             username: null,
@@ -301,6 +336,7 @@ export default {
               dbTable: null,
               dbColumn: null,
               modbusAddress: null,
+              mqttTopic: null,
               isBinary: 'int',
               pos : 0
             }            
@@ -318,7 +354,8 @@ export default {
         type: 'analogic',
         dbTable: null,
         dbColumn: null,
-        modbusAddress: null
+        modbusAddress: null,
+        mqttTopic: null
       }  
       this.agents[index].metrics.push(metric)
     },
