@@ -86,7 +86,8 @@ api.get('/metrics/:uuid', auth(config.auth), guard.check(['metrics:read']), asyn
   }
 
   if (!metrics || metrics.length === 0) {
-    return next(new Error(`Metrics not found for agent with uuid ${uuid}`))
+    res.send([])
+    //return next(new Error(`Metrics not found for agent with uuid ${uuid}`))
   }
   res.send(metrics)
 })
