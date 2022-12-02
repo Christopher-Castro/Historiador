@@ -58,15 +58,15 @@ services:
   #   depends_on:
   #     - mongo
 
-  # db-setup:
-  #   image: christopher57/historiador_image
-  #   working_dir: /usr/src/app/historiador-db
-  #   command: "node setup.js --yes"
-  #   environment:
-  #     DB_HOST: db
-  #   depends_on:
-  #     - mongo
-  #     - db
+  db-setup:
+    image: christopher57/historiador_image
+    working_dir: /usr/src/app/historiador-db
+    command: "node setup.js --yes"
+    environment:
+      DB_HOST: db
+    depends_on:
+      - mongo
+      - db
 
   mqtt:
     image: christopher57/historiador_image
@@ -113,7 +113,7 @@ services:
     environment:
       DB_HOST: db
     volumes:
-      # - "../historiador-api:/usr/src/app/historiador-api"
+      - "../historiador-api/api.js:/usr/src/app/historiador-api/api.js"
       - "../historiador-db/lib:/usr/src/app/historiador-db/lib"
     ports: 
       - "3000:3000"
