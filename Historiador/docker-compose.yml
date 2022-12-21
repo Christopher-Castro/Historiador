@@ -136,7 +136,7 @@ services:
       - mqtt
 
   mongo:
-    image: mongo
+    image: christopher57/mongo:2
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
