@@ -174,7 +174,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
     
                 agent.addMetric(nameMetric, async function getModbus () {
                     if(type== "digital"){
-                        await client.readCoils(modbusAddress, 1)
+                        await client.readDiscreteInputs(modbusAddress, 1)
                         .then(function(data) {
                             aux=data.data[0];
                         })
