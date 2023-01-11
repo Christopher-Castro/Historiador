@@ -111,12 +111,12 @@ entry1.grid(row=4, column=1, padx = 5, pady = 5)
 
 # 3 column #
 label2 = Label(root)
-label2.grid(row=1, column=0)
+label2.grid(row=1, column=2)
 label2.config(text = 'Bomba de salida estado')
 
 status2 = IntVar() # Como StrinVar pero en entero
-Radiobutton(root, text="ON", variable=status2, value=1, command=sel_status2).grid(row=2, column=0)
-Radiobutton(root, text="OFF", variable=status2, value=2, command=sel_status2).grid(row=2, column=0, pady = 5)
+Radiobutton(root, text="ON", variable=status2, value=1, command=sel_status2).grid(row=2, column=2)
+Radiobutton(root, text="OFF", variable=status2, value=2, command=sel_status2).grid(row=2, column=2, pady = 5)
 
 label_entry2 = Label(root)
 label_entry2.grid(row=3, column=2, sticky="W")
