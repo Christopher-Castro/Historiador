@@ -142,10 +142,10 @@ scale3 = Scale(
 scale3.grid(row=2, column=3)
 
 label_entry3 = Label(root)
-label_entry3.grid(row=3, column=1, sticky="W")
+label_entry3.grid(row=3, column=3, sticky="W")
 label_entry3.config(text = 'tópico:')
 entry3 = Entry(root)
-entry3.grid(row=4, column=1, padx = 5, pady = 5)
+entry3.grid(row=4, column=3, padx = 5, pady = 5)
 ###########
 
 root.mainloop()
