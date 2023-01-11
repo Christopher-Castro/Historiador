@@ -1,6 +1,7 @@
 from tkinter import *
 import paho.mqtt.client as paho
-broker="localhost"
+# broker="localhost"
+broker="172.31.36.53"
 port=1883
 
 def connect_mqtt():
@@ -21,14 +22,27 @@ def connect_mqtt():
     client.connect(broker, port)
     
 
-def publish_mqtt(msg):
-    result = client.publish('topico', msg)
+def publish_mqtt(topic, msg):
+    result = client.publish(topic, msg)
 
 def sel(event):
-   publish_mqtt(str(var.get()))
+    topic = entry1.get()
+    publish_mqtt(topic, str(var.get()))
+
+def sel3(event):
+    topic = entry3.get()
+    publish_mqtt(str(var3.get()))
 
 def sel_status(event):
-   publish_mqtt(str(status.get()))
+    publish_mqtt(str(status.get()))
+
+def sel_status0(event):
+    topic = entry0.get()
+    publish_mqtt(topic, str(status.get()))
+
+def sel_status2(event):
+    topic = entry2.get()
+    publish_mqtt(topic, str(status2.get()))
 
 connect_mqtt()
 
@@ -44,11 +58,11 @@ label.grid(row=0, column=0, columnspan=2)
 # 1 column #
 label0 = Label(root)
 label0.grid(row=1, column=0)
-label0.config(text = 'Velocidad Agitador')
+label0.config(text = 'Bomba de entrada estado')
 
 status = IntVar() # Como StrinVar pero en entero
-Radiobutton(root, text="ON", variable=status, value=1, command=sel_status).grid(row=2, column=0)
-Radiobutton(root, text="OFF", variable=status, value=2, command=sel_status).grid(row=2, column=0, pady = 5)
+Radiobutton(root, text="ON", variable=status, value=1, command=sel_status0).grid(row=2, column=0)
+Radiobutton(root, text="OFF", variable=status, value=2, command=sel_status0).grid(row=2, column=0, pady = 5)
 
 label_entry0 = Label(root)
 label_entry0.grid(row=3, column=0, sticky="W")
@@ -60,7 +74,7 @@ entry0.grid(row=4, column=0, padx = 5, pady = 5)
 # 2 column #
 label1 = Label(root)
 label1.grid(row=1, column=1)
-label1.config(text = 'Estado')
+label1.config(text = 'Válvula de entrada apertura')
 
 var = DoubleVar()
 scale = Scale(
@@ -81,19 +95,57 @@ entry1.grid(row=4, column=1, padx = 5, pady = 5)
 ###########
 
 # 3 column #
+# label2 = Label(root)
+# label2.grid(row=1, column=2)
+# label2.config(text = 'Contador')
+
+# button = Button(root, text="Init MQTT", command=publish_mqtt('1'))
+# button.grid(row=2, column=2)
+
+# label_entry1 = Label(root)
+# label_entry1.grid(row=3, column=2, sticky="W")
+# label_entry1.config(text = 'tópico:')
+# entry2 = Entry(root)
+# entry2.grid(row=4, column=2, padx = 5, pady = 5)
+###########
+
+# 3 column #
 label2 = Label(root)
-label2.grid(row=1, column=2)
-label2.config(text = 'Contador')
+label2.grid(row=1, column=0)
+label2.config(text = 'Bomba de salida estado')
 
-button = Button(root, text="Init MQTT", command=publish_mqtt('1'))
-button.grid(row=2, column=2)
+status2 = IntVar() # Como StrinVar pero en entero
+Radiobutton(root, text="ON", variable=status2, value=1, command=sel_status2).grid(row=2, column=0)
+Radiobutton(root, text="OFF", variable=status2, value=2, command=sel_status2).grid(row=2, column=0, pady = 5)
 
-label_entry1 = Label(root)
-label_entry1.grid(row=3, column=2, sticky="W")
-label_entry1.config(text = 'tópico:')
+label_entry2 = Label(root)
+label_entry2.grid(row=3, column=2, sticky="W")
+label_entry2.config(text = 'tópico:')
 entry2 = Entry(root)
 entry2.grid(row=4, column=2, padx = 5, pady = 5)
 ###########
 
+# 4 column #
+label3 = Label(root)
+label3.grid(row=1, column=3)
+label3.config(text = 'Válvula de salida apertura')
+
+var3 = DoubleVar()
+scale3 = Scale(
+            root,
+            from_=0,
+            to=100,
+            orient='vertical',
+            variable=var3,
+            command=sel3
+        )
+scale3.grid(row=2, column=3)
+
+label_entry3 = Label(root)
+label_entry3.grid(row=3, column=1, sticky="W")
+label_entry3.config(text = 'tópico:')
+entry3 = Entry(root)
+entry3.grid(row=4, column=1, padx = 5, pady = 5)
+###########
 
 root.mainloop()
