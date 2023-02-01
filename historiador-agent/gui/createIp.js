@@ -202,7 +202,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
             topic_map = {}
 
             client.on('message', function (topic, message) {
-                topic_map[topic] = message
+                topic_map[topic] = JSON.parse(message)
                 // message_value = message
             })
 
@@ -216,14 +216,14 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
                         return null
                     }
                     if(type== "digital"){
-                        aux = parseInt(topic_map[mqttTopic])
+                        aux = parseInt(topic_map[mqttTopic][nameMetric])
                         if(isNaN(aux)){
                             return topic_map[mqttTopic] == 'true' ? 1 : 0
                         } else {
                             return aux == 0 ? 0 : 1
                         }
                     }
-                    aux = parseFloat(topic_map[mqttTopic])
+                    aux = parseFloat(topic_map[mqttTopic][nameMetric])
                     if(isNaN(aux)){
                         return null
                     } else {
