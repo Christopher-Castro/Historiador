@@ -1,7 +1,8 @@
 from tkinter import *
+import json
 import paho.mqtt.client as paho
-broker="localhost"
-# broker="172.31.36.53"
+# broker="localhost"
+broker="192.168.100.76"
 port=1883
 
 def connect_mqtt():
@@ -29,24 +30,26 @@ message = {
 }
 
 def publish_mqtt(topic, msg):
+    connect_mqtt()
     print(f'topico: {topic},   msg: {msg}')
-    result = client.publish(topic, msg)
+    result = client.publish(topic, json.dumps(msg))
+    client.disconnect()
 
 def update_message():
     message['Bomba_entrada_estado'] = str(status.get())
-    publish_mqtt( entry0.get(), str(message))
+    publish_mqtt( entry0.get(), message)
 
 def update_message2(event):
     message['Valvula_entrada_apertura'] = str(var.get())
-    publish_mqtt( entry0.get(), str(message))
+    publish_mqtt( entry0.get(), message)
 
 def update_message3():
     message['Bomba_salida_estado'] = str(status2.get())
-    publish_mqtt( entry0.get(), str(message))
+    publish_mqtt( entry0.get(), message)
 
 def update_message4(event):
     message['Valvula_salida_apertura'] = str(var3.get())
-    publish_mqtt( entry0.get(), str(message))
+    publish_mqtt( entry0.get(), message)
 
 
 # def sel(event):
@@ -67,8 +70,6 @@ def update_message4(event):
 # def sel_status2(event):
 #     topic = entry2.get()
 #     publish_mqtt(topic, str(status2.get()))
-
-connect_mqtt()
 
 root = Tk()
 root.title('Cliente MQTT')
