@@ -174,7 +174,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
     
                 agent.addMetric(nameMetric, async function getModbus () {
                     if(type== "digital"){
-                        await client.readDiscreteInputs(modbusAddress, 1)
+                        await client.readCoils(modbusAddress, 1)
                         .then(function(data) {
                             aux=data.data[0];
                         })
@@ -202,7 +202,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
             topic_map = {}
 
             client.on('message', function (topic, message) {
-                topic_map[topic] = JSON.parse(message)
+                topic_map[topic] = JSON.parse(message.toString())
                 // message_value = message
             })
 
@@ -216,7 +216,7 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
                         return null
                     }
                     if(type== "digital"){
-                        aux = parseInt(topic_map[mqttTopic][nameMetric])
+                        aux = parseInt(topic_map[mqttTopic][nameMetric.replace(' bool', '')])
                         if(isNaN(aux)){
                             return topic_map[mqttTopic] == 'true' ? 1 : 0
                         } else {
