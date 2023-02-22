@@ -140,8 +140,8 @@ label1.config(text = 'Válvula de entrada apertura')
 var = DoubleVar()
 scale = Scale(
             root,
-            from_=0,
-            to=100,
+            from_=100,
+            to=0,
             orient='vertical',
             variable=var,
             command=update_message2
@@ -194,8 +194,8 @@ label3.config(text = 'Válvula de salida apertura')
 var3 = DoubleVar()
 scale3 = Scale(
             root,
-            from_=0,
-            to=100,
+            from_=100,
+            to=0,
             orient='vertical',
             variable=var3,
             command=update_message4
