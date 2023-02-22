@@ -174,13 +174,21 @@ _agents.map(({ name, group, entryType, interval, intervalType, deadlineMode, dea
     
                 agent.addMetric(nameMetric, async function getModbus () {
                     if(type== "digital"){
-                        await client.readCoils(modbusAddress, 1)
+                        const address = 
+                        modbusAddress > 10000 ?  modbusAddress - 10000 :
+                        modbusAddress > 1000 ?  modbusAddress - 1000 :
+                        modbusAddress
+                        await client.readCoils(address, 1)
                         .then(function(data) {
                             aux=data.data[0];
                         })
                         return aux
                     }
-                    await client.readInputRegisters(modbusAddress, 1)
+                    const address = 
+                    modbusAddress > 30000 ?  modbusAddress - 30000 :
+                    modbusAddress > 3000 ?  modbusAddress - 3000 :
+                    modbusAddress
+                    await client.readInputRegisters(address, 1)
                     .then(function(data) {
                         aux=data.data[0];
                     })
